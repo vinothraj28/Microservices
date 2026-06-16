@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package user;
+option java_package = "com.microservices.profile.grpc";
+option java_multiple_files = true;
+
+
+service UserService {
+  rpc Login (LoginRequest) returns (LoginResponse);
+  rpc Register (RegisterRequest) returns (RegisterResponse);
+}
+
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+}
+
+message RegisterRequest{
+    string userName = 1;
+    string emailAddress = 2;
+    string dob = 3;
+    string password = 4;
+}
+
+message RegisterResponse{
+  string userId = 1;
+  string userName = 2;
+  string emailAddress = 3;
+  string dob = 4;
+  repeated string roles = 5;
+}

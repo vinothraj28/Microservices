@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+jwt:
+  secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: user-service
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/api/v1/users/**
+#
+#        - id: user-service-address
+#          uri: http://localhost:8081
+#          predicates:
+#            - Path=/api/v1/address/**
+
+grpc:
+  client:
+    profile-service:
+      address: static://localhost:9090
+      negotiationType: plaintext

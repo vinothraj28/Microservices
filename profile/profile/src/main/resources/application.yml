@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+jwt:
+  secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/MicroServices
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+grpc:
+  server:
+    port: 9090
