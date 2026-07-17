@@ -10,6 +10,13 @@ service UserService {
   rpc Register (RegisterRequest) returns (RegisterResponse);
 }
 
+service AuthenticationService {
+  rpc Authenticate (AuthenticationRequest) returns (AuthenticationResponse);
+  rpc VerifyMfa (MfaVerificationRequest) returns (MfaVerificationResponse);
+  rpc RefreshToken (RefreshTokenRequest) returns (RefreshTokenResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
+}
+
 
 message LoginRequest {
   string username = 1;
@@ -33,4 +40,45 @@ message RegisterResponse{
   string emailAddress = 3;
   string dob = 4;
   repeated string roles = 5;
+}
+
+message AuthenticationRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthenticationResponse {
+  string accessToken = 1;
+  string mfaChallengeToken = 2;
+  bool mfaRequired = 3;
+  // Optional refresh token to be stored as an HttpOnly secure cookie by the gateway
+  string refreshToken = 4;
+}
+
+message MfaVerificationRequest {
+  string mfaChallengeToken = 1;
+  string mfaCode = 2;
+}
+
+message MfaVerificationResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message RefreshTokenRequest {
+  string refreshToken = 1;
+}
+
+message RefreshTokenResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+}
+
+message LogoutRequest {
+  string refreshToken = 1;
+}
+
+message LogoutResponse {
+  bool success = 1;
+  string message = 2;
 }

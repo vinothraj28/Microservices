@@ -61,7 +61,7 @@ public class GRPCExpecptionHandler {
 
     @GrpcExceptionHandler(AddressNotFoundException.class)
     public StatusRuntimeException handleAddressNotFound(AddressNotFoundException ex){
-        return Status.ALREADY_EXISTS
+        return Status.NOT_FOUND
                 .withDescription(ex.getMessage())
                 .asRuntimeException();
     }

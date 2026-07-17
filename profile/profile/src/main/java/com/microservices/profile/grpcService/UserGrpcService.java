@@ -18,27 +18,27 @@ public class UserGrpcService extends UserServiceGrpc.UserServiceImplBase {
         this.userProfileService = userProfileService;
         this.userProfileMapper = userProfileMapper;
     }
-
-    @Override
-    public void login(
-            LoginRequest request,
-            StreamObserver<LoginResponse> responseObserver
-    ) {
-
-        String token =
-                userProfileService.login(
-                        request.getUsername(),
-                        request.getPassword()
-                );
-
-        LoginResponse response =
-                LoginResponse.newBuilder()
-                        .setToken(token)
-                        .build();
-
-        responseObserver.onNext(response);
-        responseObserver.onCompleted();
-    }
+//
+//    @Override
+//    public void login(
+//            LoginRequest request,
+//            StreamObserver<LoginResponse> responseObserver
+//    ) {
+//
+//        String token =
+//                userProfileService.login(
+//                        request.getUsername(),
+//                        request.getPassword()
+//                );
+//
+//        LoginResponse response =
+//                LoginResponse.newBuilder()
+//                        .setToken(token)
+//                        .build();
+//
+//        responseObserver.onNext(response);
+//        responseObserver.onCompleted();
+//    }
 
 
     @Override

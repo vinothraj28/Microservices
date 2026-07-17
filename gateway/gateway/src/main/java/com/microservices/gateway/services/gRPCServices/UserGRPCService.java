@@ -1,28 +1,33 @@
 package com.microservices.gateway.services.gRPCServices;
 
 import com.microservices.gateway.DTOS.LoginRequestDTO;
-import com.microservices.gateway.DTOS.RegisterRequestDTO;
-import com.microservices.gateway.controllers.UserController;
-import com.microservices.gateway.excpetions.user.DuplicateEmailException;
-import com.microservices.gateway.excpetions.user.UserNotFoundException;
+import com.microservices.gateway.DTOS.register.RegisterRequestDTO;
+import com.microservices.gateway.DTOS.register.RegisterResponseDTO;
+import com.microservices.gateway.excpetions.DuplicateEmailException;
+import com.microservices.gateway.excpetions.UserNotFoundException;
+import com.microservices.gateway.mappers.UserMapper;
 import com.microservices.profile.grpc.*;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import jakarta.validation.ValidationException;
+import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
 
-
+@Slf4j
 @Service
 public class UserGRPCService {
 
-    private static final Logger log = LoggerFactory.getLogger(UserGRPCService.class);
+    //private static final Logger log = LoggerFactory.getLogger(UserGRPCService.class);
 
     @GrpcClient("profile-service")
     private UserServiceGrpc
             .UserServiceBlockingStub userServiceBlockingStub;
+    private final UserMapper userMapper;
+
+    public UserGRPCService(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
 
     public LoginResponse login(LoginRequestDTO request){
        log.info("Fetching login via gRPC for the user {} ", request.username());
@@ -40,8 +45,8 @@ public class UserGRPCService {
         return grpcResponse;
     }
 
-    public RegisterResponse register(RegisterRequestDTO registerRequestDTO){
-        log.info("Registering user via gRPC", registerRequestDTO.userName());
+    public RegisterResponseDTO register(RegisterRequestDTO registerRequestDTO){
+        log.info("Registering user via gRPC {}", registerRequestDTO.userName());
 
         try{
             RegisterRequest request = RegisterRequest.newBuilder()
@@ -50,8 +55,9 @@ public class UserGRPCService {
                     .setDob(registerRequestDTO.dob().toString())
                     .setPassword(registerRequestDTO.password())
                     .build();
-            return userServiceBlockingStub.register(request);
-
+            RegisterResponse registerResponse = userServiceBlockingStub.register(request);
+            log.info("gRPC response received for user registration {}", registerResponse);
+            return userMapper.toRegisterResponseDTO(registerResponse);
         }catch (StatusRuntimeException ex){
            Status.Code code = ex.getStatus().getCode();
 

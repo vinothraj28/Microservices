@@ -2,8 +2,8 @@ package com.microservices.gateway.controllers;
 
 import com.microservices.gateway.DTOS.errors.ErrorResponseDTO;
 import com.microservices.gateway.DTOS.errors.ValidationErrorResponseDTO;
-import com.microservices.gateway.excpetions.user.DuplicateEmailException;
-import com.microservices.gateway.excpetions.user.UserNotFoundException;
+import com.microservices.gateway.excpetions.DuplicateEmailException;
+import com.microservices.gateway.excpetions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

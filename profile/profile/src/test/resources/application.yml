@@ -1,0 +1,38 @@
+# Test Configuration for Profile Service
+# This configuration is used when running tests with Spring TestContext
+
+# JWT Configuration (matches main application)
+jwt.secret=AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+jwt.issuer=microservices
+jwt.audience=api-users
+jwt.expiration-minutes=60
+jwt.refresh-expiration-days=7
+
+# Spring Boot Configuration
+spring.application.name=profile-service-test
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.format_sql=false
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+# Disable unnecessary logging for tests
+logging.level.root=WARN
+logging.level.org.springframework=WARN
+logging.level.org.hibernate=WARN
+logging.level.org.springframework.security=WARN
+
+# Database (H2 in-memory for unit tests)
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+
+# gRPC Configuration for tests
+grpc.server.port=9999
+grpc.server.inprocess-server-name=test
+grpc.client.profile-service.address=localhost:9999
+grpc.client.profile-service.negotiation-type=plaintext
+
+# Disable actuator endpoints for unit tests
+management.endpoints.web.exposure.include=
+

@@ -1,6 +1,7 @@
 package com.microservices.profile.services;
 
 
+import com.microservices.profile.dto.mfa.MFASetupResponse;
 import com.microservices.profile.dto.user.UserRequestDTO;
 import com.microservices.profile.dto.user.UserResponseDTO;
 import com.microservices.profile.dto.user.UserRoleRequestDTO;
@@ -13,9 +14,14 @@ public interface UserProfileService {
 
     UserResponseDTO addUser(UserRequestDTO userRequestDTO);
 
-    String login(String username, String password);
+    //Login moved to Authentication Service
+    //String login(String username, String password);
 
     Claims extractToken(String token);
 
     boolean addRole(String username, UserRoleRequestDTO userRoleRequestDTO);
+
+//    Moved to MFA service
+//    MFASetupResponse mfaSetup(String emailAddress);
+//    MFASetupResponse mfaConfirm(String emailAddress, String code);
 }

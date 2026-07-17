@@ -3,7 +3,6 @@ package com.microservices.profile.services.Impl;
 import com.microservices.profile.dto.address.AddressRequestDTO;
 import com.microservices.profile.dto.address.AddressResponseDTO;
 import com.microservices.profile.exceptions.AddressNotFoundException;
-import com.microservices.profile.exceptions.DatabaseOperationException;
 import com.microservices.profile.exceptions.UserNotFoundException;
 import com.microservices.profile.mappers.AddressMapper;
 import com.microservices.profile.models.entities.Address;
@@ -25,7 +24,8 @@ public class AddressServiceImpl implements AddressService {
     private final UserProfileRepository userProfileRepository;
     private final AddressMapper addressMapper;
 
-    public AddressServiceImpl(AddressRepository addressRepository, UserProfileRepository userProfileRepository, AddressMapper addressMapper) {
+    public AddressServiceImpl(AddressRepository addressRepository,
+                              UserProfileRepository userProfileRepository, AddressMapper addressMapper) {
         this.addressRepository = addressRepository;
         this.userProfileRepository = userProfileRepository;
         this.addressMapper = addressMapper;

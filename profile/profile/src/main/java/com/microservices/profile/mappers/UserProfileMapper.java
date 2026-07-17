@@ -3,7 +3,6 @@ package com.microservices.profile.mappers;
 import com.microservices.profile.dto.user.UserResponseDTO;
 import com.microservices.profile.dto.user.UserRequestDTO;
 import com.microservices.profile.grpc.RegisterRequest;
-import com.microservices.profile.grpc.RegisterResponse;
 import com.microservices.profile.models.entities.UserProfile;
 import com.microservices.profile.models.enums.Roles;
 import org.mapstruct.Mapper;

@@ -35,6 +35,46 @@ public final class UserProfile {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_user_RegisterResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_AuthenticationRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_AuthenticationRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_AuthenticationResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_AuthenticationResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_MfaVerificationRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_MfaVerificationRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_MfaVerificationResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_MfaVerificationResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_RefreshTokenRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_RefreshTokenRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_RefreshTokenResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_RefreshTokenResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_LogoutRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_LogoutRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_user_LogoutResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_user_LogoutResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -51,11 +91,32 @@ public final class UserProfile {
       "ss\030\002 \001(\t\022\013\n\003dob\030\003 \001(\t\022\020\n\010password\030\004 \001(\t\"" +
       "f\n\020RegisterResponse\022\016\n\006userId\030\001 \001(\t\022\020\n\010u" +
       "serName\030\002 \001(\t\022\024\n\014emailAddress\030\003 \001(\t\022\013\n\003d" +
-      "ob\030\004 \001(\t\022\r\n\005roles\030\005 \003(\t2z\n\013UserService\0220" +
-      "\n\005Login\022\022.user.LoginRequest\032\023.user.Login" +
-      "Response\0229\n\010Register\022\025.user.RegisterRequ" +
-      "est\032\026.user.RegisterResponseB\"\n\036com.micro" +
-      "services.profile.grpcP\001b\006proto3"
+      "ob\030\004 \001(\t\022\r\n\005roles\030\005 \003(\t\"8\n\025Authenticatio" +
+      "nRequest\022\r\n\005email\030\001 \001(\t\022\020\n\010password\030\002 \001(" +
+      "\t\"s\n\026AuthenticationResponse\022\023\n\013accessTok" +
+      "en\030\001 \001(\t\022\031\n\021mfaChallengeToken\030\002 \001(\t\022\023\n\013m" +
+      "faRequired\030\003 \001(\010\022\024\n\014refreshToken\030\004 \001(\t\"D" +
+      "\n\026MfaVerificationRequest\022\031\n\021mfaChallenge" +
+      "Token\030\001 \001(\t\022\017\n\007mfaCode\030\002 \001(\t\"D\n\027MfaVerif" +
+      "icationResponse\022\023\n\013accessToken\030\001 \001(\t\022\024\n\014" +
+      "refreshToken\030\002 \001(\t\"+\n\023RefreshTokenReques" +
+      "t\022\024\n\014refreshToken\030\001 \001(\t\"A\n\024RefreshTokenR" +
+      "esponse\022\023\n\013accessToken\030\001 \001(\t\022\024\n\014refreshT" +
+      "oken\030\002 \001(\t\"%\n\rLogoutRequest\022\024\n\014refreshTo" +
+      "ken\030\001 \001(\t\"2\n\016LogoutResponse\022\017\n\007success\030\001" +
+      " \001(\010\022\017\n\007message\030\002 \001(\t2z\n\013UserService\0220\n\005" +
+      "Login\022\022.user.LoginRequest\032\023.user.LoginRe" +
+      "sponse\0229\n\010Register\022\025.user.RegisterReques" +
+      "t\032\026.user.RegisterResponse2\250\002\n\025Authentica" +
+      "tionService\022I\n\014Authenticate\022\033.user.Authe" +
+      "nticationRequest\032\034.user.AuthenticationRe" +
+      "sponse\022H\n\tVerifyMfa\022\034.user.MfaVerificati" +
+      "onRequest\032\035.user.MfaVerificationResponse" +
+      "\022E\n\014RefreshToken\022\031.user.RefreshTokenRequ" +
+      "est\032\032.user.RefreshTokenResponse\0223\n\006Logou" +
+      "t\022\023.user.LogoutRequest\032\024.user.LogoutResp" +
+      "onseB\"\n\036com.microservices.profile.grpcP\001" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -85,6 +146,54 @@ public final class UserProfile {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_user_RegisterResponse_descriptor,
         new java.lang.String[] { "UserId", "UserName", "EmailAddress", "Dob", "Roles", });
+    internal_static_user_AuthenticationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_user_AuthenticationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_AuthenticationRequest_descriptor,
+        new java.lang.String[] { "Email", "Password", });
+    internal_static_user_AuthenticationResponse_descriptor =
+      getDescriptor().getMessageTypes().get(5);
+    internal_static_user_AuthenticationResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_AuthenticationResponse_descriptor,
+        new java.lang.String[] { "AccessToken", "MfaChallengeToken", "MfaRequired", "RefreshToken", });
+    internal_static_user_MfaVerificationRequest_descriptor =
+      getDescriptor().getMessageTypes().get(6);
+    internal_static_user_MfaVerificationRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_MfaVerificationRequest_descriptor,
+        new java.lang.String[] { "MfaChallengeToken", "MfaCode", });
+    internal_static_user_MfaVerificationResponse_descriptor =
+      getDescriptor().getMessageTypes().get(7);
+    internal_static_user_MfaVerificationResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_MfaVerificationResponse_descriptor,
+        new java.lang.String[] { "AccessToken", "RefreshToken", });
+    internal_static_user_RefreshTokenRequest_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_user_RefreshTokenRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_RefreshTokenRequest_descriptor,
+        new java.lang.String[] { "RefreshToken", });
+    internal_static_user_RefreshTokenResponse_descriptor =
+      getDescriptor().getMessageTypes().get(9);
+    internal_static_user_RefreshTokenResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_RefreshTokenResponse_descriptor,
+        new java.lang.String[] { "AccessToken", "RefreshToken", });
+    internal_static_user_LogoutRequest_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_user_LogoutRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_LogoutRequest_descriptor,
+        new java.lang.String[] { "RefreshToken", });
+    internal_static_user_LogoutResponse_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_user_LogoutResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_user_LogoutResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

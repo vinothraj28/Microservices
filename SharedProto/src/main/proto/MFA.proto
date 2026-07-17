@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package user;
+option java_package = "com.microservices.profile.grpc";
+option java_multiple_files = true;
+
+service MfaService{
+    rpc MfaSetup(MfaSetupRequest) returns (MfaSetupResponse);
+    rpc MfaConfirm(MfaConfirmRequest) returns (MfaConfirmResponse);
+}
+
+message MfaSetupRequest{
+    string emailAddress = 1;
+}
+
+message MfaConfirmRequest{
+    string emailAddress = 1;
+    string code = 2;
+}
+
+message MfaConfirmResponse {
+    string mfaStatus = 1;
+}
+
+message MfaSetupResponse {
+    string qrCodeUrl = 1;
+}

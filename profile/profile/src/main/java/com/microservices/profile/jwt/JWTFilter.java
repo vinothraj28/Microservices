@@ -7,7 +7,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.Token;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -31,41 +30,38 @@ public class JWTFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String Authorization = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
 
-
-        if(Authorization==null || Authorization.isBlank() || !Authorization.startsWith("Bearer ")){
+        if (authHeader == null || authHeader.isBlank() || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        Authorization = Authorization.substring(7);
+        String token = authHeader.substring(7);
 
-        try{
-            if(!tokenService.isValid(Authorization)){
-                log.info("Token: {}", Authorization);
-
-                log.info("Is token valid: {}",
-                        tokenService.isValid(Authorization));
+        try {
+            if (!tokenService.isValid(token)) {
+                log.warn("Invalid or expired token received");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;
             }
 
-            log.info("Extracting claims");
-            String userName = tokenService.extractClaims(Authorization).get("email", String.class);
+            log.debug("Token validation successful, extracting claims");
+            String email = tokenService.extractClaims(token).get("email", String.class);
 
             UsernamePasswordAuthenticationToken auth =
                     new UsernamePasswordAuthenticationToken(
-                            userName,
+                            email,
                             null,
                             List.of()
                     );
             SecurityContextHolder.getContext().setAuthentication(auth);
-        }catch(JwtException ex){
-            log.error("JWTException Occurred ", ex);
+        } catch (JwtException ex) {
+            log.error("JWT validation error: {}", ex.getMessage());
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
+
         filterChain.doFilter(request, response);
     }
 }

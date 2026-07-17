@@ -5,7 +5,10 @@ import com.microservices.profile.dto.error.ErrorResponseDTO;
 import com.microservices.profile.dto.error.ValidationErrorResponseDTO;
 import com.microservices.profile.exceptions.AddressNotFoundException;
 import com.microservices.profile.exceptions.DuplicateEmailException;
+import com.microservices.profile.exceptions.InvalidCredentialsException;
 import com.microservices.profile.exceptions.UserNotFoundException;
+import com.microservices.profile.exceptions.InvalidMfaChallengeException;
+import com.microservices.profile.exceptions.MfaNotConfiguredException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -31,9 +34,16 @@ public class GlobalExceptionController {
         return buildErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request.getRequestURI());
     }
 
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInvalidCredentials(InvalidCredentialsException ex,
+                                                                     HttpServletRequest request) {
+        log.warn("Authentication failed: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), request.getRequestURI());
+    }
+
     @ExceptionHandler(DuplicateEmailException.class)
     public ResponseEntity<ErrorResponseDTO> handleDuplicateEmail(DuplicateEmailException ex,
-                                                                 HttpServletRequest request){
+                                                                  HttpServletRequest request){
         return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI());
     }
 
@@ -61,6 +71,28 @@ public class GlobalExceptionController {
     public ResponseEntity<ErrorResponseDTO> handleAddressNotFound(AddressNotFoundException ex,
                                                                   HttpServletRequest request){
         return buildErrorResponse(HttpStatus.CONFLICT, ex.getMessage(), request.getRequestURI());
+    }
+
+    /**
+     * Handle invalid or expired MFA challenge token.
+     * This occurs when a user tries to verify MFA with an invalid/expired challenge token.
+     */
+    @ExceptionHandler(InvalidMfaChallengeException.class)
+    public ResponseEntity<ErrorResponseDTO> handleInvalidMfaChallenge(InvalidMfaChallengeException ex,
+                                                                      HttpServletRequest request) {
+        log.warn("MFA challenge verification failed: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.UNAUTHORIZED, ex.getMessage(), request.getRequestURI());
+    }
+
+    /**
+     * Handle MFA not configured for user.
+     * This is a consistency error - the system issued an MFA challenge but user has no MFA credentials.
+     */
+    @ExceptionHandler(MfaNotConfiguredException.class)
+    public ResponseEntity<ErrorResponseDTO> handleMfaNotConfigured(MfaNotConfiguredException ex,
+                                                                   HttpServletRequest request) {
+        log.error("MFA verification attempted but MFA not configured for user: {}", ex.getMessage());
+        return buildErrorResponse(HttpStatus.UNAUTHORIZED, "MFA verification failed", request.getRequestURI());
     }
 
 

@@ -3,6 +3,9 @@ server:
 
 jwt:
   secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+  issuer: https://microservices.iam.local
+  audience: profile-service
+  expiration-minutes: 60
 
 spring:
   datasource:
@@ -13,10 +16,14 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 grpc:
   server:
     port: 9090
+
+security:
+  encryption:
+    key: figpZBcjVG/dZjqLwbj8Q0a9zTl+OqcO9ldJnOExohA=

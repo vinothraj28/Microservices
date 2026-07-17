@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package address;
+option java_package = "com.microservices.address.grpc";
+option java_multiple_files = true;
+
+
+service AddressService {
+  rpc registerAddress (AddressRegisterRequest) returns (AddressRegisterResponse);
+  rpc findByAddressId (FindAddressRequest) returns (AddressRegisterResponse);
+}
+
+message Address {
+
+  AddressType address_type = 1;
+
+  string zipcode = 2;
+
+  string street = 3;
+
+  string province = 4;
+
+  string country = 5;
+
+  string user_id = 6; // UUID represented as String
+}
+
+enum AddressType {
+  SHIPPING=0;
+    BILLING=1;
+    HOME=2;
+    WORK=3;
+}
+
+message AddressRegisterRequest{
+   Address address = 1;
+}
+
+message AddressRegisterResponse{
+    int64 addressId = 1; // UUID represented as String
+    AddressType address_type = 2;
+    string zipcode = 3;
+    string street = 4;
+    string province = 5;
+    string country = 6;
+    string user_id = 7; // UUID represented as String
+}
+
+message FindAddressRequest{
+    string addressId = 1; // UUID represented as String
+}

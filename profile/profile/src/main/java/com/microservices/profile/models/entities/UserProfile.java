@@ -48,8 +48,11 @@ public class UserProfile extends AuditableEntity implements BaseEntity{
     @Column(nullable = false)
     private LocalDate dob;
 
-    @Column(length = 60, nullable = false)
-    private String password;
+    @Column(nullable = false, length = 15)
+    private String providerID;
+
+//    @Column(length = 60, nullable = false)
+//    private String password;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection

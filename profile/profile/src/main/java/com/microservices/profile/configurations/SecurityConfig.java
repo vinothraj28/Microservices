@@ -1,6 +1,7 @@
 package com.microservices.profile.configurations;
 
 import com.microservices.profile.jwt.JWTFilter;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,6 +13,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 public class SecurityConfig {
+
+    @Bean
+    public GoogleAuthenticator googleAuthenticator(){
+        return new GoogleAuthenticator();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
