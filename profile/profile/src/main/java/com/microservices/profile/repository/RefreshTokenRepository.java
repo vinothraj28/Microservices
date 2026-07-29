@@ -37,6 +37,8 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID
      * @return List of all refresh tokens for this user
      */
     Optional<RefreshToken> findByJtiAndUserId(String jti, UUID userId);
+    Optional<RefreshToken> findByJtiAndUserIdAndClientId(String jti, UUID userId, String clientId);
+    Optional<RefreshToken> findByToken(String token);
 
     /**
      * Revoke a refresh token by marking it as revoked
@@ -79,4 +81,3 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID
             "WHERE rt.jti = :jti AND rt.revoked = false AND rt.expirationTime > :now")
     boolean isTokenValid(String jti, LocalDateTime now);
 }
-

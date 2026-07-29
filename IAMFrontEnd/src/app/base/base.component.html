@@ -1,0 +1,62 @@
+<!-- <div class="app-shell">
+    <header class="app-shell__header">
+        <div class="app-shell__brand">BookQuick</div>
+        <nav class="app-shell__nav" aria-label="Primary navigation"> <a routerLink="/base/dashboard"
+                routerLinkActive="is-active">Dashboard</a> <a routerLink="/base/movie"
+                routerLinkActive="is-active">Movies</a>
+        </nav>
+    </header>
+    <main class="app-shell__main" role="main"> <router-outlet></router-outlet> </main>
+    <footer class="app-shell__footer"> <small>© {{ currentYear }} IAM Platform</small> </footer>
+</div> -->
+<div class="app-shell">
+  <!-- Header -->
+  <header class="app-shell__header">
+    <div class="app-shell__brand">BookQuick</div>
+
+    <div class="app-shell__header-actions">
+      <button class="icon-btn">🔔</button>
+
+      <div class="user-avatar">A</div>
+    </div>
+  </header>
+
+  <!-- Body -->
+  <div class="app-shell__body">
+    <!-- Sidebar -->
+    <aside class="app-shell__sidebar">
+      <div class="sidebar-section">
+        <span class="sidebar-title">GENERAL</span>
+
+        <a routerLink="/base/dashboard" routerLinkActive="is-active">
+          Dashboard
+        </a>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-title">CATALOG</span>
+
+        <a routerLink="/base/movie" routerLinkActive="is-active"> Movies </a>
+
+        <a routerLink="/base/theater" routerLinkActive="is-active">
+          Theaters
+        </a>
+
+        <a routerLink="/base/show" routerLinkActive="is-active"> Shows </a>
+      </div>
+
+      <div class="sidebar-section">
+        <span class="sidebar-title">OPERATIONS</span>
+
+        <a routerLink="/base/booking" routerLinkActive="is-active">
+          Bookings
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="app-shell__main">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

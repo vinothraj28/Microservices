@@ -1,0 +1,9 @@
+<h2>{{ details()?.title || "Movie Title" }}</h2>
+<p>{{ details()?.description || "Movie description..." }}</p>
+<p>Duration: {{ details()?.durationMinutes || "Not Specified" }}</p>
+<p>Release Date: {{ details()?.releaseDate || "Not Released" }}</p>
+<p>Rating: {{ review()?.rating || "Not Rated" }}</p>
+<p>Genres: {{ details()?.genre || "No Genres" }}</p>
+<p>Language: {{ details()?.language || "No Language" }}</p>
+<p>Cast: {{ credits()?.cast?.join(", ") || "No Cast" }}</p>
+<p>Crew: {{ credits()?.crew?.join(", ") || "No Crew" }}</p>

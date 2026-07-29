@@ -1,0 +1,33 @@
+<section class="page-header">
+  <div class="page-header__content">
+    <h1>Movies</h1>
+    <p>Manage movies available on the platform.</p>
+  </div>
+
+  <div class="page-header__actions">
+    <button
+      class="btn"
+      [class.active]="selectComponent() === 'form'"
+      (click)="selectComponent.set('form')"
+    >
+      <span style="display: inline"
+        ><mat-icon>add</mat-icon>
+        <span style="text-align: center">Add Movie</span></span
+      >
+    </button>
+
+    <button
+      class="btn"
+      [class.active]="selectComponent() === 'list'"
+      (click)="selectComponent.set('list')"
+    >
+      Movie List
+    </button>
+  </div>
+</section>
+
+<main class="page-content">
+  <app-movie-form *ngIf="selectComponent() === 'form'"></app-movie-form>
+
+  <app-movie-list *ngIf="selectComponent() === 'list'"></app-movie-list>
+</main>

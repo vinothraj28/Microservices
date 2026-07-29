@@ -109,10 +109,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         log.info("Authentication attempt for email: {}", authRequest.email());
 
         // Step 1: Lookup user
-        Optional<UserProfile> userOptional = userManager.getUserByEmailAddress(authRequest.email());
-        if (userOptional.isEmpty()) {
-            log.warn("Authentication failed: user not found for email: {}", authRequest.email());
-            throw new InvalidCredentialsException("Email or password is incorrect");
+        Optional<UserProfile> userOptional;
+        try{
+            userOptional = userManager.getUserByEmailAddress(authRequest.email());
+        }catch (UserNotFoundException ex){
+            throw new UserNotFoundException("Authentication failed: user not found for email: "
+                    + authRequest.email());
         }
 
         UserProfile user = userOptional.get();

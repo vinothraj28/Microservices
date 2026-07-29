@@ -1,0 +1,59 @@
+<div class="auth-form-grid" [formGroup]="formGroup">
+  <label class="auth-field auth-field--full">
+    <span class="auth-field__label">Poster URL</span>
+    <input
+      class="auth-input"
+      type="url"
+      formControlName="posterUrl"
+      placeholder="https://example.com/poster.jpg"
+    />
+    @if (
+      formGroup.controls.posterUrl.touched &&
+      formGroup.controls.posterUrl.invalid
+    ) {
+      <small class="auth-validation">Enter a valid poster URL.</small>
+    }
+  </label>
+  <label class="auth-field auth-field--full">
+    <span class="auth-field__label">Trailer URL</span>
+    <input
+      class="auth-input"
+      type="url"
+      formControlName="trailerUrl"
+      placeholder="https://example.com/trailer"
+    />
+    @if (
+      formGroup.controls.trailerUrl.touched &&
+      formGroup.controls.trailerUrl.invalid
+    ) {
+      <small class="auth-validation">Enter a valid trailer URL.</small>
+    }
+  </label>
+  <label class="auth-field auth-field--full">
+    <span class="auth-field__label">Poster image (from your system)</span>
+    <input
+      class="auth-input"
+      type="file"
+      accept="image/*"
+      (change)="onPosterFileSelected($event)"
+    />
+    <small class="auth-help"
+      >Choose JPG, PNG, or WEBP. The file will be uploaded and URL auto-filled
+      below.</small
+    >
+  </label>
+
+  <!-- @if (isPosterUploading()) {
+    <p class="auth-loading">Uploading poster image...</p>
+  }
+
+  @if (posterPreviewUrl()) {
+    <div class="auth-qr-panel">
+      <img
+        [src]="posterPreviewUrl()!"
+        alt="Poster preview"
+        class="auth-qr-image"
+      />
+    </div>
+  } -->
+</div>

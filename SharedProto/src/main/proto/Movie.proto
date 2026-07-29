@@ -1,0 +1,558 @@
+syntax = "proto3";
+
+package movie;
+
+option java_package = "com.microservices.movie.grpc";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+
+// ==================== Movie Service ====================
+
+service MovieService {
+  rpc CreateMovie(CreateMovieRequest) returns (MovieResponse);
+  rpc UpdateMovie(UpdateMovieRequest) returns (MovieResponse);
+  rpc GetMovie(GetMovieRequest) returns (MovieResponse);
+  rpc ListMovies(ListMoviesRequest) returns (ListMoviesResponse);
+  rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse);
+}
+
+message MovieImage{
+  bytes data = 1;
+  string file_name = 2;
+  string content_type = 3;
+  int64 size = 4;
+}
+
+message CreateMovieRequest {
+  string title = 1;
+  string description = 2;
+  int32 duration_minutes = 3;
+  string genre = 4;
+  string language = 5;
+  string release_date = 6; // ISO date format YYYY-MM-DD
+  string poster_url = 7;
+  string trailer_url = 8;
+  string rating = 9; // U, UA, A, R
+  repeated string cast = 10;
+  repeated string crew = 11;
+  MovieImage image = 12;
+}
+
+message UpdateMovieRequest {
+  string movie_id = 1;
+  string title = 2;
+  string description = 3;
+  int32 duration_minutes = 4;
+  string genre = 5;
+  string language = 6;
+  string release_date = 7;
+  string poster_url = 8;
+  string trailer_url = 9;
+  string rating = 10;
+  repeated string cast = 11;
+  repeated string crew = 12;
+  MovieImage image = 13;
+}
+
+message GetMovieRequest {
+  string movie_id = 1;
+}
+
+message ListMoviesRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string genre = 3;
+  string language = 4;
+}
+
+message DeleteMovieRequest {
+  string movie_id = 1;
+}
+
+message DeleteMovieResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message MovieResponse {
+  string movie_id = 1;
+  string title = 2;
+  string description = 3;
+  int32 duration_minutes = 4;
+  string genre = 5;
+  string language = 6;
+  string release_date = 7;
+  string poster_url = 8;
+  string trailer_url = 9;
+  string rating = 10;
+  repeated string cast = 11;
+  repeated string crew = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+  string image_id = 15;
+}
+
+message ListMoviesResponse {
+  repeated MovieResponse movies = 1;
+  int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+  int32 total_pages = 5;
+  bool has_next = 6;
+}
+
+// ==================== Theater Service ====================
+
+service TheaterService {
+  rpc CreateTheater(CreateTheaterRequest) returns (TheaterResponse);
+  rpc UpdateTheater(UpdateTheaterRequest) returns (TheaterResponse);
+  rpc GetTheater(GetTheaterRequest) returns (TheaterResponse);
+  rpc ListTheaters(ListTheatersRequest) returns (ListTheatersResponse);
+  rpc AddScreen(AddScreenRequest) returns (ScreenResponse);
+  rpc UpdateScreen(UpdateScreenRequest) returns (ScreenResponse);
+  rpc GetScreen(GetScreenRequest) returns (ScreenResponse);
+  rpc ListScreensByTheater(ListScreensByTheaterRequest) returns (ListScreensResponse);
+}
+
+message CreateTheaterRequest {
+  string name = 1;
+  string address = 2;
+  string city = 3;
+  string state = 4;
+  string pincode = 5;
+  double latitude = 6;
+  double longitude = 7;
+  string phone = 8;
+  string email = 9;
+  repeated string amenities = 10;
+}
+
+message UpdateTheaterRequest {
+  string theater_id = 1;
+  string name = 2;
+  string address = 3;
+  string city = 4;
+  string state = 5;
+  string pincode = 6;
+  double latitude = 7;
+  double longitude = 8;
+  string phone = 9;
+  string email = 10;
+  repeated string amenities = 11;
+}
+
+message GetTheaterRequest {
+  string theater_id = 1;
+}
+
+message ListTheatersRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string city = 3;
+}
+
+message TheaterResponse {
+  string theater_id = 1;
+  string name = 2;
+  string address = 3;
+  string city = 4;
+  string state = 5;
+  string pincode = 6;
+  double latitude = 7;
+  double longitude = 8;
+  string phone = 9;
+  string email = 10;
+  repeated string amenities = 11;
+  repeated ScreenResponse screens = 12;
+  google.protobuf.Timestamp created_at = 13;
+  google.protobuf.Timestamp updated_at = 14;
+}
+
+message ListTheatersResponse {
+  repeated TheaterResponse theaters = 1;
+  int32 total_count = 2;
+}
+
+message AddScreenRequest {
+  string theater_id = 1;
+  string screen_name = 2;
+  int32 screen_number = 3;
+  int32 total_rows = 4;
+  int32 seats_per_row = 5;
+  string screen_type = 6; // REGULAR, IMAX, 4DX, DOLBY
+  repeated SeatLayoutRequest seat_layout = 7;
+}
+
+message UpdateScreenRequest {
+  string screen_id = 1;
+  string screen_name = 2;
+  int32 screen_number = 3;
+  string screen_type = 4;
+  repeated SeatLayoutRequest seat_layout = 5;
+}
+
+message GetScreenRequest {
+  string screen_id = 1;
+}
+
+message ListScreensByTheaterRequest {
+  string theater_id = 1;
+}
+
+message SeatLayoutRequest {
+  string row_name = 1;
+  int32 start_seat_number = 2;
+  int32 end_seat_number = 3;
+  string seat_type = 4; // REGULAR, PREMIUM, RECLINER, VIP
+  double price_multiplier = 5;
+}
+
+message ScreenResponse {
+  string screen_id = 1;
+  string theater_id = 2;
+  string screen_name = 3;
+  int32 screen_number = 4;
+  int32 total_seats = 5;
+  string screen_type = 6;
+  repeated SeatLayoutResponse seat_layout = 7;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
+}
+
+message SeatLayoutResponse {
+  string row_name = 1;
+  int32 start_seat_number = 2;
+  int32 end_seat_number = 3;
+  string seat_type = 4;
+  double price_multiplier = 5;
+}
+
+message ListScreensResponse {
+  repeated ScreenResponse screens = 1;
+}
+
+// ==================== Show Service ====================
+
+service ShowService {
+  rpc CreateShow(CreateShowRequest) returns (ShowResponse);
+  rpc UpdateShow(UpdateShowRequest) returns (ShowResponse);
+  rpc GetShow(GetShowRequest) returns (ShowResponse);
+  rpc ListShowsByMovie(ListShowsByMovieRequest) returns (ListShowsResponse);
+  rpc ListShowsByTheater(ListShowsByTheaterRequest) returns (ListShowsResponse);
+  rpc GetAvailableSeats(GetAvailableSeatsRequest) returns (AvailableSeatsResponse);
+}
+
+message CreateShowRequest {
+  string movie_id = 1;
+  string screen_id = 2;
+  string show_date_time = 3; // ISO datetime format
+  double base_price = 4;
+  string show_type = 5; // MORNING, MATINEE, EVENING, NIGHT
+}
+
+message UpdateShowRequest {
+  string show_id = 1;
+  string show_date_time = 2;
+  double base_price = 3;
+  string show_type = 4;
+}
+
+message GetShowRequest {
+  string show_id = 1;
+}
+
+message ListShowsByMovieRequest {
+  string movie_id = 1;
+  string date = 2; // YYYY-MM-DD
+  string city = 3;
+}
+
+message ListShowsByTheaterRequest {
+  string theater_id = 1;
+  string date = 2;
+}
+
+message GetAvailableSeatsRequest {
+  string show_id = 1;
+}
+
+message ShowResponse {
+  string show_id = 1;
+  string movie_id = 2;
+  string screen_id = 3;
+  string theater_id = 4;
+  MovieResponse movie = 5;
+  ScreenResponse screen = 6;
+  string show_date_time = 7;
+  double base_price = 8;
+  string show_type = 9;
+  int32 available_seats = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+}
+
+message ListShowsResponse {
+  repeated ShowResponse shows = 1;
+  int32 total_count = 2;
+}
+
+message AvailableSeatsResponse {
+  string show_id = 1;
+  repeated SeatInfo seats = 2;
+  int32 total_available = 3;
+}
+
+message SeatInfo {
+  string seat_id = 1;
+  string row_name = 2;
+  int32 seat_number = 3;
+  string seat_type = 4;
+  double price = 5;
+  string status = 6; // AVAILABLE, LOCKED, BOOKED
+  string locked_until = 7; // ISO datetime if locked
+}
+
+// ==================== Seat Service ====================
+
+service SeatService {
+  rpc LockSeats(LockSeatsRequest) returns (LockSeatsResponse);
+  rpc UnlockSeats(UnlockSeatsRequest) returns (UnlockSeatsResponse);
+  rpc GetSeatStatus(GetSeatStatusRequest) returns (GetSeatStatusResponse);
+}
+
+message LockSeatsRequest {
+  string show_id = 1;
+  repeated string seat_ids = 2;
+  string user_id = 3;
+}
+
+message LockSeatsResponse {
+  bool success = 1;
+  string lock_id = 2;
+  string message = 3;
+  string locked_until = 4; // ISO datetime
+  repeated string locked_seat_ids = 5;
+}
+
+message UnlockSeatsRequest {
+  string lock_id = 1;
+}
+
+message UnlockSeatsResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetSeatStatusRequest {
+  string show_id = 1;
+  repeated string seat_ids = 2;
+}
+
+message GetSeatStatusResponse {
+  repeated SeatStatus seat_statuses = 1;
+}
+
+message SeatStatus {
+  string seat_id = 1;
+  string status = 2; // AVAILABLE, LOCKED, BOOKED
+  string locked_by = 3;
+  string locked_until = 4;
+}
+
+// ==================== Booking Service ====================
+
+service BookingService {
+  rpc CreateBooking(CreateBookingRequest) returns (BookingResponse);
+  rpc ConfirmBooking(ConfirmBookingRequest) returns (BookingResponse);
+  rpc CancelBooking(CancelBookingRequest) returns (CancelBookingResponse);
+  rpc GetBooking(GetBookingRequest) returns (BookingResponse);
+  rpc ListUserBookings(ListUserBookingsRequest) returns (ListBookingsResponse);
+}
+
+message CreateBookingRequest {
+  string user_id = 1;
+  string show_id = 2;
+  repeated string seat_ids = 3;
+  string email = 4;
+  string phone = 5;
+}
+
+message ConfirmBookingRequest {
+  string booking_id = 1;
+  string payment_id = 2;
+}
+
+message CancelBookingRequest {
+  string booking_id = 1;
+  string reason = 2;
+}
+
+message GetBookingRequest {
+  string booking_id = 1;
+}
+
+message ListUserBookingsRequest {
+  string user_id = 1;
+  int32 page = 2;
+  int32 size = 3;
+  string status = 4; // PENDING, CONFIRMED, CANCELLED
+}
+
+message BookingResponse {
+  string booking_id = 1;
+  string user_id = 2;
+  string show_id = 3;
+  ShowResponse show = 4;
+  repeated SeatInfo seats = 5;
+  double total_amount = 6;
+  string status = 7; // PENDING, CONFIRMED, CANCELLED
+  string email = 8;
+  string phone = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+  string lock_id = 12;
+  string expires_at = 13;
+}
+
+message ListBookingsResponse {
+  repeated BookingResponse bookings = 1;
+  int32 total_count = 2;
+}
+
+message CancelBookingResponse {
+  bool success = 1;
+  string message = 2;
+  string refund_id = 3;
+  double refund_amount = 4;
+}
+
+// ==================== Payment Service ====================
+
+service PaymentService {
+  rpc InitiatePayment(InitiatePaymentRequest) returns (PaymentResponse);
+  rpc VerifyPayment(VerifyPaymentRequest) returns (PaymentResponse);
+  rpc ProcessRefund(ProcessRefundRequest) returns (RefundResponse);
+  rpc GetPaymentStatus(GetPaymentStatusRequest) returns (PaymentResponse);
+}
+
+message InitiatePaymentRequest {
+  string booking_id = 1;
+  double amount = 2;
+  string payment_method = 3; // CREDIT_CARD, DEBIT_CARD, UPI, WALLET, NET_BANKING
+  string user_id = 4;
+  PaymentDetails payment_details = 5;
+}
+
+message PaymentDetails {
+  string card_number = 1;
+  string card_holder_name = 2;
+  string expiry_month = 3;
+  string expiry_year = 4;
+  string cvv = 5;
+  string upi_id = 6;
+  string wallet_type = 7;
+}
+
+message VerifyPaymentRequest {
+  string payment_id = 1;
+  string transaction_id = 2;
+}
+
+message ProcessRefundRequest {
+  string payment_id = 1;
+  double refund_amount = 2;
+  string reason = 3;
+}
+
+message GetPaymentStatusRequest {
+  string payment_id = 1;
+}
+
+message PaymentResponse {
+  string payment_id = 1;
+  string booking_id = 2;
+  double amount = 3;
+  string payment_method = 4;
+  string status = 5; // INITIATED, PROCESSING, SUCCESS, FAILED, REFUNDED
+  string transaction_id = 6;
+  string message = 7;
+  google.protobuf.Timestamp payment_date = 8;
+  google.protobuf.Timestamp created_at = 9;
+}
+
+message RefundResponse {
+  string refund_id = 1;
+  string payment_id = 2;
+  double refund_amount = 3;
+  string status = 4; // INITIATED, PROCESSING, SUCCESS, FAILED
+  string transaction_id = 5;
+  string message = 6;
+  google.protobuf.Timestamp refund_date = 7;
+}
+
+// ==================== Ticket Service ====================
+
+service TicketService {
+  rpc GenerateTickets(GenerateTicketsRequest) returns (GenerateTicketsResponse);
+  rpc GetTicket(GetTicketRequest) returns (TicketResponse);
+  rpc VerifyTicket(VerifyTicketRequest) returns (VerifyTicketResponse);
+  rpc ListTicketsByBooking(ListTicketsByBookingRequest) returns (ListTicketsResponse);
+  rpc CancelTickets(CancelTicketsRequest) returns (CancelTicketsResponse);
+}
+
+message GenerateTicketsRequest {
+  string booking_id = 1;
+}
+
+message GetTicketRequest {
+  string ticket_id = 1;
+}
+
+message VerifyTicketRequest {
+  string ticket_id = 1;
+  string qr_code = 2;
+}
+
+message ListTicketsByBookingRequest {
+  string booking_id = 1;
+}
+
+message CancelTicketsRequest {
+  string booking_id = 1;
+}
+
+message TicketResponse {
+  string ticket_id = 1;
+  string booking_id = 2;
+  string seat_id = 3;
+  SeatInfo seat = 4;
+  ShowResponse show = 5;
+  string qr_code = 6;
+  string status = 7; // ISSUED, USED, CANCELLED
+  double price = 8;
+  google.protobuf.Timestamp issued_at = 9;
+  google.protobuf.Timestamp used_at = 10;
+}
+
+message GenerateTicketsResponse {
+  repeated TicketResponse tickets = 1;
+  string booking_id = 2;
+  int32 ticket_count = 3;
+}
+
+message ListTicketsResponse {
+  repeated TicketResponse tickets = 1;
+}
+
+message VerifyTicketResponse {
+  bool valid = 1;
+  string message = 2;
+  TicketResponse ticket = 3;
+}
+
+message CancelTicketsResponse {
+  bool success = 1;
+  string message = 2;
+  int32 tickets_cancelled = 3;
+}

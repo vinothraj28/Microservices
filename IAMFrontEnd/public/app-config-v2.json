@@ -1,0 +1,11 @@
+{
+  "auth": {
+    "registerUrl": "http://localhost:8080/api/v1/users/register",
+    "authenticateUrl": "http://localhost:8080/api/v1/auth/authenticate",
+    "verifyMfaUrl": "http://localhost:8080/api/v1/auth/verify-mfa"
+  },
+  "mfa": {
+    "setupUrl": "http://localhost:8080/api/v1/mfa/setup",
+    "confirmUrl": "http://localhost:8080/api/v1/mfa/confirm"
+  }
+}

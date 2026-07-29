@@ -9,11 +9,22 @@ jwt:
   issuer: https://microservices.iam.local
   audience: profile-service
 
-spring:
-  data:
-    redis:
-      host: localhost
-      port: 6379
+#spring:
+#  data:
+#    redis:
+#      host: localhost
+#      port: 6379
+#  session:
+#    store-type: redis
+#    timeout: 30m
+#    redis:
+#      namespace: spring:session
+
+oauth2:
+  frontend:
+    base-url: http://localhost:4200
+    login-path: /login
+    consent-path: /oauth-consent
 
 #  cloud:
 #    gateway:
@@ -59,4 +70,8 @@ grpc:
 
     mfa-service:
       address: static://localhost:9090
+      negotiationType: plaintext
+
+    movie-service:
+      address: static://localhost:9091
       negotiationType: plaintext

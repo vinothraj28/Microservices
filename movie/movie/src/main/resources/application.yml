@@ -1,0 +1,41 @@
+server:
+  port: 8082
+
+jwt:
+  secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+  issuer: https://microservices.iam.local
+  audience: movie-service
+  expiration-minutes: 60
+  refresh-expiration-days: 7
+
+spring:
+  application:
+    name: movie-service
+    
+  datasource:
+    url: jdbc:postgresql://localhost:5432/MovieService
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+
+grpc:
+  server:
+    port: 9091
+
+# Movie service specific configurations
+movie:
+  seat-lock:
+    duration-minutes: 10
+  payment:
+    mock-success-rate: 0.9
+  booking:
+    cancellation-window-hours: 2

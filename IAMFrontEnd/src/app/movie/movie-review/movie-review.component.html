@@ -1,0 +1,16 @@
+<div class="auth-form-grid" [formGroup]="formGroup">
+  <label class="auth-field">
+    <span class="auth-field__label">Rating</span>
+    <select class="auth-input" formControlName="rating">
+      <option value="">Select rating</option>
+      @for (rating of ratings; track rating) {
+        <option [value]="rating">{{ rating }}</option>
+      }
+    </select>
+    @if (
+      formGroup.controls.rating.touched && formGroup.controls.rating.invalid
+    ) {
+      <small class="auth-validation">Rating is required.</small>
+    }
+  </label>
+</div>

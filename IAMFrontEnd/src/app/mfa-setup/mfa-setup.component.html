@@ -1,0 +1,83 @@
+<main class="auth-page">
+  <div class="auth-page__orb auth-page__orb--left" aria-hidden="true"></div>
+  <div class="auth-page__orb auth-page__orb--right" aria-hidden="true"></div>
+
+  <section class="auth-layout">
+    <aside class="auth-showcase">
+      <p class="auth-showcase__eyebrow">Protection setup</p>
+      <h1 class="auth-showcase__title">Activate multi-factor security for every sign-in.</h1>
+      <p class="auth-showcase__lead">
+        Scan the QR code with your authenticator app, then confirm the rotating 6-digit code to enable MFA.
+      </p>
+
+      <div class="auth-points">
+        <article class="auth-point">
+          <strong>Step 1</strong>
+          <span>Pair your device by scanning the generated QR code.</span>
+        </article>
+        <article class="auth-point">
+          <strong>Step 2</strong>
+          <span>Enter the fresh code from your app to confirm the setup.</span>
+        </article>
+        <article class="auth-point">
+          <strong>Step 3</strong>
+          <span>Future sign-ins require both your password and authenticator code.</span>
+        </article>
+      </div>
+    </aside>
+
+    <section class="auth-card">
+      <header class="auth-card__header">
+        <h2>Set up MFA</h2>
+        <p>Use your authenticator app to scan and verify this account.</p>
+      </header>
+
+      <div class="auth-qr-panel">
+        @if (isLoadingQr()) {
+          <p class="auth-loading">Loading your QR code...</p>
+        } @else if (qrError()) {
+          <p class="auth-feedback auth-feedback--error">{{ qrError() }}</p>
+        } @else if (qrCodeUrl()) {
+          <img [src]="qrCodeUrl()" alt="MFA QR Code" class="auth-qr-image" />
+        }
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="confirm()" class="auth-form" novalidate>
+        <label class="auth-field">
+          <span class="auth-field__label">Verification code</span>
+          <input
+            class="auth-input auth-input--code"
+            type="text"
+            formControlName="code"
+            inputmode="numeric"
+            maxlength="6"
+            autocomplete="one-time-code"
+            placeholder="000000"
+          />
+          <small class="auth-help">Open your authenticator app and use the current 6-digit code shown for this account.</small>
+          @if (form.controls.code.touched && form.controls.code.invalid) {
+            <small class="auth-validation">Enter a valid 6-digit code.</small>
+          }
+        </label>
+
+        <button class="auth-button" type="submit" [disabled]="isSubmitting() || isLoadingQr()">
+          @if (isSubmitting()) {
+            <span>Verifying...</span>
+          } @else {
+            <span>Verify and Enable MFA</span>
+          }
+        </button>
+
+        @if (submitError()) {
+        <p class="auth-feedback auth-feedback--error">{{ submitError() }}</p>
+        }
+
+        @if (successMessage()) {
+          <p class="auth-feedback auth-feedback--success">{{ successMessage() }}</p>
+        }
+      </form>
+
+      <p class="auth-note">Keep this page open until the authenticator setup completes successfully.</p>
+    </section>
+  </section>
+</main>

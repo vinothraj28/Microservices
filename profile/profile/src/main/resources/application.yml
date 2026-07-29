@@ -6,6 +6,10 @@ jwt:
   issuer: https://microservices.iam.local
   audience: profile-service
   expiration-minutes: 60
+  refresh-expiration-days: 7
+
+oauth2:
+  authorization-code-ttl-seconds: 600
 
 spring:
   datasource:
@@ -16,7 +20,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect

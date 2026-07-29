@@ -7,6 +7,7 @@ import com.microservices.profile.dto.auth.MFAVerificationResponseDTO;
 import com.microservices.profile.exceptions.InvalidCredentialsException;
 import com.microservices.profile.exceptions.InvalidMfaChallengeException;
 import com.microservices.profile.exceptions.MfaNotConfiguredException;
+import com.microservices.profile.exceptions.UserNotFoundException;
 import com.microservices.profile.grpc.*;
 import com.microservices.profile.models.entities.RefreshToken;
 import com.microservices.profile.services.AuthenticationService;
@@ -95,7 +96,16 @@ public class AuthenticationGrpcService extends AuthenticationServiceGrpc.Authent
             responseObserver.onNext(grpcResponse);
             responseObserver.onCompleted();
 
-        } catch (InvalidCredentialsException ex) {
+        } catch (UserNotFoundException ex) {
+            log.warn("User not found: {}", ex.getMessage());
+            responseObserver.onError(
+                    Status.NOT_FOUND
+                            .withDescription(ex.getMessage())
+                            .asException()
+            );
+        }
+
+        catch (InvalidCredentialsException ex) {
             log.warn("Authentication failed: {}", ex.getMessage());
             responseObserver.onError(
                     Status.UNAUTHENTICATED
@@ -155,6 +165,7 @@ public class AuthenticationGrpcService extends AuthenticationServiceGrpc.Authent
             // Convert DTO back to gRPC response
             MfaVerificationResponse grpcResponse = MfaVerificationResponse.newBuilder()
                     .setAccessToken(mfaResponse.accessToken())
+                    .setRefreshToken(mfaResponse.refreshToken())
                     .build();
 
             log.info("Sending MFA verification response to gateway");

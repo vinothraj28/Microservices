@@ -95,7 +95,7 @@ public class AuthenticationGRPCService {
 
             log.info("MFA verification successful, token issued");
 
-            return new MfaVerificationResponseDTO(grpcResponse.getAccessToken());
+            return new MfaVerificationResponseDTO(grpcResponse.getAccessToken(), grpcResponse.getRefreshToken());
         } catch (StatusRuntimeException ex) {
             log.warn("MFA verification failed: {}", ex.getStatus().getDescription());
             handleGrpcException(ex);

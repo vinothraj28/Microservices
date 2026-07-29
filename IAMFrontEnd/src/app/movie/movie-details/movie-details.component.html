@@ -1,0 +1,88 @@
+<div class="auth-form-grid" [formGroup]="formGroup()">
+  <label class="auth-field auth-field--full">
+    <span class="auth-field__label">Title</span>
+    <input
+      class="auth-input"
+      type="text"
+      formControlName="title"
+      placeholder="Inception"
+    />
+    @if (
+      formGroup().controls.title.touched && formGroup().controls.title.invalid
+    ) {
+      <small class="auth-validation">Title is required.</small>
+    }
+  </label>
+  <label class="auth-field auth-field--full">
+    <span class="auth-field__label">Description</span>
+    <textarea
+      class="auth-input movie-textarea"
+      formControlName="description"
+      rows="4"
+      placeholder="Short movie summary"
+    ></textarea>
+    @if (
+      formGroup().controls.description.touched &&
+      formGroup().controls.description.invalid
+    ) {
+      <small class="auth-validation">Description is required.</small>
+    }
+  </label>
+  <label class="auth-field">
+    <span class="auth-field__label">Duration (minutes)</span>
+    <input
+      class="auth-input"
+      type="number"
+      min="1"
+      formControlName="durationMinutes"
+      placeholder="120"
+    />
+    @if (
+      formGroup().controls.durationMinutes.touched &&
+      formGroup().controls.durationMinutes.invalid
+    ) {
+      <small class="auth-validation"
+        >Enter a valid duration greater than 0.</small
+      >
+    }
+  </label>
+  <label class="auth-field">
+    <span class="auth-field__label">Genre</span>
+    <input
+      class="auth-input"
+      type="text"
+      formControlName="genre"
+      placeholder="Sci-Fi"
+    />
+    @if (
+      formGroup().controls.genre.touched && formGroup().controls.genre.invalid
+    ) {
+      <small class="auth-validation">Genre is required.</small>
+    }
+  </label>
+  <label class="auth-field">
+    <span class="auth-field__label">Language</span>
+    <input
+      class="auth-input"
+      type="text"
+      formControlName="language"
+      placeholder="English"
+    />
+    @if (
+      formGroup().controls.language.touched &&
+      formGroup().controls.language.invalid
+    ) {
+      <small class="auth-validation">Language is required.</small>
+    }
+  </label>
+  <label class="auth-field">
+    <span class="auth-field__label">Release date</span>
+    <input class="auth-input" type="date" formControlName="releaseDate" />
+    @if (
+      formGroup().controls.releaseDate.touched &&
+      formGroup().controls.releaseDate.invalid
+    ) {
+      <small class="auth-validation">Release date is required.</small>
+    }
+  </label>
+</div>

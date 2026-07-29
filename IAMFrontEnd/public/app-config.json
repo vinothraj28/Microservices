@@ -1,0 +1,28 @@
+{
+  "auth": {
+    "registerUrl": "http://localhost:8080/api/v1/users/register",
+    "authenticateUrl": "http://localhost:8080/api/v1/auth/oAuth/authenticate",
+    "verifyMfaUrl": "http://localhost:8080/api/v1/auth/oAuth/verify-mfa",
+    "tokenUrl": "http://localhost:8080/api/v1/oauth2/token",
+    "authorizeBaseUrl": "http://localhost:8080/api/v1/oauth2/authorize",
+    "clientId": "ead89dd4-a0cd-473b-8c24-ca3ca9f50439",
+    "redirectUri": "http://localhost:4200/callback",
+    "refreshTokenUrl": "http://localhost:8080/api/v1/oauth/refresh",
+    "scope": "user:read user:write",
+    "postLoginRedirectAllowList": [
+      "http://localhost:4200",
+      "http://localhost:8080/api/v1/oauth2/authorize"
+    ]
+  },
+  "mfa": {
+    "setupUrl": "http://localhost:8080/api/v1/mfa/setup",
+    "confirmUrl": "http://localhost:8080/api/v1/mfa/confirm"
+  },
+  "movie": {
+    "registerUrl": "http://localhost:8080/api/v1/movies/",
+    "updateUrl": "http://localhost:8080/api/v1/movies/",
+    "deleteUrl": "http://localhost:8080/api/v1/movies/",
+    "getMovieByIdUrl": "http://localhost:8080/api/v1/movies/",
+    "getAllMoviesUrl": "http://localhost:8080/api/v1/movies/"
+  }
+}

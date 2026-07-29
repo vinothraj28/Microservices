@@ -1,0 +1,68 @@
+:host {
+  display: block;
+}
+
+.movie-page {
+  min-height: auto;
+}
+
+.movie-textarea {
+  min-height: 7.5rem;
+  resize: vertical;
+}
+
+.movie-people-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.movie-people-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.movie-inline-action,
+.movie-add-action {
+  justify-self: start;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.movie-inline-action {
+  padding: 0.7rem 0.9rem;
+  white-space: nowrap;
+}
+
+.movie-stepper__actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.movie-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 3.5rem;
+  margin-top: 0.35rem;
+  border: 0;
+  border-radius: 1rem;
+  background: linear-gradient(135deg, var(--auth-bg-start) 0%, var(--auth-bg-end) 100%);
+  color: #1f1305;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 16px 28px rgba(65, 63, 62, 0.28);
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+@media (max-width: 640px) {
+  .movie-people-row {
+    grid-template-columns: 1fr;
+  }
+}

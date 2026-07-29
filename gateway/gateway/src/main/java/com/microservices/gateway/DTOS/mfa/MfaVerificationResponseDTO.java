@@ -7,6 +7,7 @@ package com.microservices.gateway.DTOS.mfa;
  * Contains the final JWT access token after successful MFA verification.
  */
 public record MfaVerificationResponseDTO(
-        String accessToken
+        String accessToken,
+        String refreshToken
 ) {}
 

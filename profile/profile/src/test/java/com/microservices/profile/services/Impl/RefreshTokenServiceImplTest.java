@@ -3,6 +3,7 @@ package com.microservices.profile.services.Impl;
 import com.microservices.profile.exceptions.InvalidCredentialsException;
 import com.microservices.profile.models.entities.RefreshToken;
 import com.microservices.profile.models.entities.UserProfile;
+import com.microservices.profile.models.enums.Roles;
 import com.microservices.profile.repository.RefreshTokenRepository;
 import com.microservices.profile.services.TokenService;
 import com.microservices.profile.spi.managers.UserManager;
@@ -20,10 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -63,7 +61,7 @@ class RefreshTokenServiceImplTest {
         testUser.setUserId(userId);
         testUser.setEmailAddress(testEmail);
         testUser.setUserName("john.doe");
-        testUser.setRoles(List.of());
+        testUser.setRoles(new HashSet<>(List.of()));
     }
 
     // ==================== SAVE REFRESH TOKEN TESTS ====================

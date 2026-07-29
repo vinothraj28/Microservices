@@ -7,10 +7,15 @@ import jakarta.validation.constraints.NotBlank;
  * Maps to gRPC MfaVerificationRequest.
  */
 public record MfaVerificationRequestDTO(
-        @NotBlank(message = "MFA challenge token cannot be blank")
+
         String mfaChallengeToken,
 
         @NotBlank(message = "MFA code cannot be blank")
         String mfaCode
-) {}
+) {
+        public static MfaVerificationRequestDTO from(String mfaChallengeToken, String mfaCode) {
+                return new MfaVerificationRequestDTO(mfaChallengeToken, mfaCode);
+        }
+
+}
 

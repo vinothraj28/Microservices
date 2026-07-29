@@ -1,0 +1,58 @@
+<div [formGroup]="formGroup">
+  <section class="auth-field">
+    <span class="auth-field__label">Cast</span>
+    <div formArrayName="cast" class="movie-people-list">
+      @for (control of castControls.controls; track $index) {
+        <div class="movie-people-row">
+          <input
+            class="auth-input"
+            [formControlName]="$index"
+            placeholder="Cast member name"
+          />
+          <button
+            type="button"
+            class="auth-link movie-inline-action"
+            (click)="removeCast($index)"
+          >
+            Remove
+          </button>
+        </div>
+      }
+    </div>
+    <button
+      type="button"
+      class="auth-link movie-add-action"
+      (click)="addCast()"
+    >
+      Add cast member
+    </button>
+  </section>
+  <section class="auth-field">
+    <span class="auth-field__label">Crew</span>
+    <div formArrayName="crew" class="movie-people-list">
+      @for (control of crewControls.controls; track $index) {
+        <div class="movie-people-row">
+          <input
+            class="auth-input"
+            [formControlName]="$index"
+            placeholder="Crew member name"
+          />
+          <button
+            type="button"
+            class="auth-link movie-inline-action"
+            (click)="removeCrew($index)"
+          >
+            Remove
+          </button>
+        </div>
+      }
+    </div>
+    <button
+      type="button"
+      class="auth-link movie-add-action"
+      (click)="addCrew()"
+    >
+      Add crew member
+    </button>
+  </section>
+</div>

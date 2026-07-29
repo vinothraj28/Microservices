@@ -7,6 +7,7 @@
         <option value="$PROJECT_DIR$/gateway/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/profile/profile/pom.xml" />
         <option value="$PROJECT_DIR$/SharedProto/pom.xml" />
+        <option value="$PROJECT_DIR$/movie/movie/pom.xml" />
       </list>
     </option>
   </component>

@@ -35,7 +35,10 @@ import java.util.UUID;
 @Table(name = "refresh_tokens", indexes = {
         @Index(name = "idx_user_id", columnList = "user_id"),
         @Index(name = "idx_jti", columnList = "jti"),
-        @Index(name = "idx_revoked", columnList = "revoked")
+        @Index(name = "idx_revoked", columnList = "revoked"),
+        @Index(name = "idx_client_id", columnList = "client_id"),
+        @Index(name = "idx_parent_token_id", columnList = "parent_token_id"),
+        @Index(name = "idx_expiration_time", columnList = "expiration_time")
 })
 @Data
 @NoArgsConstructor
@@ -53,6 +56,13 @@ public class RefreshToken implements BaseEntity {
     private UUID userId;
 
     /**
+     * OAuth2 client that this token was issued to
+     * Enables multi-client support (user can have tokens for multiple apps)
+     */
+    @Column(name = "client_id", length = 36)
+    private String clientId;
+
+    /**
      * JWT ID (jti claim) - unique identifier for this token from the JWT itself
      * Used to match the refresh token with the JWT claim
      */
@@ -65,6 +75,20 @@ public class RefreshToken implements BaseEntity {
      */
     @Column(name = "token", nullable = false, columnDefinition = "TEXT")
     private String token;
+
+    /**
+     * Space-separated list of scopes this refresh token has access to
+     * Can be narrowed during refresh, but never expanded
+     */
+    @Column(name = "scope", length = 500)
+    private String scope;
+
+    /**
+     * Parent refresh token ID (for token rotation tracking)
+     * When a refresh token is used, a new one is issued and this tracks the chain
+     */
+    @Column(name = "parent_token_id")
+    private UUID parentTokenId;
 
     /**
      * When this refresh token was created
@@ -85,6 +109,12 @@ public class RefreshToken implements BaseEntity {
     @Column(name = "revoked", nullable = false)
     private boolean revoked = false;
 
+    /**
+     * When this token was revoked (null if not revoked)
+     */
+    @Column(name = "revoked_at")
+    private LocalDateTime revokedAt;
+
     @Override
     public UUID getId() {
         return tokenId;
@@ -104,6 +134,7 @@ public class RefreshToken implements BaseEntity {
      */
     public void revoke() {
         this.revoked = true;
+        this.revokedAt = LocalDateTime.now();
     }
 }
 

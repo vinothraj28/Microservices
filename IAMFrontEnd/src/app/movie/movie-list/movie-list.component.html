@@ -1,0 +1,39 @@
+<div class="movie-grid">
+  <div class="movie-card" *ngFor="let movie of movies">
+    <!-- <img
+      [src]="movie.posterUrl"
+      (error)="poster.src = 'assets/no-poster.png'"
+      #poster
+      class="poster"
+    /> -->
+    <div class="content">
+      <h3>{{ movie.title }}</h3>
+
+      <p class="genre">
+        {{ movie.genre }}
+      </p>
+
+      <p class="description">
+        {{ movie.description }}
+      </p>
+
+      <div class="details">
+        <span>🎬 {{ movie.durationMinutes }} mins</span>
+
+        <span>⭐ {{ movie.rating }}</span>
+      </div>
+
+      <div class="details">
+        <span>🌍 {{ movie.language }}</span>
+
+        <span>📅 {{ movie.releaseDate }}</span>
+      </div>
+
+      <div class="actions">
+        <button class="btn-edit">Edit</button>
+
+        <button class="btn-delete">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

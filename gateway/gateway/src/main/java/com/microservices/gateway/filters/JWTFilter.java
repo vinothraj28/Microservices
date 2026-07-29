@@ -87,7 +87,11 @@ public class JWTFilter implements WebFilter {
         return path.equals("/api/v1/users/login") ||
                path.equals("/api/v1/users/register") ||
                path.equals("/api/v1/auth/authenticate") ||
-               path.equals("/api/v1/auth/verify-mfa");
+               path.equals("/api/v1/auth/verify-mfa") ||
+               path.contains("/api/v1/oauth2") ||
+               path.contains("/api/v1/auth/oAuth") ||
+                path.contains("/api/v1/mfa") ||
+                path.contains("/api/v1/movies/");
     }
 
 }

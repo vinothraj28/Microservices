@@ -1,0 +1,21 @@
+package com.microservices.movie.services.interfaces;
+
+import com.microservices.movie.models.entities.Movie;
+import org.springframework.data.domain.Page;
+
+import java.awt.print.Pageable;
+import java.util.List;
+import java.util.UUID;
+
+public interface MovieService {
+
+    Movie createMovie(Movie movie);
+
+    Movie updateMovie(UUID movieId, Movie movie);
+
+    Movie getMovie(UUID movieId);
+
+    Page<Movie> listMovies(int page, int size, String genre, String language);
+
+    void deleteMovie(UUID movieId);
+}

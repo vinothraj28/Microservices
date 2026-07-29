@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,7 +61,7 @@ class JWTServiceTest {
         testUser.setUserId(userId);
         testUser.setEmailAddress(testEmail);
         testUser.setUserName("john.doe");
-        testUser.setRoles(List.of());
+        testUser.setRoles(new HashSet<>(List.of()));
     }
 
     // ==================== ACCESS TOKEN GENERATION TESTS ====================
@@ -106,7 +107,7 @@ class JWTServiceTest {
     @DisplayName("Should include user roles in access token")
     void testGenerateTokenWithRoles() {
         // Arrange
-        testUser.setRoles(List.of());  // Empty roles initially
+        testUser.setRoles(new HashSet<>(List.of()));  // Empty roles initially
 
         // Act
         String token = jwtService.generateToken(testUser);
@@ -436,7 +437,7 @@ class JWTServiceTest {
     @DisplayName("Should handle user with multiple roles in token")
     void testTokenWithMultipleRoles() {
         // Arrange
-        testUser.setRoles(List.of()); // In actual test, this would have roles
+        testUser.setRoles(new HashSet<>(List.of())); // In actual test, this would have roles
 
         // Act
         String token = jwtService.generateToken(testUser);

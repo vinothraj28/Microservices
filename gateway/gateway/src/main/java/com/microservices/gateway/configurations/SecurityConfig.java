@@ -16,6 +16,8 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers.pathMatchers;
+
 @Configuration
 @EnableWebFluxSecurity
 public class SecurityConfig {
@@ -40,8 +42,16 @@ public class SecurityConfig {
                 .authorizeExchange(exchange -> exchange
                         .pathMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/auth/authenticate").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/api/v1/mfa/**").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/auth/verify-mfa").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/users/register").permitAll()
+                        .pathMatchers(HttpMethod.POST, "/api/v1/movies/**").permitAll()
+                        .pathMatchers(HttpMethod.PUT, "/api/v1/movies/**").permitAll()
+                        .pathMatchers(HttpMethod.GET, "/api/v1/movies/**").permitAll()
+                        .pathMatchers(HttpMethod.DELETE, "/api/v1/movies/**").permitAll()
+                        .pathMatchers("/api/v1/oauth2/**").permitAll()
+                        .pathMatchers("/api/v1/oauth2/session/**").permitAll()
+                        .pathMatchers("/api/v1/auth/**").permitAll()
                         .pathMatchers("/actuator/health/**").permitAll()
                         .pathMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyExchange().authenticated()

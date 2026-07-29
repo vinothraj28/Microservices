@@ -1,0 +1,133 @@
+<main class="auth-layout auth-layout--wide-card movie-page">
+  <section class="auth-card">
+    <header class="auth-card__header">
+      <p class="auth-chip">Movie onboarding</p>
+      <h2>Register movie</h2>
+      <p>Add a new movie to the platform.</p>
+    </header>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" novalidate>
+      <mat-horizontal-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="form.controls.details">
+          <ng-template matStepLabel>Details</ng-template>
+          <app-movie-details
+            [formGroup]="form.controls.details"
+          ></app-movie-details>
+          <div class="movie-stepper__actions">
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              matStepperPrevious
+              (disabled)="(stepper.selectedIndex === 0)"
+            >
+              Back
+            </button>
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              (click)="nextStep(stepper, form.controls.details)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="form.controls.media">
+          <ng-template matStepLabel>Media</ng-template>
+          <app-movie-media
+            [formGroup]="form.controls.media"
+            (submitError)="onSubmitError($event)"
+            (isPosterUploading)="onPosterUploading($event)"
+          ></app-movie-media>
+          <div class="movie-stepper__actions">
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              (click)="nextStep(stepper, form.controls.media)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="form.controls.review">
+          <ng-template matStepLabel>Review</ng-template>
+          <app-movie-review
+            [formGroup]="form.controls.review"
+          ></app-movie-review>
+          <div class="movie-stepper__actions">
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              (click)="nextStep(stepper, form.controls.review)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="form.controls.credits">
+          <ng-template matStepLabel>Credits</ng-template>
+          <app-movie-credits
+            [formGroup]="form.controls.credits"
+          ></app-movie-credits>
+          <div class="movie-stepper__actions">
+            <button
+              class="movie-button"
+              type="button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              class="movie-button"
+              type="submit"
+              mat-button
+              [disabled]="isSubmitting()"
+            >
+              Submit
+            </button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+
+      @if (submitError()) {
+        <p class="auth-feedback auth-feedback--error">{{ submitError() }}</p>
+      }
+
+      @if (submitSuccess()) {
+        <p class="auth-feedback auth-feedback--success">
+          Movie saved successfully.
+        </p>
+      }
+    </form>
+    <p class="auth-note">Release date should follow ISO format YYYY-MM-DD.</p>
+  </section>
+  <section class="auth-card">
+    <header class="auth-card__header">
+      <h2>Movie Details</h2>
+      <p>Update movie details below.</p>
+    </header>
+    <app-updated-details [movie]="movie()"></app-updated-details>
+  </section>
+</main>
