@@ -1,39 +1,79 @@
-<div class="movie-grid">
-  <div class="movie-card" *ngFor="let movie of movies">
-    <!-- <img
-      [src]="movie.posterUrl"
-      (error)="poster.src = 'assets/no-poster.png'"
-      #poster
-      class="poster"
-    /> -->
-    <div class="content">
-      <h3>{{ movie.title }}</h3>
+<div class="movie-list">
+  <div class="movie-list__toolbar">
+    <label class="movie-size-control">
+      <span>Size</span>
+      <select [value]="size" (change)="setPageSize(+$any($event.target).value)">
+        <option [value]="5">5</option>
+        <option [value]="10">10</option>
+        <option [value]="20">20</option>
+      </select>
+    </label>
+  </div>
 
-      <p class="genre">
-        {{ movie.genre }}
-      </p>
+  <div *ngIf="isMovieLoading" class="loading-indicator">
+    <p>Loading movies...</p>
+  </div>
 
-      <p class="description">
-        {{ movie.description }}
-      </p>
+  <div class="movie-grid">
+    <div class="movie-card" *ngFor="let movie of movies">
+      <img
+        *ngIf="image[movie.imageId]"
+        [src]="image[movie.imageId]"
+        [alt]="movie.title"
+        class="poster"
+      />
+      <div class="content">
+        <h3>{{ movie.title }}</h3>
 
-      <div class="details">
-        <span>🎬 {{ movie.durationMinutes }} mins</span>
+        <p class="genre">{{ movie.genre }}</p>
 
-        <span>⭐ {{ movie.rating }}</span>
-      </div>
+        <p class="description">{{ movie.description }}</p>
 
-      <div class="details">
-        <span>🌍 {{ movie.language }}</span>
+        <div class="details">
+          <span>🎬 {{ movie.durationMinutes }} mins</span>
+          <span>⭐ {{ movie.rating }}</span>
+        </div>
 
-        <span>📅 {{ movie.releaseDate }}</span>
-      </div>
+        <div class="details">
+          <span>🌍 {{ movie.language }}</span>
+          <span>📅 {{ movie.releaseDate }}</span>
+        </div>
 
-      <div class="actions">
-        <button class="btn-edit">Edit</button>
-
-        <button class="btn-delete">Delete</button>
+        <div class="actions">
+          <button
+            [routerLink]="
+              movie.movieId ? ['/base', 'movie', movie.movieId, 'edit'] : null
+            "
+            [disabled]="!movie.movieId"
+            class="btn-edit"
+          >
+            Edit
+          </button>
+          <button class="btn-delete">Delete</button>
+        </div>
       </div>
     </div>
+  </div>
+
+  <div class="movie-pagination" *ngIf="totalPages > 0">
+    <button
+      class="btn-edit movie-pagination__btn"
+      (click)="prevPage()"
+      [disabled]="page === 0 || isMovieLoading"
+    >
+      Previous
+    </button>
+
+    <span
+      >Page {{ page + 1 }} of {{ totalPages }} ({{ totalCount }} total)</span
+    >
+
+    <button
+      class="btn-edit movie-pagination__btn"
+      (click)="nextPage()"
+      [disabled]="!hasNext || isMovieLoading"
+    >
+      Next
+    </button>
   </div>
 </div>

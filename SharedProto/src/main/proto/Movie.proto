@@ -556,3 +556,43 @@ message CancelTicketsResponse {
   string message = 2;
   int32 tickets_cancelled = 3;
 }
+
+//==================== Image Service ==================== //
+
+service ImageService {
+  rpc UploadImage(UploadImageRequest) returns (UploadImageResponse);
+  rpc GetImage(GetImageRequest) returns (GetImageResponse);
+  rpc DeleteImage(DeleteImageRequest) returns (DeleteImageResponse);
+}
+
+message UploadImageRequest {
+  bytes data = 1;
+  string file_name = 2;
+  string content_type = 3;
+  string movie_id = 4;
+}
+
+message UploadImageResponse {
+  int64 image_id = 1;
+  string message = 2;
+}
+
+message GetImageRequest {
+  int64 image_id = 1;
+}
+
+message GetImageResponse {
+  bytes data = 1;
+  string file_name = 2;
+  string content_type = 3;
+  int64 size = 4;
+}
+
+message DeleteImageRequest {
+  string image_id = 1;
+}
+
+message DeleteImageResponse {
+  bool success = 1;
+  string message = 2;
+}

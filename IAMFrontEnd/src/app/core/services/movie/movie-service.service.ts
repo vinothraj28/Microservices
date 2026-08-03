@@ -18,6 +18,21 @@ export interface MovieRegisterRequest {
   crew: string[];
 }
 
+export interface MovieUpdateRequest {
+  movieId: string;
+  title: string;
+  description: string;
+  language: string;
+  releaseDate: string;
+  genre: string;
+  durationMinutes: number;
+  posterUrl: string;
+  trailerUrl: string;
+  rating: string;
+  cast: string[];
+  crew: string[];
+}
+
 export interface MovieRegisterResponse {
   movieId: string;
   title: string;
@@ -32,6 +47,15 @@ export interface MovieRegisterResponse {
   cast: string[];
   crew: string[];
   imageId: string;
+}
+
+export interface MovieListResponse {
+  movieResponseDTO: MovieRegisterResponse[];
+  totalPages: number;
+  totalCount: number;
+  page: number;
+  size: number;
+  hasNext: boolean;
 }
 
 export interface PosterUploadResponse {
@@ -70,11 +94,36 @@ export class MovieServiceService {
     );
   }
 
-  getMovieList(
-    page: number,
-    pageSize: number,
-  ): Observable<MovieRegisterResponse[]> {
+  updateMovie(movieData: MovieUpdateRequest, image?: File) {
+    const formData = new FormData();
+
+    formData.append(
+      'movieUpdateRequestDTO',
+      new Blob([JSON.stringify(movieData)], { type: 'application/json' }),
+    );
+
+    if (image) {
+      formData.append('movieImage', image);
+    }
+
+    return this.httpClient.put<MovieRegisterResponse>(
+      this.appConfig.movie.updateUrl,
+      formData,
+    );
+  }
+
+  getMovieList(page: number, pageSize: number): Observable<MovieListResponse> {
     const url = `${this.appConfig.movie.getAllMoviesUrl}?page=${page}&size=${pageSize}`;
-    return this.httpClient.get<MovieRegisterResponse[]>(url);
+    return this.httpClient.get<MovieListResponse>(url);
+  }
+
+  getMovieById(movieId: string): Observable<MovieRegisterResponse> {
+    const url = `${this.appConfig.movie.getMovieByIdUrl}${movieId}`;
+    return this.httpClient.get<MovieRegisterResponse>(url);
+  }
+
+  getImageById(imageId: string): Observable<Blob> {
+    const url = `${this.appConfig.movie.getImageById}/${imageId}`;
+    return this.httpClient.get(url, { responseType: 'blob' });
   }
 }

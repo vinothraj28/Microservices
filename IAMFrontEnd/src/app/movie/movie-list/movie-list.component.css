@@ -1,95 +1,200 @@
+:host {
+  display: block;
+}
+
+.movie-list {
+  --bg-card: #132432;
+  --bg-card-hover: #173246;
+  --text-main: #ffffff;
+  --text-muted: #b6c3d1;
+  --text-soft: #d8d8d8;
+  --accent: #5fd8cb;
+  --danger: #f15b5b;
+  --stroke: rgba(255, 255, 255, 0.08);
+
+  width: 100%;
+  max-width: 1180px;
+  margin: 24px auto 0;
+}
+
+.movie-list__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.movie-size-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.movie-size-control select {
+  min-width: 72px;
+  background: black;
+  color: var(--text-main);
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  padding: 8px 12px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.movie-size-control select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(95, 216, 203, 0.18);
+}
+
+.loading-indicator {
+  color: var(--text-soft);
+  text-align: center;
+  margin: 32px 0;
+}
+
 .movie-grid {
-
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 24px;
-    margin-top: 25px;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 22px;
 }
 
 .movie-card {
-
-    background: #132432;
-    border-radius: 16px;
-    overflow: hidden;
-    color: white;
-    transition: .3s;
-    border: 1px solid rgba(255, 255, 255, .05);
-
+  background: linear-gradient(180deg, rgba(19, 36, 50, 0.98), rgba(16, 31, 44, 0.98));
+  border: 1px solid var(--stroke);
+  border-radius: 18px;
+  overflow: hidden;
+  color: var(--text-main);
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .movie-card:hover {
-
-    transform: translateY(-6px);
-
+  transform: translateY(-4px);
+  border-color: rgba(95, 216, 203, 0.35);
+  background: linear-gradient(180deg, rgba(23, 50, 70, 0.98), rgba(16, 35, 50, 0.98));
 }
 
 .poster {
-
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+  background: #0f1d2a;
 }
 
 .content {
+  padding: 18px;
+}
 
-    padding: 18px;
-
+.content h3 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
 }
 
 .genre {
-
-    color: #5fd8cb;
-    margin: 8px 0;
-
+  color: var(--accent);
+  margin: 8px 0 10px;
+  font-weight: 600;
 }
 
 .description {
-
-    color: #b6c3d1;
-    line-height: 1.5;
-    height: 48px;
-    overflow: hidden;
-
+  color: var(--text-muted);
+  line-height: 1.5;
+  min-height: 48px;
+  margin: 0;
 }
 
 .details {
-
-    display: flex;
-    justify-content: space-between;
-    margin-top: 12px;
-    color: #d8d8d8;
-    font-size: 14px;
-
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  color: var(--text-soft);
+  font-size: 15px;
 }
 
 .actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
 
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  border: none;
+  padding: 11px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.15s ease, opacity 0.2s ease;
 }
 
 .btn-edit {
-
-    flex: 1;
-    background: #5fd8cb;
-    border: none;
-    color: #111;
-    padding: 10px;
-    border-radius: 8px;
-
+  background: var(--accent);
+  color: #0f1f2d;
 }
 
 .btn-delete {
+  background: var(--danger);
+  color: #fff;
+}
 
-    flex: 1;
-    background: #f15b5b;
-    border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
+.btn-edit:hover,
+.btn-delete:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
 
+.btn-edit:disabled,
+.btn-delete:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.movie-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 24px;
+  color: var(--text-soft);
+  font-size: 14px;
+}
+
+.movie-pagination__btn {
+  flex: 0 0 auto;
+  min-width: 112px;
+}
+
+@media (max-width: 900px) {
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .movie-list {
+    margin-top: 18px;
+  }
+
+  .movie-list__toolbar {
+    justify-content: center;
+  }
+
+  .movie-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .poster {
+    height: 220px;
+  }
+
+  .movie-pagination {
+    flex-wrap: wrap;
+  }
 }

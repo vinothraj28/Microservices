@@ -79,5 +79,6 @@ public class MovieServiceImpl implements MovieService {
         target.setRating(source.getRating());
         target.setCast(source.getCast() == null ? List.of() : source.getCast());
         target.setCrew(source.getCrew() == null ? List.of() : source.getCrew());
+        target.setImage(source.getImage() == null ? null : source.getImage());
     }
 }

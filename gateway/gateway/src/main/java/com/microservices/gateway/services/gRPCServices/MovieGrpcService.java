@@ -34,6 +34,7 @@ public class MovieGrpcService {
         MovieImage image = null;
 
         if (movieImage != null) {
+            log.info("Processing movie image with filename: {}", movieImage.filename());
             DataBuffer dataBuffer = DataBufferUtils.join(movieImage.content()).block();
 
             if (dataBuffer != null) {
@@ -47,6 +48,8 @@ public class MovieGrpcService {
                         .setSize(bytes.length)
                         .setFileName(movieImage.filename())
                         .build();
+
+                log.info("Content type stored in protobuf: {}", image.getContentType());
             }
         }else{
             image = MovieImage.newBuilder().build();
@@ -92,8 +95,33 @@ public class MovieGrpcService {
     }
 
 
-    public MovieResponseDTO updateMovie(MovieUpdateRequestDTO movieRequestDTO) {
+    public MovieResponseDTO updateMovie(MovieUpdateRequestDTO movieRequestDTO, FilePart movieImage) {
         log.info("updating movie with id {}", movieRequestDTO.movieId());
+
+
+        MovieImage image = null;
+
+        if (movieImage != null) {
+            log.info("Processing movie image with filename: {}", movieImage.filename());
+            DataBuffer dataBuffer = DataBufferUtils.join(movieImage.content()).block();
+
+            if (dataBuffer != null) {
+                byte[] bytes = new byte[dataBuffer.readableByteCount()];
+                dataBuffer.read(bytes);
+                DataBufferUtils.release(dataBuffer);
+
+                image = MovieImage.newBuilder()
+                        .setData(ByteString.copyFrom(bytes))
+                        .setContentType(movieImage.headers().getContentType().toString())
+                        .setSize(bytes.length)
+                        .setFileName(movieImage.filename())
+                        .build();
+
+                log.info("Content type stored in protobuf: {}", image.getContentType());
+            }
+        }else{
+            image = MovieImage.newBuilder().build();
+        }
 
        UpdateMovieRequest updateMovieRequest = UpdateMovieRequest.newBuilder()
                 .setMovieId(movieRequestDTO.movieId())
@@ -108,6 +136,7 @@ public class MovieGrpcService {
                 .setRating(movieRequestDTO.rating())
                 .addAllCast(movieRequestDTO.cast())
                 .addAllCrew(movieRequestDTO.crew())
+                .setImage(image)
                 .build();
 
         MovieResponse response = movieServiceBlockingStub.updateMovie(updateMovieRequest);

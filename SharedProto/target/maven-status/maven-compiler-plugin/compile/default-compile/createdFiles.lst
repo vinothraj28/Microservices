@@ -21,12 +21,14 @@ com\microservices\movie\grpc\ListTicketsByBookingRequestOrBuilder.class
 com\microservices\movie\grpc\UnlockSeatsRequest.class
 com\microservices\profile\grpc\LogoutRequest.class
 com\microservices\movie\grpc\AddScreenRequest$1.class
+com\microservices\movie\grpc\UploadImageResponseOrBuilder.class
 com\microservices\profile\grpc\RegisterResponse.class
 com\microservices\movie\grpc\ListShowsResponse$Builder.class
 com\microservices\movie\grpc\UpdateScreenRequest.class
 com\microservices\movie\grpc\GetPaymentStatusRequest$Builder.class
 com\microservices\profile\grpc\AuthenticationRequest.class
 com\microservices\oauth2\grpc\OAuth2ServiceGrpc$OAuth2ServiceFileDescriptorSupplier.class
+com\microservices\movie\grpc\GetImageRequest.class
 com\microservices\oauth2\grpc\OAuth2Error$Builder.class
 com\microservices\movie\grpc\MovieServiceGrpc$1.class
 com\microservices\movie\grpc\TicketServiceGrpc.class
@@ -49,6 +51,7 @@ com\microservices\movie\grpc\PaymentServiceGrpc$PaymentServiceBaseDescriptorSupp
 com\microservices\movie\grpc\CreateTheaterRequest$1.class
 com\microservices\movie\grpc\ListTicketsResponse$1.class
 com\microservices\movie\grpc\TheaterResponse$Builder.class
+com\microservices\movie\grpc\UploadImageRequestOrBuilder.class
 com\microservices\oauth2\grpc\GetClientRequestOrBuilder.class
 com\microservices\movie\grpc\ShowResponse$Builder.class
 com\microservices\profile\grpc\LogoutRequest$1.class
@@ -83,6 +86,7 @@ com\microservices\movie\grpc\ListShowsResponseOrBuilder.class
 com\microservices\movie\grpc\GetAvailableSeatsRequest$Builder.class
 com\microservices\movie\grpc\TheaterServiceGrpc$TheaterServiceMethodDescriptorSupplier.class
 com\microservices\movie\grpc\DeleteMovieResponseOrBuilder.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceImplBase.class
 com\microservices\movie\grpc\ScreenResponseOrBuilder.class
 com\microservices\profile\grpc\MfaVerificationRequest.class
 com\microservices\profile\grpc\UserServiceGrpc$MethodHandlers.class
@@ -93,10 +97,13 @@ com\microservices\movie\grpc\PaymentDetails.class
 com\microservices\movie\grpc\GetBookingRequestOrBuilder.class
 com\microservices\movie\grpc\AddScreenRequest.class
 com\microservices\movie\grpc\TheaterServiceGrpc.class
+com\microservices\movie\grpc\DeleteImageRequest$1.class
 com\microservices\movie\grpc\PaymentServiceGrpc$PaymentServiceMethodDescriptorSupplier.class
+com\microservices\movie\grpc\DeleteImageResponse.class
 com\microservices\movie\grpc\ListTicketsResponse$Builder.class
 com\microservices\oauth2\grpc\AuthorizeResponse$Builder.class
 com\microservices\oauth2\grpc\RegisterClientResponseOrBuilder.class
+com\microservices\movie\grpc\DeleteImageRequestOrBuilder.class
 com\microservices\movie\grpc\DeleteMovieResponse.class
 com\microservices\oauth2\grpc\OAuth2Error.class
 com\microservices\movie\grpc\InitiatePaymentRequestOrBuilder.class
@@ -106,6 +113,7 @@ com\microservices\address\grpc\AddressServiceGrpc$MethodHandlers.class
 com\microservices\profile\grpc\AuthenticationServiceGrpc$AuthenticationServiceImplBase.class
 com\microservices\movie\grpc\GetSeatStatusResponse$1.class
 com\microservices\profile\grpc\MfaServiceGrpc$3.class
+com\microservices\movie\grpc\GetImageResponse$Builder.class
 com\microservices\oauth2\grpc\GetClientResponse.class
 com\microservices\oauth2\grpc\IntrospectTokenRequest$1.class
 com\microservices\address\grpc\AddressServiceGrpc$AddressServiceStub.class
@@ -122,9 +130,11 @@ com\microservices\profile\grpc\UserProfile.class
 com\microservices\movie\grpc\BookingServiceGrpc$BookingServiceBlockingStub.class
 com\microservices\movie\grpc\VerifyTicketResponse.class
 com\microservices\profile\grpc\RegisterResponse$Builder.class
+com\microservices\movie\grpc\DeleteImageResponseOrBuilder.class
 com\microservices\movie\grpc\SeatInfo$1.class
 com\microservices\oauth2\grpc\TokenResponseOrBuilder.class
 com\microservices\movie\grpc\PaymentServiceGrpc$PaymentServiceFileDescriptorSupplier.class
+com\microservices\movie\grpc\UploadImageRequest$1.class
 com\microservices\movie\grpc\UpdateScreenRequest$Builder.class
 com\microservices\profile\grpc\MfaServiceGrpc$MethodHandlers.class
 com\microservices\movie\grpc\SeatServiceGrpc$SeatServiceBlockingStub.class
@@ -148,10 +158,13 @@ com\microservices\movie\grpc\LockSeatsResponse$1.class
 com\microservices\oauth2\grpc\GrantType$1.class
 com\microservices\movie\grpc\BookingResponse$1.class
 com\microservices\profile\grpc\AuthenticationResponseOrBuilder.class
+com\microservices\movie\grpc\UploadImageResponse.class
 com\microservices\movie\grpc\ShowResponseOrBuilder.class
 com\microservices\profile\grpc\MfaConfirmResponseOrBuilder.class
 com\microservices\movie\grpc\SeatLayoutRequest$1.class
+com\microservices\movie\grpc\ImageServiceGrpc$2.class
 com\microservices\movie\grpc\CancelBookingResponse$1.class
+com\microservices\movie\grpc\DeleteImageResponse$1.class
 com\microservices\movie\grpc\CreateBookingRequest$1.class
 com\microservices\movie\grpc\UpdateTheaterRequestOrBuilder.class
 com\microservices\movie\grpc\ListMoviesResponseOrBuilder.class
@@ -172,6 +185,7 @@ com\microservices\movie\grpc\ListTheatersRequestOrBuilder.class
 com\microservices\address\grpc\Address.class
 com\microservices\oauth2\grpc\RevokeTokenRequest.class
 com\microservices\movie\grpc\UnlockSeatsResponseOrBuilder.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceBaseDescriptorSupplier.class
 com\microservices\movie\grpc\VerifyPaymentRequest$Builder.class
 com\microservices\address\grpc\AddressRegisterResponse$Builder.class
 com\microservices\movie\grpc\TheaterResponseOrBuilder.class
@@ -217,10 +231,12 @@ com\microservices\address\grpc\AddressServiceGrpc$2.class
 com\microservices\movie\grpc\VerifyTicketResponse$1.class
 com\microservices\address\grpc\AddressRegisterResponse$1.class
 com\microservices\profile\grpc\LoginRequest$Builder.class
+com\microservices\movie\grpc\GetImageRequest$Builder.class
 com\microservices\movie\grpc\ListTheatersRequest$1.class
 com\microservices\profile\grpc\UserServiceGrpc$UserServiceFutureStub.class
 com\microservices\movie\grpc\MovieResponse.class
 com\microservices\movie\grpc\GetScreenRequest$Builder.class
+com\microservices\movie\grpc\ImageServiceGrpc$1.class
 com\microservices\profile\grpc\AuthenticationServiceGrpc$MethodHandlers.class
 com\microservices\oauth2\grpc\ClientType$1.class
 com\microservices\oauth2\grpc\TokenRequest$1.class
@@ -275,6 +291,7 @@ com\microservices\movie\grpc\GetBookingRequest$1.class
 com\microservices\movie\grpc\TicketServiceGrpc$MethodHandlers.class
 com\microservices\oauth2\grpc\UpdateClientResponse$Builder.class
 com\microservices\movie\grpc\ConfirmBookingRequestOrBuilder.class
+com\microservices\movie\grpc\ImageServiceGrpc$3.class
 com\microservices\movie\grpc\ShowServiceGrpc$2.class
 com\microservices\movie\grpc\MovieServiceGrpc$MovieServiceImplBase.class
 com\microservices\oauth2\grpc\TokenResponse.class
@@ -285,11 +302,13 @@ com\microservices\address\grpc\AddressServiceGrpc$1.class
 com\microservices\movie\grpc\ShowServiceGrpc$ShowServiceBlockingStub.class
 com\microservices\profile\grpc\AuthenticationServiceGrpc$AsyncService.class
 com\microservices\movie\grpc\ShowServiceGrpc$ShowServiceBaseDescriptorSupplier.class
+com\microservices\movie\grpc\ImageServiceGrpc.class
 com\microservices\movie\grpc\ListShowsByMovieRequest$1.class
 com\microservices\movie\grpc\TicketServiceGrpc$3.class
 com\microservices\movie\grpc\TheaterServiceGrpc$3.class
 com\microservices\movie\grpc\ListMoviesResponse$Builder.class
 com\microservices\movie\grpc\BookingServiceGrpc$1.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceBlockingStub.class
 com\microservices\movie\grpc\SeatInfoOrBuilder.class
 com\microservices\oauth2\grpc\DeleteClientResponse$Builder.class
 com\microservices\oauth2\grpc\TokenRequest$Builder.class
@@ -318,6 +337,7 @@ com\microservices\profile\grpc\UserServiceGrpc$2.class
 com\microservices\profile\grpc\MfaConfirmRequestOrBuilder.class
 com\microservices\address\grpc\AddressRegisterRequest$1.class
 com\microservices\address\grpc\AddressServiceGrpc$3.class
+com\microservices\movie\grpc\UploadImageResponse$1.class
 com\microservices\address\grpc\AddressServiceGrpc.class
 com\microservices\movie\grpc\PaymentServiceGrpc.class
 com\microservices\movie\grpc\GetAvailableSeatsRequestOrBuilder.class
@@ -328,6 +348,7 @@ com\microservices\address\grpc\Address$Builder.class
 com\microservices\movie\grpc\ConfirmBookingRequest$1.class
 com\microservices\oauth2\grpc\AuthorizeResponse$1.class
 com\microservices\movie\grpc\ListBookingsResponse$Builder.class
+com\microservices\movie\grpc\DeleteImageRequest.class
 com\microservices\profile\grpc\UserServiceGrpc$UserServiceStub.class
 com\microservices\movie\grpc\LockSeatsRequestOrBuilder.class
 com\microservices\oauth2\grpc\OAuth2ErrorOrBuilder.class
@@ -365,6 +386,7 @@ com\microservices\oauth2\grpc\OAuth2ServiceGrpc$1.class
 com\microservices\profile\grpc\UserServiceGrpc$UserServiceImplBase.class
 com\microservices\oauth2\grpc\OAuth2.class
 com\microservices\profile\grpc\RefreshTokenResponseOrBuilder.class
+com\microservices\movie\grpc\DeleteImageRequest$Builder.class
 com\microservices\profile\grpc\LoginResponse.class
 com\microservices\movie\grpc\GenerateTicketsRequest.class
 com\microservices\movie\grpc\MovieResponse$Builder.class
@@ -374,6 +396,7 @@ com\microservices\profile\grpc\MfaServiceGrpc$2.class
 com\microservices\movie\grpc\ShowServiceGrpc$ShowServiceMethodDescriptorSupplier.class
 com\microservices\profile\grpc\LoginResponseOrBuilder.class
 com\microservices\profile\grpc\MfaVerificationRequest$1.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceStub.class
 com\microservices\profile\grpc\MfaSetupRequestOrBuilder.class
 com\microservices\profile\grpc\MfaVerificationResponse$Builder.class
 com\microservices\oauth2\grpc\AuthorizeRequest.class
@@ -382,6 +405,7 @@ com\microservices\profile\grpc\AuthenticationServiceGrpc$AuthenticationServiceFi
 com\microservices\movie\grpc\UpdateShowRequest.class
 com\microservices\profile\grpc\AuthenticationServiceGrpc$1.class
 com\microservices\movie\grpc\GetTicketRequest.class
+com\microservices\movie\grpc\DeleteImageResponse$Builder.class
 com\microservices\oauth2\grpc\GetClientResponse$2.class
 com\microservices\address\grpc\AddressServiceGrpc$AddressServiceBaseDescriptorSupplier.class
 com\microservices\oauth2\grpc\RevokeTokenResponse$Builder.class
@@ -394,6 +418,7 @@ com\microservices\movie\grpc\MovieServiceGrpc$MovieServiceBlockingStub.class
 com\microservices\profile\grpc\MfaConfirmResponse$1.class
 com\microservices\oauth2\grpc\IntrospectTokenRequestOrBuilder.class
 com\microservices\profile\grpc\MfaServiceGrpc$MfaServiceFileDescriptorSupplier.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceFutureStub.class
 com\microservices\oauth2\grpc\RegisterClientResponse.class
 com\microservices\movie\grpc\AddScreenRequest$Builder.class
 com\microservices\profile\grpc\LogoutResponse.class
@@ -403,6 +428,7 @@ com\microservices\movie\grpc\GetTheaterRequest$Builder.class
 com\microservices\movie\grpc\ListTicketsByBookingRequest.class
 com\microservices\profile\grpc\MfaSetupRequest.class
 com\microservices\oauth2\grpc\UpdateClientResponse$1.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceFileDescriptorSupplier.class
 com\microservices\movie\grpc\MovieServiceGrpc$MovieServiceStub.class
 com\microservices\movie\grpc\TicketServiceGrpc$TicketServiceBaseDescriptorSupplier.class
 com\microservices\movie\grpc\GetShowRequestOrBuilder.class
@@ -423,8 +449,10 @@ com\microservices\movie\grpc\VerifyTicketRequestOrBuilder.class
 com\microservices\movie\grpc\TheaterServiceGrpc$TheaterServiceBaseDescriptorSupplier.class
 com\microservices\address\grpc\FindAddressRequest$1.class
 com\microservices\movie\grpc\VerifyTicketResponseOrBuilder.class
+com\microservices\movie\grpc\GetImageResponse$1.class
 com\microservices\movie\grpc\GetTheaterRequest$1.class
 com\microservices\address\grpc\AddressServiceGrpc$AddressServiceImplBase.class
+com\microservices\movie\grpc\UploadImageResponse$Builder.class
 com\microservices\movie\grpc\GetSeatStatusRequestOrBuilder.class
 com\microservices\movie\grpc\ConfirmBookingRequest.class
 com\microservices\movie\grpc\SeatServiceGrpc$AsyncService.class
@@ -457,9 +485,11 @@ com\microservices\profile\grpc\MfaServiceGrpc$MfaServiceBaseDescriptorSupplier.c
 com\microservices\movie\grpc\SeatLayoutRequest.class
 com\microservices\movie\grpc\ConfirmBookingRequest$Builder.class
 com\microservices\oauth2\grpc\AuthorizeResponse.class
+com\microservices\movie\grpc\UploadImageRequest$Builder.class
 com\microservices\movie\grpc\CreateMovieRequest.class
 com\microservices\oauth2\grpc\RegisterClientRequest$2.class
 com\microservices\movie\grpc\CancelBookingResponse.class
+com\microservices\movie\grpc\ImageServiceGrpc$AsyncService.class
 com\microservices\movie\grpc\GetTicketRequest$Builder.class
 com\microservices\movie\grpc\PaymentResponse$Builder.class
 com\microservices\oauth2\grpc\OAuth2ServiceGrpc$OAuth2ServiceBaseDescriptorSupplier.class
@@ -480,6 +510,7 @@ com\microservices\movie\grpc\BookingServiceGrpc$3.class
 com\microservices\movie\grpc\AvailableSeatsResponse$Builder.class
 com\microservices\movie\grpc\GetSeatStatusResponse$Builder.class
 com\microservices\oauth2\grpc\TokenResponse$Builder.class
+com\microservices\movie\grpc\GetImageRequestOrBuilder.class
 com\microservices\movie\grpc\ListTicketsResponse.class
 com\microservices\movie\grpc\ShowResponse.class
 com\microservices\movie\grpc\UpdateShowRequest$Builder.class
@@ -487,6 +518,7 @@ com\microservices\profile\grpc\MfaServiceGrpc$MfaServiceFutureStub.class
 com\microservices\movie\grpc\ListBookingsResponse$1.class
 com\microservices\movie\grpc\SeatLayoutResponse$1.class
 com\microservices\profile\grpc\UserServiceGrpc$UserServiceBaseDescriptorSupplier.class
+com\microservices\movie\grpc\ImageServiceGrpc$MethodHandlers.class
 com\microservices\movie\grpc\DeleteMovieResponse$1.class
 com\microservices\movie\grpc\LockSeatsRequest$1.class
 com\microservices\movie\grpc\ListShowsByTheaterRequest$Builder.class
@@ -512,10 +544,12 @@ com\microservices\oauth2\grpc\GetClientRequest.class
 com\microservices\movie\grpc\SeatStatus$Builder.class
 com\microservices\movie\grpc\GetBookingRequest$Builder.class
 com\microservices\movie\grpc\GetPaymentStatusRequestOrBuilder.class
+com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceMethodDescriptorSupplier.class
 com\microservices\movie\grpc\ShowServiceGrpc$ShowServiceFileDescriptorSupplier.class
 com\microservices\movie\grpc\MovieServiceGrpc$AsyncService.class
 com\microservices\profile\grpc\MfaServiceGrpc$MfaServiceStub.class
 com\microservices\movie\grpc\BookingServiceGrpc$BookingServiceFileDescriptorSupplier.class
+com\microservices\movie\grpc\UploadImageRequest.class
 com\microservices\profile\grpc\UserServiceGrpc$AsyncService.class
 com\microservices\movie\grpc\UpdateMovieRequest$1.class
 com\microservices\movie\grpc\ProcessRefundRequest$Builder.class
@@ -544,11 +578,13 @@ com\microservices\oauth2\grpc\OAuth2ServiceGrpc$MethodHandlers.class
 com\microservices\movie\grpc\ListTicketsByBookingRequest$1.class
 com\microservices\address\grpc\AddressRegisterResponse.class
 com\microservices\movie\grpc\BookingServiceGrpc$2.class
+com\microservices\movie\grpc\GetImageResponseOrBuilder.class
 com\microservices\movie\grpc\GetMovieRequest$Builder.class
 com\microservices\profile\grpc\RefreshTokenResponse$Builder.class
 com\microservices\address\grpc\AddressServiceGrpc$AddressServiceFileDescriptorSupplier.class
 com\microservices\movie\grpc\PaymentServiceGrpc$AsyncService.class
 com\microservices\movie\grpc\TicketServiceGrpc$TicketServiceFutureStub.class
+com\microservices\movie\grpc\GetImageRequest$1.class
 com\microservices\movie\grpc\UnlockSeatsResponse$1.class
 com\microservices\movie\grpc\GetAvailableSeatsRequest$1.class
 com\microservices\profile\grpc\RefreshTokenRequest$1.class
@@ -570,6 +606,7 @@ com\microservices\oauth2\grpc\TokenResponse$1.class
 com\microservices\movie\grpc\TheaterServiceGrpc$TheaterServiceFutureStub.class
 com\microservices\oauth2\grpc\GetClientResponse$Builder.class
 com\microservices\address\grpc\AddressOuterClass.class
+com\microservices\movie\grpc\GetImageResponse.class
 com\microservices\movie\grpc\RefundResponseOrBuilder.class
 com\microservices\movie\grpc\ListTheatersResponseOrBuilder.class
 com\microservices\movie\grpc\PaymentResponse.class

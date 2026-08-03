@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import type { MovieMediaForm } from '../movie-form/movie-form.component';
 
@@ -10,8 +10,14 @@ import type { MovieMediaForm } from '../movie-form/movie-form.component';
 })
 export class MovieMediaComponent {
   @Input({ required: true }) formGroup!: FormGroup<MovieMediaForm>;
+  @Input() posterPreviewUrlInput: string | null = null;
   @Output() submitError = new EventEmitter<string | null>();
   @Output() isPosterUploading = new EventEmitter<boolean>();
+  protected posterPreviewUrl = signal<string | null>(null);
+
+  protected resolvedPreviewUrl(): string | null {
+    return this.posterPreviewUrl() ?? this.posterPreviewUrlInput;
+  }
 
   protected async onPosterFileSelected(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
@@ -29,6 +35,9 @@ export class MovieMediaComponent {
     this.submitError.emit(null);
     this.isPosterUploading.emit(false);
 
-    file && this.formGroup.controls.poster.setValue(file);
+    if (file) {
+      this.formGroup.controls.poster.setValue(file);
+      this.posterPreviewUrl.set(URL.createObjectURL(file));
+    }
   }
 }

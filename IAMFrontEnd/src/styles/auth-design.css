@@ -239,7 +239,7 @@ body {
 .auth-input:focus {
   outline: none;
   border-color: rgba(255, 159, 67, 0.82);
-  background: rgba(255, 255, 255, 0.08);
+  background: black;
   box-shadow: 0 0 0 4px rgba(255, 159, 67, 0.14);
   transform: translateY(-1px);
 }

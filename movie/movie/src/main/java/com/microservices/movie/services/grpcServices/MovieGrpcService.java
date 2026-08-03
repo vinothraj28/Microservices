@@ -38,6 +38,10 @@ public class MovieGrpcService extends MovieServiceGrpc.MovieServiceImplBase {
         Image image = null;
 
         if(request.hasImage()) {
+            log.info("Image filename: {}", request.getImage().getFileName());
+            log.info("Image content type: {}", request.getImage().getContentType());
+            log.info("Image size: {}", request.getImage().getSize());
+            log.info("Image data size: {}", request.getImage().getData().size());
            image = Image.builder()
                     .fileName(request.getImage().getFileName())
                     .contentType(request.getImage().getContentType())
@@ -84,6 +88,21 @@ public class MovieGrpcService extends MovieServiceGrpc.MovieServiceImplBase {
     @Override
     public void updateMovie(UpdateMovieRequest request, StreamObserver<MovieResponse> responseObserver) {
         log.info("Received gRPC request to update movie with ID: {}", request.getMovieId());
+        Image image = null;
+
+        if(request.hasImage()) {
+            log.info("Image filename: {}", request.getImage().getFileName());
+            log.info("Image content type: {}", request.getImage().getContentType());
+            log.info("Image size: {}", request.getImage().getSize());
+            log.info("Image data size: {}", request.getImage().getData().size());
+            image = Image.builder()
+                    .fileName(request.getImage().getFileName())
+                    .contentType(request.getImage().getContentType())
+                    .size((long) request.getImage().getSize())
+                    .data(request.getImage().getData().toByteArray())
+                    .build();
+        }
+
         Movie movie = Movie.builder()
                 .id(UUID.fromString(request.getMovieId()))
                 .title(request.getTitle())
@@ -97,6 +116,7 @@ public class MovieGrpcService extends MovieServiceGrpc.MovieServiceImplBase {
                 .rating(request.getRating())
                 .cast(new ArrayList<>(request.getCastList()))
                 .crew(new ArrayList<>(request.getCrewList()))
+                .image(image)
                 .build();
 
         Movie response = movieService.updateMovie(movie.getId(), movie);

@@ -39,8 +39,8 @@ public interface MovieImageOrBuilder extends
       getContentTypeBytes();
 
   /**
-   * <code>int32 size = 4;</code>
+   * <code>int64 size = 4;</code>
    * @return The size.
    */
-  int getSize();
+  long getSize();
 }

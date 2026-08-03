@@ -23,6 +23,7 @@ export interface AppConfig {
     deleteUrl: string;
     getMovieByIdUrl: string;
     getAllMoviesUrl: string;
+    getImageById: string;
   };
 }
 

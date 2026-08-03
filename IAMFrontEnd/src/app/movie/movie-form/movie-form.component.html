@@ -2,8 +2,14 @@
   <section class="auth-card">
     <header class="auth-card__header">
       <p class="auth-chip">Movie onboarding</p>
-      <h2>Register movie</h2>
-      <p>Add a new movie to the platform.</p>
+      <h2>{{ isEditMode() ? "Update Movie" : "Register Movie" }} movie</h2>
+      <p>
+        {{
+          isEditMode()
+            ? "Update movie details below."
+            : "Add a new movie to the platform."
+        }}
+      </p>
     </header>
     <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" novalidate>
       <mat-horizontal-stepper [linear]="true" #stepper>
@@ -39,6 +45,7 @@
             [formGroup]="form.controls.media"
             (submitError)="onSubmitError($event)"
             (isPosterUploading)="onPosterUploading($event)"
+            [posterPreviewUrlInput]="file()"
           ></app-movie-media>
           <div class="movie-stepper__actions">
             <button
@@ -105,7 +112,7 @@
               mat-button
               [disabled]="isSubmitting()"
             >
-              Submit
+              {{ isEditMode() ? "Update" : "Submit" }}
             </button>
           </div>
         </mat-step>

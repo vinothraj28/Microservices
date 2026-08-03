@@ -1,5 +1,12 @@
-import { ChangeDetectionStrategy, inject, signal, Input } from '@angular/core';
-import { Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  inject,
+  signal,
+  Input,
+  Component,
+} from '@angular/core';
+import type { OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   FormArray,
   FormControl,
@@ -11,7 +18,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { firstValueFrom, map, startWith } from 'rxjs';
 import { MovieServiceService } from '../../core/services/movie/movie-service.service';
-import type { MovieRegisterRequest } from '../../core/services/movie/movie-service.service';
+import type {
+  MovieRegisterRequest,
+  MovieUpdateRequest,
+} from '../../core/services/movie/movie-service.service';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 import { MovieCreditsComponent } from '../movie-credits/movie-credits.component';
@@ -70,17 +80,37 @@ export type MovieValue = ReturnType<FormGroup<MovieForm>['getRawValue']>;
   styleUrls: ['./movie-form.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MovieFormComponent {
+export class MovieFormComponent implements OnInit {
+  //Handle form submission state
   protected readonly isSubmitting = signal(false);
   protected readonly submitSuccess = signal(false);
   protected readonly submitError = signal<string | null>(null);
-  protected readonly ratings: string[] = ['U', 'UA', 'A', 'R'];
-  protected readonly movieService = inject(MovieServiceService);
 
+  // Ratings for the movie review
+  protected readonly ratings: string[] = ['U', 'UA', 'A', 'R'];
+
+  // Inject the MovieServiceService and ActivatedRoute to handle movie-related operations
+  protected readonly movieService = inject(MovieServiceService);
+  protected readonly route = inject(ActivatedRoute);
+
+  // Signals to manage poster upload state and file selection
   protected readonly posterPreviewUrl = signal<string | null>(null);
   protected readonly isPosterUploading = signal(false);
-  protected readonly file = signal<File | undefined>(undefined);
-  // constructor(private readonly movieService: MovieServiceService) {}
+  protected readonly file = signal<string | null>(null);
+
+  // Signals to manage form state and mode (edit or add)
+  protected readonly movieId = signal<string | null>(null);
+  protected readonly isEditMode = signal<boolean>(false);
+  protected readonly isFormLoading = signal<boolean>(false);
+
+  async ngOnInit(): Promise<void> {
+    const id = this.route.snapshot.paramMap.get('movieId');
+    if (id) {
+      this.movieId.set(id);
+      this.isEditMode.set(true);
+      await this.loadMovieForEdit(id);
+    }
+  }
 
   protected readonly form = new FormGroup<MovieForm>({
     details: new FormGroup<MovieDetailsForm>({
@@ -190,6 +220,56 @@ export class MovieFormComponent {
     },
   );
 
+  private async loadMovieForEdit(movieId: string): Promise<void> {
+    this.isFormLoading.set(true);
+    this.submitError.set(null);
+
+    try {
+      const movieData = await firstValueFrom(
+        this.movieService.getMovieById(movieId),
+      );
+
+      const imageResponse = await firstValueFrom(
+        this.movieService.getImageById(movieData?.imageId),
+      );
+
+      const posterFile = new File([imageResponse], 'poster.jpg', {
+        type: imageResponse.type,
+      });
+
+      this.file.set(URL.createObjectURL(imageResponse));
+
+      // Populate the form with the movie data
+      this.form.patchValue({
+        details: {
+          title: movieData.title,
+          description: movieData.description,
+          durationMinutes: movieData.durationMinutes,
+          genre: movieData.genre,
+          language: movieData.language,
+          releaseDate: movieData.releaseDate,
+        },
+        media: {
+          // Poster file will be handled separately
+          posterUrl: movieData.posterUrl,
+          trailerUrl: movieData.trailerUrl,
+        },
+        credits: {
+          cast: movieData.cast,
+          crew: movieData.crew,
+        },
+        review: {
+          rating: movieData.rating,
+        },
+      });
+    } catch (error) {
+      console.error('Error loading movie for edit:', error);
+      this.submitError.set('Unable to load movie details. Please try again.');
+    } finally {
+      this.isFormLoading.set(false);
+    }
+  }
+
   protected async submit(): Promise<void> {
     this.submitSuccess.set(false);
     this.submitError.set(null);
@@ -202,11 +282,19 @@ export class MovieFormComponent {
     this.isSubmitting.set(true);
 
     try {
-      const requestBody = this.buildRequest();
+      const posterFile = this.mediaGroup.controls.poster.value ?? undefined;
 
-      await firstValueFrom(
-        this.movieService.registerMovie(requestBody, this.file()),
-      );
+      if (this.isEditMode()) {
+        const requestBody = this.buildUpdateRequest();
+        await firstValueFrom(
+          this.movieService.updateMovie(requestBody, posterFile),
+        );
+      } else {
+        const requestBody = this.buildRegisterRequest();
+        await firstValueFrom(
+          this.movieService.registerMovie(requestBody, posterFile),
+        );
+      }
 
       this.submitSuccess.set(true);
       this.form.markAsPristine();
@@ -218,7 +306,14 @@ export class MovieFormComponent {
     }
   }
 
-  private buildRequest(): MovieRegisterRequest {
+  private buildUpdateRequest(): MovieUpdateRequest {
+    return {
+      movieId: this.movieId()!,
+      ...this.buildRegisterRequest(),
+    };
+  }
+
+  private buildRegisterRequest(): MovieRegisterRequest {
     const details = this.detailsGroup.getRawValue();
     const media = this.mediaGroup.getRawValue();
     const review = this.reviewGroup.getRawValue();
@@ -247,22 +342,22 @@ export class MovieFormComponent {
     };
   }
 
-  protected async onPosterFileSelected(event: Event): Promise<void> {
-    const input = event.target as HTMLInputElement;
-    const file = input.files?.[0];
+  // protected async onPosterFileSelected(event: Event): Promise<void> {
+  //   const input = event.target as HTMLInputElement;
+  //   const file = input.files?.[0];
 
-    if (!file) {
-      return;
-    }
+  //   if (!file) {
+  //     return;
+  //   }
 
-    if (!file.type.startsWith('image/')) {
-      this.submitError.set('Please select a valid image file.');
-      return;
-    }
+  //   if (!file.type.startsWith('image/')) {
+  //     this.submitError.set('Please select a valid image file.');
+  //     return;
+  //   }
 
-    this.submitError.set(null);
-    this.isPosterUploading.set(false);
+  //   this.submitError.set(null);
+  //   this.isPosterUploading.set(false);
 
-    file && this.file.set(file);
-  }
+  //   file && this.file.set(file);
+  // }
 }

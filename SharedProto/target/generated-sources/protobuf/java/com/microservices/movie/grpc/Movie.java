@@ -340,6 +340,36 @@ public final class Movie {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_movie_CancelTicketsResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_UploadImageRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_UploadImageRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_UploadImageResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_UploadImageResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_GetImageRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_GetImageRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_GetImageResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_GetImageResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_DeleteImageRequest_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_DeleteImageRequest_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_DeleteImageResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_DeleteImageResponse_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -352,7 +382,7 @@ public final class Movie {
       "\n\013Movie.proto\022\005movie\032\037google/protobuf/ti" +
       "mestamp.proto\"Q\n\nMovieImage\022\014\n\004data\030\001 \001(" +
       "\014\022\021\n\tfile_name\030\002 \001(\t\022\024\n\014content_type\030\003 \001" +
-      "(\t\022\014\n\004size\030\004 \001(\005\"\200\002\n\022CreateMovieRequest\022" +
+      "(\t\022\014\n\004size\030\004 \001(\003\"\200\002\n\022CreateMovieRequest\022" +
       "\r\n\005title\030\001 \001(\t\022\023\n\013description\030\002 \001(\t\022\030\n\020d" +
       "uration_minutes\030\003 \001(\005\022\r\n\005genre\030\004 \001(\t\022\020\n\010" +
       "language\030\005 \001(\t\022\024\n\014release_date\030\006 \001(\t\022\022\n\n" +
@@ -541,75 +571,90 @@ public final class Movie {
       "\001 \001(\010\022\017\n\007message\030\002 \001(\t\022%\n\006ticket\030\003 \001(\0132\025" +
       ".movie.TicketResponse\"T\n\025CancelTicketsRe" +
       "sponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 \001(\t" +
-      "\022\031\n\021tickets_cancelled\030\003 \001(\0052\321\002\n\014MovieSer" +
-      "vice\022>\n\013CreateMovie\022\031.movie.CreateMovieR" +
-      "equest\032\024.movie.MovieResponse\022>\n\013UpdateMo" +
-      "vie\022\031.movie.UpdateMovieRequest\032\024.movie.M" +
-      "ovieResponse\0228\n\010GetMovie\022\026.movie.GetMovi" +
-      "eRequest\032\024.movie.MovieResponse\022A\n\nListMo" +
-      "vies\022\030.movie.ListMoviesRequest\032\031.movie.L" +
-      "istMoviesResponse\022D\n\013DeleteMovie\022\031.movie" +
-      ".DeleteMovieRequest\032\032.movie.DeleteMovieR" +
-      "esponse2\272\004\n\016TheaterService\022D\n\rCreateThea" +
-      "ter\022\033.movie.CreateTheaterRequest\032\026.movie" +
-      ".TheaterResponse\022D\n\rUpdateTheater\022\033.movi" +
-      "e.UpdateTheaterRequest\032\026.movie.TheaterRe" +
-      "sponse\022>\n\nGetTheater\022\030.movie.GetTheaterR" +
-      "equest\032\026.movie.TheaterResponse\022G\n\014ListTh" +
-      "eaters\022\032.movie.ListTheatersRequest\032\033.mov" +
-      "ie.ListTheatersResponse\022;\n\tAddScreen\022\027.m" +
-      "ovie.AddScreenRequest\032\025.movie.ScreenResp" +
-      "onse\022A\n\014UpdateScreen\022\032.movie.UpdateScree" +
-      "nRequest\032\025.movie.ScreenResponse\022;\n\tGetSc" +
-      "reen\022\027.movie.GetScreenRequest\032\025.movie.Sc" +
-      "reenResponse\022V\n\024ListScreensByTheater\022\".m" +
-      "ovie.ListScreensByTheaterRequest\032\032.movie" +
-      ".ListScreensResponse2\263\003\n\013ShowService\022;\n\n" +
-      "CreateShow\022\030.movie.CreateShowRequest\032\023.m" +
-      "ovie.ShowResponse\022;\n\nUpdateShow\022\030.movie." +
-      "UpdateShowRequest\032\023.movie.ShowResponse\0225" +
-      "\n\007GetShow\022\025.movie.GetShowRequest\032\023.movie" +
-      ".ShowResponse\022L\n\020ListShowsByMovie\022\036.movi" +
-      "e.ListShowsByMovieRequest\032\030.movie.ListSh" +
-      "owsResponse\022P\n\022ListShowsByTheater\022 .movi" +
-      "e.ListShowsByTheaterRequest\032\030.movie.List" +
-      "ShowsResponse\022S\n\021GetAvailableSeats\022\037.mov" +
-      "ie.GetAvailableSeatsRequest\032\035.movie.Avai" +
-      "lableSeatsResponse2\337\001\n\013SeatService\022>\n\tLo" +
-      "ckSeats\022\027.movie.LockSeatsRequest\032\030.movie" +
-      ".LockSeatsResponse\022D\n\013UnlockSeats\022\031.movi" +
-      "e.UnlockSeatsRequest\032\032.movie.UnlockSeats" +
-      "Response\022J\n\rGetSeatStatus\022\033.movie.GetSea" +
-      "tStatusRequest\032\034.movie.GetSeatStatusResp" +
-      "onse2\373\002\n\016BookingService\022D\n\rCreateBooking" +
-      "\022\033.movie.CreateBookingRequest\032\026.movie.Bo" +
-      "okingResponse\022F\n\016ConfirmBooking\022\034.movie." +
-      "ConfirmBookingRequest\032\026.movie.BookingRes" +
-      "ponse\022J\n\rCancelBooking\022\033.movie.CancelBoo" +
-      "kingRequest\032\034.movie.CancelBookingRespons" +
-      "e\022>\n\nGetBooking\022\030.movie.GetBookingReques" +
-      "t\032\026.movie.BookingResponse\022O\n\020ListUserBoo" +
-      "kings\022\036.movie.ListUserBookingsRequest\032\033." +
-      "movie.ListBookingsResponse2\261\002\n\016PaymentSe" +
-      "rvice\022H\n\017InitiatePayment\022\035.movie.Initiat" +
-      "ePaymentRequest\032\026.movie.PaymentResponse\022" +
-      "D\n\rVerifyPayment\022\033.movie.VerifyPaymentRe" +
-      "quest\032\026.movie.PaymentResponse\022C\n\rProcess" +
-      "Refund\022\033.movie.ProcessRefundRequest\032\025.mo" +
-      "vie.RefundResponse\022J\n\020GetPaymentStatus\022\036" +
-      ".movie.GetPaymentStatusRequest\032\026.movie.P" +
-      "aymentResponse2\213\003\n\rTicketService\022P\n\017Gene" +
-      "rateTickets\022\035.movie.GenerateTicketsReque" +
-      "st\032\036.movie.GenerateTicketsResponse\022;\n\tGe" +
-      "tTicket\022\027.movie.GetTicketRequest\032\025.movie" +
-      ".TicketResponse\022G\n\014VerifyTicket\022\032.movie." +
-      "VerifyTicketRequest\032\033.movie.VerifyTicket" +
-      "Response\022V\n\024ListTicketsByBooking\022\".movie" +
-      ".ListTicketsByBookingRequest\032\032.movie.Lis" +
-      "tTicketsResponse\022J\n\rCancelTickets\022\033.movi" +
-      "e.CancelTicketsRequest\032\034.movie.CancelTic" +
-      "ketsResponseB \n\034com.microservices.movie." +
-      "grpcP\001b\006proto3"
+      "\022\031\n\021tickets_cancelled\030\003 \001(\005\"]\n\022UploadIma" +
+      "geRequest\022\014\n\004data\030\001 \001(\014\022\021\n\tfile_name\030\002 \001" +
+      "(\t\022\024\n\014content_type\030\003 \001(\t\022\020\n\010movie_id\030\004 \001" +
+      "(\t\"8\n\023UploadImageResponse\022\020\n\010image_id\030\001 " +
+      "\001(\003\022\017\n\007message\030\002 \001(\t\"#\n\017GetImageRequest\022" +
+      "\020\n\010image_id\030\001 \001(\003\"W\n\020GetImageResponse\022\014\n" +
+      "\004data\030\001 \001(\014\022\021\n\tfile_name\030\002 \001(\t\022\024\n\014conten" +
+      "t_type\030\003 \001(\t\022\014\n\004size\030\004 \001(\003\"&\n\022DeleteImag" +
+      "eRequest\022\020\n\010image_id\030\001 \001(\t\"7\n\023DeleteImag" +
+      "eResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 " +
+      "\001(\t2\321\002\n\014MovieService\022>\n\013CreateMovie\022\031.mo" +
+      "vie.CreateMovieRequest\032\024.movie.MovieResp" +
+      "onse\022>\n\013UpdateMovie\022\031.movie.UpdateMovieR" +
+      "equest\032\024.movie.MovieResponse\0228\n\010GetMovie" +
+      "\022\026.movie.GetMovieRequest\032\024.movie.MovieRe" +
+      "sponse\022A\n\nListMovies\022\030.movie.ListMoviesR" +
+      "equest\032\031.movie.ListMoviesResponse\022D\n\013Del" +
+      "eteMovie\022\031.movie.DeleteMovieRequest\032\032.mo" +
+      "vie.DeleteMovieResponse2\272\004\n\016TheaterServi" +
+      "ce\022D\n\rCreateTheater\022\033.movie.CreateTheate" +
+      "rRequest\032\026.movie.TheaterResponse\022D\n\rUpda" +
+      "teTheater\022\033.movie.UpdateTheaterRequest\032\026" +
+      ".movie.TheaterResponse\022>\n\nGetTheater\022\030.m" +
+      "ovie.GetTheaterRequest\032\026.movie.TheaterRe" +
+      "sponse\022G\n\014ListTheaters\022\032.movie.ListTheat" +
+      "ersRequest\032\033.movie.ListTheatersResponse\022" +
+      ";\n\tAddScreen\022\027.movie.AddScreenRequest\032\025." +
+      "movie.ScreenResponse\022A\n\014UpdateScreen\022\032.m" +
+      "ovie.UpdateScreenRequest\032\025.movie.ScreenR" +
+      "esponse\022;\n\tGetScreen\022\027.movie.GetScreenRe" +
+      "quest\032\025.movie.ScreenResponse\022V\n\024ListScre" +
+      "ensByTheater\022\".movie.ListScreensByTheate" +
+      "rRequest\032\032.movie.ListScreensResponse2\263\003\n" +
+      "\013ShowService\022;\n\nCreateShow\022\030.movie.Creat" +
+      "eShowRequest\032\023.movie.ShowResponse\022;\n\nUpd" +
+      "ateShow\022\030.movie.UpdateShowRequest\032\023.movi" +
+      "e.ShowResponse\0225\n\007GetShow\022\025.movie.GetSho" +
+      "wRequest\032\023.movie.ShowResponse\022L\n\020ListSho" +
+      "wsByMovie\022\036.movie.ListShowsByMovieReques" +
+      "t\032\030.movie.ListShowsResponse\022P\n\022ListShows" +
+      "ByTheater\022 .movie.ListShowsByTheaterRequ" +
+      "est\032\030.movie.ListShowsResponse\022S\n\021GetAvai" +
+      "lableSeats\022\037.movie.GetAvailableSeatsRequ" +
+      "est\032\035.movie.AvailableSeatsResponse2\337\001\n\013S" +
+      "eatService\022>\n\tLockSeats\022\027.movie.LockSeat" +
+      "sRequest\032\030.movie.LockSeatsResponse\022D\n\013Un" +
+      "lockSeats\022\031.movie.UnlockSeatsRequest\032\032.m" +
+      "ovie.UnlockSeatsResponse\022J\n\rGetSeatStatu" +
+      "s\022\033.movie.GetSeatStatusRequest\032\034.movie.G" +
+      "etSeatStatusResponse2\373\002\n\016BookingService\022" +
+      "D\n\rCreateBooking\022\033.movie.CreateBookingRe" +
+      "quest\032\026.movie.BookingResponse\022F\n\016Confirm" +
+      "Booking\022\034.movie.ConfirmBookingRequest\032\026." +
+      "movie.BookingResponse\022J\n\rCancelBooking\022\033" +
+      ".movie.CancelBookingRequest\032\034.movie.Canc" +
+      "elBookingResponse\022>\n\nGetBooking\022\030.movie." +
+      "GetBookingRequest\032\026.movie.BookingRespons" +
+      "e\022O\n\020ListUserBookings\022\036.movie.ListUserBo" +
+      "okingsRequest\032\033.movie.ListBookingsRespon" +
+      "se2\261\002\n\016PaymentService\022H\n\017InitiatePayment" +
+      "\022\035.movie.InitiatePaymentRequest\032\026.movie." +
+      "PaymentResponse\022D\n\rVerifyPayment\022\033.movie" +
+      ".VerifyPaymentRequest\032\026.movie.PaymentRes" +
+      "ponse\022C\n\rProcessRefund\022\033.movie.ProcessRe" +
+      "fundRequest\032\025.movie.RefundResponse\022J\n\020Ge" +
+      "tPaymentStatus\022\036.movie.GetPaymentStatusR" +
+      "equest\032\026.movie.PaymentResponse2\213\003\n\rTicke" +
+      "tService\022P\n\017GenerateTickets\022\035.movie.Gene" +
+      "rateTicketsRequest\032\036.movie.GenerateTicke" +
+      "tsResponse\022;\n\tGetTicket\022\027.movie.GetTicke" +
+      "tRequest\032\025.movie.TicketResponse\022G\n\014Verif" +
+      "yTicket\022\032.movie.VerifyTicketRequest\032\033.mo" +
+      "vie.VerifyTicketResponse\022V\n\024ListTicketsB" +
+      "yBooking\022\".movie.ListTicketsByBookingReq" +
+      "uest\032\032.movie.ListTicketsResponse\022J\n\rCanc" +
+      "elTickets\022\033.movie.CancelTicketsRequest\032\034" +
+      ".movie.CancelTicketsResponse2\327\001\n\014ImageSe" +
+      "rvice\022D\n\013UploadImage\022\031.movie.UploadImage" +
+      "Request\032\032.movie.UploadImageResponse\022;\n\010G" +
+      "etImage\022\026.movie.GetImageRequest\032\027.movie." +
+      "GetImageResponse\022D\n\013DeleteImage\022\031.movie." +
+      "DeleteImageRequest\032\032.movie.DeleteImageRe" +
+      "sponseB \n\034com.microservices.movie.grpcP\001" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -1006,6 +1051,42 @@ public final class Movie {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CancelTicketsResponse_descriptor,
         new java.lang.String[] { "Success", "Message", "TicketsCancelled", });
+    internal_static_movie_UploadImageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(65);
+    internal_static_movie_UploadImageRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_UploadImageRequest_descriptor,
+        new java.lang.String[] { "Data", "FileName", "ContentType", "MovieId", });
+    internal_static_movie_UploadImageResponse_descriptor =
+      getDescriptor().getMessageTypes().get(66);
+    internal_static_movie_UploadImageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_UploadImageResponse_descriptor,
+        new java.lang.String[] { "ImageId", "Message", });
+    internal_static_movie_GetImageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(67);
+    internal_static_movie_GetImageRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_GetImageRequest_descriptor,
+        new java.lang.String[] { "ImageId", });
+    internal_static_movie_GetImageResponse_descriptor =
+      getDescriptor().getMessageTypes().get(68);
+    internal_static_movie_GetImageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_GetImageResponse_descriptor,
+        new java.lang.String[] { "Data", "FileName", "ContentType", "Size", });
+    internal_static_movie_DeleteImageRequest_descriptor =
+      getDescriptor().getMessageTypes().get(69);
+    internal_static_movie_DeleteImageRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_DeleteImageRequest_descriptor,
+        new java.lang.String[] { "ImageId", });
+    internal_static_movie_DeleteImageResponse_descriptor =
+      getDescriptor().getMessageTypes().get(70);
+    internal_static_movie_DeleteImageResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_DeleteImageResponse_descriptor,
+        new java.lang.String[] { "Success", "Message", });
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 

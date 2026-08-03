@@ -42,18 +42,13 @@
       below.</small
     >
   </label>
-
-  <!-- @if (isPosterUploading()) {
-    <p class="auth-loading">Uploading poster image...</p>
-  }
-
-  @if (posterPreviewUrl()) {
+  @if (resolvedPreviewUrl()) {
     <div class="auth-qr-panel">
       <img
-        [src]="posterPreviewUrl()!"
+        [src]="resolvedPreviewUrl()"
         alt="Poster preview"
         class="auth-qr-image"
       />
     </div>
-  } -->
+  }
 </div>

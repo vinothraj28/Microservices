@@ -4,20 +4,20 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public record MovieResponseDTO(
-        String movie_id,
+        String movieId,
         String title,
         String description,
-        int duration_minutes,
+        int durationMinutes,
         String genre,
         String language,
-        String release_date,
-        String poster_url,
-        String trailer_url,
+        String releaseDate,
+        String posterUrl,
+        String trailerUrl,
         String rating,
         List<String>cast,
         List<String> crew,
-        LocalDateTime created_at,
-        LocalDateTime updated_at,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt,
         String imageId
 ) {
 }

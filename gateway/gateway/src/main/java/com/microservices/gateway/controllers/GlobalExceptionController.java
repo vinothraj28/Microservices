@@ -3,6 +3,7 @@ package com.microservices.gateway.controllers;
 
 import com.microservices.gateway.DTOS.errors.ErrorResponseDTO;
 import com.microservices.gateway.excpetions.AuthenticationException;
+import com.microservices.gateway.excpetions.ImageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,18 @@ public class GlobalExceptionController {
         log.warn("Authentication failed: {}", ex.getMessage());
         return buildErrorResponse(
                 HttpStatus.UNAUTHORIZED,
+                ex.getMessage(),
+                request.getURI().getPath()
+        );
+    }
+
+    @ExceptionHandler(ImageException.class)
+    public ResponseEntity<ErrorResponseDTO> handleImageException(
+            ImageException ex,
+            ServerHttpRequest request) {
+        log.error("Image processing failed: {}", ex.getMessage());
+        return buildErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
                 ex.getMessage(),
                 request.getURI().getPath()
         );

@@ -51,11 +51,7 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [authenticatedGuard],
-    loadComponent: () =>
-      import('./dashboard/dashboard.component').then(
-        (component) => component.DashboardComponent,
-      ),
+    redirectTo: 'base/dashboard',
   },
   {
     path: 'verify-mfa',
@@ -105,6 +101,14 @@ export const routes: Routes = [
             loadComponent: () =>
               import('./movie/movie-main/movie-main.component').then(
                 (component) => component.MovieMainComponent,
+              ),
+          },
+          {
+            path: ':movieId/edit',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./movie/movie-form/movie-form.component').then(
+                (component) => component.MovieFormComponent,
               ),
           },
           {

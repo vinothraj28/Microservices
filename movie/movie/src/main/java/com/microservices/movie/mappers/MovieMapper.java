@@ -12,6 +12,7 @@ import java.time.Instant;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
 
+    @Mapping(target = "movieId", source = "id")
     @Mapping(
             target = "imageId",
             expression = "java(movie.getImage() != null ? String.valueOf(movie.getImage().getId()) : \"/\")"
