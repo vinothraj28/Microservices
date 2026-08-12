@@ -11,5 +11,5 @@ export const mfaPendingGuard: CanActivateFn = () => {
     return true;
   }
 
-  return router.createUrlTree(['/login']);
+  return router.createUrlTree(['/authorize']);
 };

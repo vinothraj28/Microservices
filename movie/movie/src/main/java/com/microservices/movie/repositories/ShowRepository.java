@@ -33,4 +33,5 @@ public interface ShowRepository extends JpaRepository<Show, UUID> {
     List<Show> findByScreen_IdAndShowDateTimeBetween(UUID screenId, LocalDateTime startDateTime, LocalDateTime endDateTime);
     List<Show> findByMovie_IdOrderByShowDateTimeAsc(UUID movieId);
     List<Show> findByScreen_Theater_IdOrderByShowDateTimeAsc(UUID theaterId);
+    List<Show> findByTheaterId(UUID theaterId);
 }

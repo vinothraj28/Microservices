@@ -20,5 +20,5 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrls: ['./movie-main.component.css'],
 })
 export class MovieMainComponent {
-  protected readonly selectComponent = signal<'form' | 'list'>('form');
+  protected readonly selectComponent = signal<'form' | 'list'>('list');
 }

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,14 +59,27 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findByGenreAndLanguage(genre, language, pageable);
     }
 
+@Override
+@Transactional
+public MovieService.DeleteResult deleteMovie(UUID movieId) {
+    Movie movie = movieRepository.findById(movieId)
+        .orElse(null);
 
-    @Override
-    @Transactional
-    public void deleteMovie(UUID movieId) {
-        log.info("Deleting movie with id: {}", movieId);
-        Movie movie = getMovie(movieId);
-        movieRepository.delete(movie);
+    if (movie == null) return MovieService.DeleteResult.NOT_FOUND;
+
+    // Business validation: Don't delete if active shows exist
+    long activeShows = movie.getShows().stream()
+        .filter(show -> show.getShowDateTime().isAfter(LocalDateTime.now()))
+        .count();
+
+    if (activeShows > 0) {
+        log.warn("Cannot delete movie {} with {} active shows", movieId, activeShows);
+        return MovieService.DeleteResult.HAS_ACTIVE_SHOWS;
     }
+
+    movieRepository.delete(movie);
+    return MovieService.DeleteResult.SUCCESS;
+}
 
     private void mergeMovie(Movie target, Movie source) {
         target.setTitle(source.getTitle());

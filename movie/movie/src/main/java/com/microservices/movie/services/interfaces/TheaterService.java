@@ -2,11 +2,16 @@ package com.microservices.movie.services.interfaces;
 
 import com.microservices.movie.models.entities.Screen;
 import com.microservices.movie.models.entities.Theater;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface TheaterService {
+
+    enum DeleteRequest{
+        SUCCESS, NOT_FOUND, HAS_ACTIVE_SHOWS, CONFLICT
+    }
 
     Theater createTheater(Theater theater);
 
@@ -14,7 +19,7 @@ public interface TheaterService {
 
     Theater getTheater(UUID theaterId);
 
-    List<Theater> listTheaters();
+    Page<Theater> listTheaters(int page, int size, String city);
 
     Screen addScreen(UUID theaterId, Screen screen);
 
@@ -23,4 +28,6 @@ public interface TheaterService {
     Screen getScreen(UUID screenId);
 
     List<Screen> listScreensByTheater(UUID theaterId);
+
+    DeleteRequest deleteTheater(UUID uuid);
 }

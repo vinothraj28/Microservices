@@ -1,13 +1,31 @@
+// base.component.ts
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-base',
-  imports: [RouterLink, RouterOutlet, RouterLinkActive],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './base.component.html',
-  styleUrl: './base.component.css'
+  styleUrls: ['./base.component.css'],
 })
 export class BaseComponent {
-  protected readonly currentYear = new Date().getFullYear();
+  isMovieMenuOpen = false;
+  isTheaterMenuOpen = false;
+  isUserMenuOpen = false;
 
+  toggleMovieMenu() {
+    this.isMovieMenuOpen = !this.isMovieMenuOpen;
+    this.isTheaterMenuOpen = false;
+  }
+
+  toggleTheaterMenu() {
+    this.isTheaterMenuOpen = !this.isTheaterMenuOpen;
+    this.isMovieMenuOpen = false;
+  }
+
+  toggleUserMenu() {
+    this.isUserMenuOpen = !this.isUserMenuOpen;
+  }
 }

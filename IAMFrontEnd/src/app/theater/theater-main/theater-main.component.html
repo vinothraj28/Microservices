@@ -1,0 +1,32 @@
+<section class="page-header">
+  <div class="page-header__content">
+    <h1>Theaters</h1>
+    <p>Manage theaters available on the platform.</p>
+  </div>
+
+  <div class="page-header__actions">
+    <button
+      class="btn"
+      [class.active]="selectComponent() === 'form'"
+      (click)="selectComponent.set('form')"
+    >
+      <span style="display: inline"
+        ><mat-icon>add</mat-icon>
+        <span style="text-align: center">Add Theater</span></span
+      >
+    </button>
+
+    <button
+      class="btn"
+      [class.active]="selectComponent() === 'list'"
+      (click)="selectComponent.set('list')"
+    >
+      Theater List
+    </button>
+  </div>
+</section>
+
+<main class="page-content">
+  <app-theater-form *ngIf="selectComponent() === 'form'"></app-theater-form>
+  <app-theater-list *ngIf="selectComponent() === 'list'"></app-theater-list>
+</main>

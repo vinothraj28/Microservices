@@ -1,0 +1,269 @@
+<div class="page">
+  <!-- Page header -->
+  <header class="page-header">
+    <div class="header-content">
+      <div class="breadcrumb">
+        <span>Theaters</span>
+        <span class="breadcrumb-separator">/</span>
+        <span>Screens</span>
+      </div>
+
+      <h1>Screens</h1>
+
+      <p class="page-description">
+        Manage screens, capacity and screen types for this theater.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="primary-button"
+      [routerLink]="['/base', 'theater', theaterId, 'screen', 'add']"
+    >
+      <svg
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M12 5v14"></path>
+        <path d="M5 12h14"></path>
+      </svg>
+
+      Add screen
+    </button>
+  </header>
+
+  <!-- Summary -->
+  <section class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-icon">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="3" y="4" width="18" height="14" rx="2"></rect>
+          <path d="M8 21h8"></path>
+          <path d="M12 18v3"></path>
+        </svg>
+      </div>
+
+      <div>
+        <span class="summary-label">Total screens</span>
+        <strong>{{ screens.length }}</strong>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+
+      <div>
+        <span class="summary-label">Total capacity</span>
+        <strong>{{ totalCapacity }}</strong>
+        <span class="summary-suffix">seats</span>
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path d="M4 4h16v16H4z"></path>
+          <path d="M8 4v16"></path>
+          <path d="M16 4v16"></path>
+        </svg>
+      </div>
+
+      <div>
+        <span class="summary-label">Regular screens</span>
+        <strong>{{ regularScreens }}</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toolbar -->
+  <section class="toolbar">
+    <div>
+      <h2>All screens</h2>
+      <span>{{ screens.length }} screens configured</span>
+    </div>
+
+    <div class="toolbar-actions">
+      <div class="search-box">
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+
+        <input
+          type="text"
+          placeholder="Search screens..."
+          [(ngModel)]="searchTerm"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Screen cards -->
+  <section class="screen-grid">
+    <article
+      class="screen-card"
+      *ngFor="let screen of filteredScreens; trackBy: trackByScreenId"
+    >
+      <!-- Card header -->
+      <div class="screen-card-header">
+        <div class="screen-title-wrapper">
+          <div class="screen-icon">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+
+              <path d="M7 9h.01"></path>
+              <path d="M11 9h.01"></path>
+              <path d="M15 9h.01"></path>
+              <path d="M7 13h.01"></path>
+              <path d="M11 13h.01"></path>
+              <path d="M15 13h.01"></path>
+            </svg>
+          </div>
+
+          <div>
+            <h3>{{ screen.screenName }}</h3>
+            <span class="screen-id">
+              {{ screen.screenId }}
+            </span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="menu-wrapper">
+          <button
+            type="button"
+            class="icon-button"
+            aria-label="Screen actions"
+            (click)="toggleMenu(screen.screenId)"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="12" cy="5" r="1"></circle>
+              <circle cx="12" cy="12" r="1"></circle>
+              <circle cx="12" cy="19" r="1"></circle>
+            </svg>
+          </button>
+
+          <div class="action-menu" *ngIf="activeMenu === screen.screenId">
+            <button type="button" (click)="editScreen(screen)">
+              <span>✎</span>
+              Edit
+            </button>
+
+            <button type="button" class="danger" (click)="deleteScreen(screen)">
+              <span>⌫</span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Capacity -->
+      <div class="capacity">
+        <span class="capacity-number">
+          {{ screen.totalSeats }}
+        </span>
+
+        <span class="capacity-label"> seats </span>
+      </div>
+
+      <!-- Details -->
+      <div class="screen-details">
+        <div class="detail">
+          <span class="detail-label"> Screen type </span>
+
+          <span class="type-badge">
+            {{ screen.screenType }}
+          </span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label"> Status </span>
+
+          <span class="status">
+            <span class="status-dot"></span>
+            Active
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <!-- Empty state -->
+    <div class="empty-state" *ngIf="filteredScreens.length === 0">
+      <div class="empty-icon">
+        <svg
+          width="28"
+          height="28"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+        >
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="M8 9h8"></path>
+          <path d="M8 13h5"></path>
+        </svg>
+      </div>
+
+      <h3>No screens found</h3>
+
+      <p>Try changing your search or add a new screen.</p>
+
+      <button type="button" class="primary-button" (click)="addScreen()">
+        Add screen
+      </button>
+    </div>
+  </section>
+</div>

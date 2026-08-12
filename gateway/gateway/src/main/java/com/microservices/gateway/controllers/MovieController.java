@@ -85,9 +85,10 @@ public class MovieController {
                                                          @RequestPart(required = false) FilePart movieImage) {
         log.info("Received request to update movie with title: {}", movieUpdateRequestDTO.title());
 
-        MediaType mediaType = movieImage.headers().getContentType();
-
-        log.info("Uploaded content type: {}", mediaType);
+        if(movieImage != null){
+            MediaType mediaType = movieImage.headers().getContentType();
+            log.info("Uploaded content type: {}", mediaType);
+        }
 
         return Mono.fromCallable(() -> movieGrpcService.updateMovie(movieUpdateRequestDTO, movieImage))
                 .subscribeOn(Schedulers.boundedElastic())
@@ -174,4 +175,10 @@ public class MovieController {
                         .body(movieImageResponseDTO.data()));
     }
 
+    @DeleteMapping("/{movieId}")
+    public Mono<ResponseEntity<Boolean>> deleteMovieById(@PathVariable String movieId) {
+        return Mono.fromCallable(() -> movieGrpcService.deleteMovieById(movieId))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(ResponseEntity::ok);
+    }
 }

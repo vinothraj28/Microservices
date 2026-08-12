@@ -54,6 +54,10 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteMovieRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteMovieResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteMovieResponseOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteTheaterRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteTheaterRequestOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteTheaterResponse.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\DeleteTheaterResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GenerateTicketsRequest.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GenerateTicketsRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GenerateTicketsResponse.java

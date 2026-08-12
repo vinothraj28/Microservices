@@ -109,6 +109,7 @@ service TheaterService {
   rpc UpdateTheater(UpdateTheaterRequest) returns (TheaterResponse);
   rpc GetTheater(GetTheaterRequest) returns (TheaterResponse);
   rpc ListTheaters(ListTheatersRequest) returns (ListTheatersResponse);
+  rpc DeleteTheater(DeleteTheaterRequest) returns (DeleteTheaterResponse);
   rpc AddScreen(AddScreenRequest) returns (ScreenResponse);
   rpc UpdateScreen(UpdateScreenRequest) returns (ScreenResponse);
   rpc GetScreen(GetScreenRequest) returns (ScreenResponse);
@@ -172,6 +173,19 @@ message TheaterResponse {
 message ListTheatersResponse {
   repeated TheaterResponse theaters = 1;
   int32 total_count = 2;
+  int32 page = 3;
+  int32 size = 4;
+  int32 total_pages = 5;
+  bool has_next = 6;
+}
+
+message DeleteTheaterRequest {
+  string theater_id = 1;
+}
+
+message DeleteTheaterResponse {
+  bool success = 1;
+  string message = 2;
 }
 
 message AddScreenRequest {
@@ -179,7 +193,7 @@ message AddScreenRequest {
   string screen_name = 2;
   int32 screen_number = 3;
   int32 total_rows = 4;
-  int32 seats_per_row = 5;
+  int32 total_seats = 5;
   string screen_type = 6; // REGULAR, IMAX, 4DX, DOLBY
   repeated SeatLayoutRequest seat_layout = 7;
 }

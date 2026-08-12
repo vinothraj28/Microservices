@@ -143,15 +143,15 @@ private static final long serialVersionUID = 0L;
     return totalRows_;
   }
 
-  public static final int SEATS_PER_ROW_FIELD_NUMBER = 5;
-  private int seatsPerRow_ = 0;
+  public static final int TOTAL_SEATS_FIELD_NUMBER = 5;
+  private int totalSeats_ = 0;
   /**
-   * <code>int32 seats_per_row = 5;</code>
-   * @return The seatsPerRow.
+   * <code>int32 total_seats = 5;</code>
+   * @return The totalSeats.
    */
   @java.lang.Override
-  public int getSeatsPerRow() {
-    return seatsPerRow_;
+  public int getTotalSeats() {
+    return totalSeats_;
   }
 
   public static final int SCREEN_TYPE_FIELD_NUMBER = 6;
@@ -268,8 +268,8 @@ private static final long serialVersionUID = 0L;
     if (totalRows_ != 0) {
       output.writeInt32(4, totalRows_);
     }
-    if (seatsPerRow_ != 0) {
-      output.writeInt32(5, seatsPerRow_);
+    if (totalSeats_ != 0) {
+      output.writeInt32(5, totalSeats_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(screenType_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 6, screenType_);
@@ -300,9 +300,9 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(4, totalRows_);
     }
-    if (seatsPerRow_ != 0) {
+    if (totalSeats_ != 0) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(5, seatsPerRow_);
+        .computeInt32Size(5, totalSeats_);
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(screenType_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, screenType_);
@@ -334,8 +334,8 @@ private static final long serialVersionUID = 0L;
         != other.getScreenNumber()) return false;
     if (getTotalRows()
         != other.getTotalRows()) return false;
-    if (getSeatsPerRow()
-        != other.getSeatsPerRow()) return false;
+    if (getTotalSeats()
+        != other.getTotalSeats()) return false;
     if (!getScreenType()
         .equals(other.getScreenType())) return false;
     if (!getSeatLayoutList()
@@ -359,8 +359,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getScreenNumber();
     hash = (37 * hash) + TOTAL_ROWS_FIELD_NUMBER;
     hash = (53 * hash) + getTotalRows();
-    hash = (37 * hash) + SEATS_PER_ROW_FIELD_NUMBER;
-    hash = (53 * hash) + getSeatsPerRow();
+    hash = (37 * hash) + TOTAL_SEATS_FIELD_NUMBER;
+    hash = (53 * hash) + getTotalSeats();
     hash = (37 * hash) + SCREEN_TYPE_FIELD_NUMBER;
     hash = (53 * hash) + getScreenType().hashCode();
     if (getSeatLayoutCount() > 0) {
@@ -502,7 +502,7 @@ private static final long serialVersionUID = 0L;
       screenName_ = "";
       screenNumber_ = 0;
       totalRows_ = 0;
-      seatsPerRow_ = 0;
+      totalSeats_ = 0;
       screenType_ = "";
       if (seatLayoutBuilder_ == null) {
         seatLayout_ = java.util.Collections.emptyList();
@@ -570,7 +570,7 @@ private static final long serialVersionUID = 0L;
         result.totalRows_ = totalRows_;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
-        result.seatsPerRow_ = seatsPerRow_;
+        result.totalSeats_ = totalSeats_;
       }
       if (((from_bitField0_ & 0x00000020) != 0)) {
         result.screenType_ = screenType_;
@@ -637,8 +637,8 @@ private static final long serialVersionUID = 0L;
       if (other.getTotalRows() != 0) {
         setTotalRows(other.getTotalRows());
       }
-      if (other.getSeatsPerRow() != 0) {
-        setSeatsPerRow(other.getSeatsPerRow());
+      if (other.getTotalSeats() != 0) {
+        setTotalSeats(other.getTotalSeats());
       }
       if (!other.getScreenType().isEmpty()) {
         screenType_ = other.screenType_;
@@ -718,7 +718,7 @@ private static final long serialVersionUID = 0L;
               break;
             } // case 32
             case 40: {
-              seatsPerRow_ = input.readInt32();
+              totalSeats_ = input.readInt32();
               bitField0_ |= 0x00000010;
               break;
             } // case 40
@@ -965,34 +965,34 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int seatsPerRow_ ;
+    private int totalSeats_ ;
     /**
-     * <code>int32 seats_per_row = 5;</code>
-     * @return The seatsPerRow.
+     * <code>int32 total_seats = 5;</code>
+     * @return The totalSeats.
      */
     @java.lang.Override
-    public int getSeatsPerRow() {
-      return seatsPerRow_;
+    public int getTotalSeats() {
+      return totalSeats_;
     }
     /**
-     * <code>int32 seats_per_row = 5;</code>
-     * @param value The seatsPerRow to set.
+     * <code>int32 total_seats = 5;</code>
+     * @param value The totalSeats to set.
      * @return This builder for chaining.
      */
-    public Builder setSeatsPerRow(int value) {
+    public Builder setTotalSeats(int value) {
 
-      seatsPerRow_ = value;
+      totalSeats_ = value;
       bitField0_ |= 0x00000010;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 seats_per_row = 5;</code>
+     * <code>int32 total_seats = 5;</code>
      * @return This builder for chaining.
      */
-    public Builder clearSeatsPerRow() {
+    public Builder clearTotalSeats() {
       bitField0_ = (bitField0_ & ~0x00000010);
-      seatsPerRow_ = 0;
+      totalSeats_ = 0;
       onChanged();
       return this;
     }

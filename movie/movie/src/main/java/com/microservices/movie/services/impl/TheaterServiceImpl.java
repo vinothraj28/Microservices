@@ -14,6 +14,10 @@ import com.microservices.movie.repositories.TheaterRepository;
 import com.microservices.movie.services.interfaces.TheaterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +71,8 @@ public class TheaterServiceImpl implements TheaterService {
         existingTheater.setLongitude(theater.getLongitude());
         existingTheater.setPhone(theater.getPhone());
         existingTheater.setEmail(theater.getEmail());
-        existingTheater.setAmenities(theater.getAmenities() == null ? List.of() : new ArrayList<>(theater.getAmenities()));
+        existingTheater.setAmenities(theater.getAmenities() == null ?
+                new ArrayList<>() : new ArrayList<>(theater.getAmenities()));
         return theaterRepository.save(existingTheater);
     }
 
@@ -80,10 +85,16 @@ public class TheaterServiceImpl implements TheaterService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Theater> listTheaters() {
+    public Page<Theater> listTheaters(int page, int size, String city) {
         log.debug("Listing all theaters");
-        return theaterRepository.findAll();
+        Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
+        if (city != null && !city.isEmpty()) {
+            return theaterRepository.findByCity(city, pageable);
+        }
+        return theaterRepository.findAll(pageable);
     }
+
+
 
     @Override
     @Transactional
@@ -101,7 +112,7 @@ public class TheaterServiceImpl implements TheaterService {
                 .screenName(screen.getScreenName())
                 .screenNumber(screen.getScreenNumber())
                 .screenType(screen.getScreenType())
-                .totalSeats(screen.getTotalSeats())
+                .totalSeats(screen.getTotalSeats()==null?0:screen.getTotalSeats())
                 .build();
 
         Screen savedScreen = screenRepository.save(screenToPersist);
@@ -151,6 +162,23 @@ public class TheaterServiceImpl implements TheaterService {
 
         return screenRepository.save(existingScreen);
     }
+
+    @Override
+    @Transactional
+    public TheaterService.DeleteRequest deleteTheater(UUID theaterId) {
+        log.info("Deleting theater {}", theaterId);
+        Theater theater = getTheater(theaterId);
+
+        if(theater==null) return TheaterService.DeleteRequest.NOT_FOUND;
+
+        if (!showRepository.findByTheaterId(theaterId).isEmpty()) {
+            return TheaterService.DeleteRequest.HAS_ACTIVE_SHOWS;
+        }
+
+        theaterRepository.delete(theater);
+        return TheaterService.DeleteRequest.SUCCESS;
+    }
+
 
     @Override
     @Transactional(readOnly = true)

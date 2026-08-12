@@ -126,4 +126,9 @@ export class MovieServiceService {
     const url = `${this.appConfig.movie.getImageById}/${imageId}`;
     return this.httpClient.get(url, { responseType: 'blob' });
   }
+
+  deleteMovie(movieId: string): Observable<void> {
+    const url = `${this.appConfig.movie.deleteUrl}${movieId}`;
+    return this.httpClient.delete<void>(url);
+  }
 }

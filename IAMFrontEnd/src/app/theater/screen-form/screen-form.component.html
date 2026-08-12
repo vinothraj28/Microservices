@@ -1,0 +1,519 @@
+<form class="screen-page" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <!-- HEADER -->
+  <header class="screen-header">
+    <div>
+      <p class="screen-header__eyebrow">Theater management</p>
+
+      <h1>Add New Screen</h1>
+
+      <p>Design the screen details and seat layout.</p>
+    </div>
+
+    <div class="screen-header__actions">
+      <div class="save-status">
+        <span class="save-status__dot"></span>
+        Auto-saved
+      </div>
+
+      <button
+        type="button"
+        class="button button--secondary"
+        (click)="resetForm()"
+      >
+        Reset
+      </button>
+
+      <button
+        type="submit"
+        class="button button--primary"
+        [disabled]="isSubmitting()"
+      >
+        {{ isSubmitting() ? "Saving..." : "Save Screen" }}
+      </button>
+    </div>
+  </header>
+
+  <div class="screen-workspace">
+    <!-- LEFT SIDEBAR -->
+    <aside class="screen-sidebar">
+      <!-- STEPS -->
+      <section class="sidebar-card">
+        <div class="steps">
+          <div
+            class="step"
+            [class.step--complete]="isStep1Complete()"
+            [class.step--active]="!isStep1Complete()"
+          >
+            <div class="step__number">{{ isStep1Complete() ? "✓" : "1" }}</div>
+
+            <div>
+              <strong>Screen Details</strong>
+              <span>Basic information</span>
+            </div>
+          </div>
+
+          <div
+            class="step"
+            [class.step--complete]="isStep2Complete()"
+            [class.step--active]="!isStep2Complete() && isStep1Complete()"
+          >
+            <div class="step__number">{{ isStep2Complete() ? "✓" : "2" }}</div>
+
+            <div>
+              <strong>Seat Layout</strong>
+              <span>Design seat arrangement</span>
+            </div>
+          </div>
+
+          <div
+            class="step"
+            [class.step--complete]="isStep3Complete()"
+            [class.step--active]="!isStep3Complete()"
+          >
+            <div class="step__number">3</div>
+
+            <div>
+              <strong>Review & Save</strong>
+              <span>Review and confirm</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN SUMMARY -->
+      <section class="sidebar-card">
+        <h2>Screen Summary</h2>
+
+        <div class="summary-list">
+          <div>
+            <span>Screen Name</span>
+            <strong>
+              {{ form.controls.screenName.value || "—" }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Screen Number</span>
+            <strong>
+              {{ form.controls.screenNumber.value }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Total Rows</span>
+            <strong>
+              {{ seatLayouts.length }}
+            </strong>
+          </div>
+
+          <!-- <div>
+            <span>Seats Per Row</span>
+            <strong>
+              {{ form.controls.seatsPerRow.value }}
+            </strong>
+          </div> -->
+
+          <div>
+            <span>Screen Type</span>
+            <strong class="type-badge">
+              {{ form.controls.screenType.value }}
+            </strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- LAYOUT SUMMARY -->
+      <section class="sidebar-card">
+        <h2>Layout Summary</h2>
+
+        <div class="layout-stats">
+          <div class="layout-stat">
+            <span>Total Rows</span>
+            <strong>{{ seatLayouts.length }}</strong>
+          </div>
+
+          <div class="layout-stat">
+            <span>Total Seats</span>
+            <strong>{{ totalSeatCount() }}</strong>
+          </div>
+        </div>
+
+        <div class="seat-type-summary">
+          <div>
+            <span class="legend-dot legend-dot--regular"></span>
+            <span>Regular</span>
+            <strong>{{ regularSeatCount() }}</strong>
+          </div>
+
+          <div>
+            <span class="legend-dot legend-dot--premium"></span>
+            <span>Premium</span>
+            <strong>{{ premiumSeatCount() }}</strong>
+          </div>
+
+          <div>
+            <span class="legend-dot legend-dot--recliner"></span>
+            <span>Recliner</span>
+            <strong>{{ reclinerSeatCount() }}</strong>
+          </div>
+
+          <div>
+            <span class="legend-dot legend-dot--vip"></span>
+            <span>VIP</span>
+            <strong>{{ vipSeatCount() }}</strong>
+          </div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="screen-main">
+      <!-- SCREEN DETAILS -->
+      <section class="panel screen-details">
+        <div class="panel-heading">
+          <div>
+            <h2>Screen Details</h2>
+            <p>Configure the basic information for this screen.</p>
+          </div>
+        </div>
+
+        <div class="details-grid">
+          <label class="field field--large">
+            <span>Screen Name</span>
+
+            <input
+              class="input"
+              type="text"
+              formControlName="screenName"
+              placeholder="Main Hall"
+              autocomplete="off"
+            />
+
+            @if (
+              form.controls.screenName.touched &&
+              form.controls.screenName.invalid
+            ) {
+              <small class="field-error"> Screen name is required. </small>
+            }
+          </label>
+
+          <label class="field">
+            <span>Screen Number</span>
+
+            <input
+              class="input"
+              type="number"
+              min="1"
+              formControlName="screenNumber"
+            />
+          </label>
+
+          <label class="field">
+            <span>Total Rows</span>
+
+            <input
+              class="input"
+              type="number"
+              min="1"
+              formControlName="totalRows"
+            />
+          </label>
+
+          <!-- <label class="field">
+             <span>Seats Per Row</span>
+
+            <input
+              class="input"
+              type="number"
+              min="1"
+              formControlName="seatsPerRow"
+            />
+          </label> -->
+
+          <label class="field">
+            <span>Screen Type</span>
+
+            <select class="input" formControlName="screenType">
+              @for (type of screenTypes; track type) {
+                <option [value]="type">
+                  {{ type }}
+                </option>
+              }
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <!-- DESIGNER -->
+      <section class="panel designer">
+        <div class="designer-heading">
+          <div>
+            <h2>Seat Layout Designer</h2>
+
+            <p>Click a row to edit its configuration.</p>
+          </div>
+
+          <div class="seat-legend">
+            <span>
+              <i class="legend-dot legend-dot--regular"></i>
+              Regular
+            </span>
+
+            <span>
+              <i class="legend-dot legend-dot--premium"></i>
+              Premium
+            </span>
+
+            <span>
+              <i class="legend-dot legend-dot--recliner"></i>
+              Recliner
+            </span>
+
+            <span>
+              <i class="legend-dot legend-dot--vip"></i>
+              VIP
+            </span>
+          </div>
+        </div>
+
+        <!-- SCREEN -->
+        <div class="cinema-screen">
+          <div class="cinema-screen__surface">SCREEN</div>
+        </div>
+
+        <!-- SEAT MAP -->
+        <div class="seat-map" formArrayName="seatLayout">
+          @for (
+            layout of seatLayouts.controls;
+            track $index;
+            let index = $index
+          ) {
+            <button
+              type="button"
+              class="seat-row"
+              [class.seat-row--selected]="selectedLayoutIndex() === index"
+              (click)="selectLayout(index)"
+            >
+              <span class="seat-row__name">
+                {{ layout.controls.rowName.value }}
+              </span>
+
+              <span class="seat-row__seats">
+                @for (seat of seatNumbers(layout); track seat) {
+                  <span class="seat" [class]="seatTypeClass(layout)">
+                    {{ seat }}
+                  </span>
+                }
+              </span>
+            </button>
+          }
+        </div>
+
+        <!-- ADD ROW -->
+        <button type="button" class="add-row-zone" (click)="addSeatLayout()">
+          <span class="add-row-zone__icon">+</span>
+
+          <span>
+            <strong> Add new row </strong>
+            <small> Create another seat block </small>
+          </span>
+        </button>
+      </section>
+    </main>
+
+    <!-- RIGHT SETTINGS -->
+    <aside class="settings-sidebar">
+      @if (selectedLayout(); as layout) {
+        <section class="panel row-settings" [formGroup]="layout">
+          <div class="row-settings__header">
+            <div>
+              <h2>Row Block Settings</h2>
+              <p>Configure the selected row.</p>
+            </div>
+
+            <button
+              type="button"
+              class="icon-button icon-button--danger"
+              [disabled]="seatLayouts.length === 1"
+              (click)="removeSeatLayout(selectedLayoutIndex())"
+              aria-label="Delete row"
+            >
+              🗑
+            </button>
+          </div>
+
+          <!-- ROW NAME -->
+          <label class="field">
+            <span>Row Name</span>
+
+            <input
+              class="input"
+              type="text"
+              formControlName="rowName"
+              maxlength="10"
+              placeholder="A"
+            />
+          </label>
+
+          <!-- RANGE -->
+          <div class="field-grid">
+            <label class="field">
+              <span>Start Seat</span>
+
+              <input
+                class="input"
+                type="number"
+                min="1"
+                formControlName="startSeatNumber"
+              />
+            </label>
+
+            <label class="field">
+              <span>End Seat</span>
+
+              <input
+                class="input"
+                type="number"
+                min="1"
+                formControlName="endSeatNumber"
+              />
+            </label>
+          </div>
+
+          @if (layout.hasError("invalidSeatRange")) {
+            <div class="range-error">
+              End seat must be greater than or equal to start seat.
+            </div>
+          }
+
+          <!-- SEAT TYPE -->
+          <label class="field">
+            <span>Seat Type</span>
+
+            <select class="input seat-type-select" formControlName="seatType">
+              @for (type of seatTypes; track type) {
+                <option [value]="type">
+                  {{ seatTypeLabel(type) }}
+                </option>
+              }
+            </select>
+          </label>
+
+          <!-- MULTIPLIER -->
+          <label class="field">
+            <span>Price Multiplier</span>
+
+            <div class="multiplier-input">
+              <input
+                class="input"
+                type="number"
+                min="0.1"
+                step="0.1"
+                formControlName="priceMultiplier"
+              />
+
+              <span>x</span>
+            </div>
+          </label>
+
+          <!-- PREVIEW -->
+          <div class="row-preview">
+            <div class="row-preview__header">
+              <span>
+                Preview: Row
+                {{ layout.controls.rowName.value }}
+              </span>
+            </div>
+
+            <div class="row-preview__seats">
+              @for (seat of seatNumbers(layout); track seat) {
+                @if (seat <= 3 || seat >= getSelectedSeatCount() - 2) {
+                  <span class="mini-seat" [class]="seatTypeClass(layout)">
+                    {{ seat }}
+                  </span>
+                } @else if (seat === 4) {
+                  <span class="preview-dots"> ··· </span>
+                }
+              }
+            </div>
+
+            <div class="row-preview__meta">
+              <strong> {{ getSelectedSeatCount() }} seats </strong>
+
+              <span>•</span>
+
+              <strong>
+                {{ layout.controls.seatType.value }}
+              </strong>
+
+              <span>•</span>
+
+              <strong>
+                {{ layout.controls.priceMultiplier.value | number: "1.2-2" }}x
+              </strong>
+            </div>
+          </div>
+
+          <!-- TIPS -->
+          <div class="tips">
+            <div class="tips__icon">💡</div>
+
+            <div>
+              <strong>Tips</strong>
+
+              <p>
+                Each row represents a seat block with the same seat type and
+                pricing.
+              </p>
+            </div>
+          </div>
+
+          <div class="row-settings__actions">
+            <!-- <button
+              type="button"
+              class="button button--secondary"
+              (click)="selectLayout(selectedLayoutIndex())"
+            >
+              Cancel
+            </button> -->
+
+            <button
+              type="button"
+              class="button button--primary"
+              (click)="applyRowChanges()"
+            >
+              Confirm Changes
+            </button>
+          </div>
+        </section>
+      }
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="screen-footer">
+    <button type="button" class="button button--secondary">
+      ← Back to Details
+    </button>
+
+    <button
+      type="submit"
+      class="button button--primary"
+      [disabled]="isSubmitting()"
+    >
+      Review & Save →
+    </button>
+  </footer>
+
+  @if (submitSuccess()) {
+    <div class="feedback feedback--success">
+      {{ submitSuccess() }}
+    </div>
+  }
+
+  @if (submitError()) {
+    <div class="feedback feedback--error">
+      {{ submitError() }}
+    </div>
+  }
+</form>

@@ -6,6 +6,7 @@ import {
   Component,
 } from '@angular/core';
 import type { OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import {
   FormArray,
@@ -29,6 +30,7 @@ import { MovieMediaComponent } from '../movie-media/movie-media.component';
 import { MovieReviewComponent } from '../movie-review/movie-review.component';
 import { UpdatedDetailsComponent } from '../updated-details/updated-details.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { ToastService } from '../../core/services/toast/toast.service';
 
 export interface MovieDetailsForm {
   title: FormControl<string>;
@@ -102,6 +104,9 @@ export class MovieFormComponent implements OnInit {
   protected readonly movieId = signal<string | null>(null);
   protected readonly isEditMode = signal<boolean>(false);
   protected readonly isFormLoading = signal<boolean>(false);
+
+  private toastService = inject(ToastService);
+  private router = inject(Router);
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('movieId');
@@ -251,6 +256,7 @@ export class MovieFormComponent implements OnInit {
         },
         media: {
           // Poster file will be handled separately
+          poster: posterFile,
           posterUrl: movieData.posterUrl,
           trailerUrl: movieData.trailerUrl,
         },
@@ -298,9 +304,23 @@ export class MovieFormComponent implements OnInit {
 
       this.submitSuccess.set(true);
       this.form.markAsPristine();
+      this.form.reset();
+      this.toastService.setToast(
+        this.isEditMode()
+          ? 'Movie details updated successfully!'
+          : 'Movie registered successfully!',
+        'success',
+      );
+      this.router.navigate(['base', 'movie']);
     } catch (error) {
       console.error('Error registering movie:', error);
       this.submitError.set('Unable to save movie details. Please try again.');
+      this.toastService.setToast(
+        this.isEditMode()
+          ? 'Failed to update movie details.'
+          : 'Failed to register movie.',
+        'error',
+      );
     } finally {
       this.isSubmitting.set(false);
     }

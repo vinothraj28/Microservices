@@ -9,6 +9,10 @@ import java.util.UUID;
 
 public interface MovieService {
 
+    enum DeleteResult {
+        SUCCESS, NOT_FOUND, HAS_ACTIVE_SHOWS, CONFLICT
+    }
+
     Movie createMovie(Movie movie);
 
     Movie updateMovie(UUID movieId, Movie movie);
@@ -17,5 +21,5 @@ public interface MovieService {
 
     Page<Movie> listMovies(int page, int size, String genre, String language);
 
-    void deleteMovie(UUID movieId);
+    DeleteResult deleteMovie(UUID movieId);
 }

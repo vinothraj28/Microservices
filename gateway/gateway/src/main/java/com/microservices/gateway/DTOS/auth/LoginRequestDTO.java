@@ -1,4 +1,4 @@
-package com.microservices.gateway.DTOS;
+package com.microservices.gateway.DTOS.auth;
 
 public record LoginRequestDTO(
         String username,

@@ -1,6 +1,6 @@
 package com.microservices.gateway.services.gRPCServices;
 
-import com.microservices.gateway.DTOS.LoginRequestDTO;
+import com.microservices.gateway.DTOS.auth.LoginRequestDTO;
 import com.microservices.gateway.DTOS.register.RegisterRequestDTO;
 import com.microservices.gateway.DTOS.register.RegisterResponseDTO;
 import com.microservices.gateway.excpetions.DuplicateEmailException;

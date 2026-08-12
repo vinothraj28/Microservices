@@ -37,4 +37,28 @@ public interface ListTheatersResponseOrBuilder extends
    * @return The totalCount.
    */
   int getTotalCount();
+
+  /**
+   * <code>int32 page = 3;</code>
+   * @return The page.
+   */
+  int getPage();
+
+  /**
+   * <code>int32 size = 4;</code>
+   * @return The size.
+   */
+  int getSize();
+
+  /**
+   * <code>int32 total_pages = 5;</code>
+   * @return The totalPages.
+   */
+  int getTotalPages();
+
+  /**
+   * <code>bool has_next = 6;</code>
+   * @return The hasNext.
+   */
+  boolean getHasNext();
 }

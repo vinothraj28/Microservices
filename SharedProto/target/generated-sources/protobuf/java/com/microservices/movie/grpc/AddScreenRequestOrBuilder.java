@@ -45,10 +45,10 @@ public interface AddScreenRequestOrBuilder extends
   int getTotalRows();
 
   /**
-   * <code>int32 seats_per_row = 5;</code>
-   * @return The seatsPerRow.
+   * <code>int32 total_seats = 5;</code>
+   * @return The totalSeats.
    */
-  int getSeatsPerRow();
+  int getTotalSeats();
 
   /**
    * <pre>

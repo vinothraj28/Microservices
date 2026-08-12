@@ -1,0 +1,58 @@
+<!-- <div class="toast" [ngClass]="['toast', toast()?.type]" *ngIf="toast()?.isVisible">
+  <div class="toast-icon" aria-hidden="true">
+    <span *ngIf="toast()?.type === 'success'">✓</span>
+    <span *ngIf="toast()?.type === 'error'">!</span>
+  </div>
+
+  <div class="toast-content">
+    <strong class="toast-title">{{
+      toast()?.type === "success" ? "Success" : "Error"
+    }}</strong>
+    <span class="toast-message">{{ toast()?.message }}</span>
+  </div>
+
+  <button
+    class="close-button"
+    type="button"
+    (click)="closeToast()"
+    aria-label="Close notification"
+  >
+    ×
+  </button>
+</div> -->
+<div
+  class="toast"
+  [ngClass]="['toast', toast()?.type]"
+  *ngIf="toast()?.isVisible"
+>
+  <div class="toast-icon" aria-hidden="true">
+    <span *ngIf="toast()?.type === 'success'">✓</span>
+    <span *ngIf="toast()?.type === 'error'">!</span>
+  </div>
+
+  <div class="toast-content">
+    <strong class="toast-title">
+      {{ toast()?.type === "success" ? "Success" : "Error" }}
+    </strong>
+    <span class="toast-message">{{ toast()?.message }}</span>
+
+    <div class="toast-actions" *ngIf="toast()?.onConfirm">
+      <button class="btn btn-cancel" type="button" (click)="cancelAction()">
+        {{ toast()?.cancelText || "Cancel" }}
+      </button>
+      <button class="btn btn-confirm" type="button" (click)="confirmAction()">
+        {{ toast()?.confirmText || "Confirm" }}
+      </button>
+    </div>
+  </div>
+
+  <button
+    class="close-button"
+    type="button"
+    (click)="closeToast()"
+    aria-label="Close notification"
+    *ngIf="!toast()?.onConfirm"
+  >
+    ×
+  </button>
+</div>

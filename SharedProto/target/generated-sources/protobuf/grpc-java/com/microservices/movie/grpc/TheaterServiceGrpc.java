@@ -139,6 +139,37 @@ public final class TheaterServiceGrpc {
     return getListTheatersMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.DeleteTheaterRequest,
+      com.microservices.movie.grpc.DeleteTheaterResponse> getDeleteTheaterMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteTheater",
+      requestType = com.microservices.movie.grpc.DeleteTheaterRequest.class,
+      responseType = com.microservices.movie.grpc.DeleteTheaterResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.DeleteTheaterRequest,
+      com.microservices.movie.grpc.DeleteTheaterResponse> getDeleteTheaterMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.DeleteTheaterRequest, com.microservices.movie.grpc.DeleteTheaterResponse> getDeleteTheaterMethod;
+    if ((getDeleteTheaterMethod = TheaterServiceGrpc.getDeleteTheaterMethod) == null) {
+      synchronized (TheaterServiceGrpc.class) {
+        if ((getDeleteTheaterMethod = TheaterServiceGrpc.getDeleteTheaterMethod) == null) {
+          TheaterServiceGrpc.getDeleteTheaterMethod = getDeleteTheaterMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.DeleteTheaterRequest, com.microservices.movie.grpc.DeleteTheaterResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "DeleteTheater"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.DeleteTheaterRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.DeleteTheaterResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new TheaterServiceMethodDescriptorSupplier("DeleteTheater"))
+              .build();
+        }
+      }
+    }
+    return getDeleteTheaterMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.AddScreenRequest,
       com.microservices.movie.grpc.ScreenResponse> getAddScreenMethod;
 
@@ -341,6 +372,13 @@ public final class TheaterServiceGrpc {
 
     /**
      */
+    default void deleteTheater(com.microservices.movie.grpc.DeleteTheaterRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.DeleteTheaterResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteTheaterMethod(), responseObserver);
+    }
+
+    /**
+     */
     default void addScreen(com.microservices.movie.grpc.AddScreenRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ScreenResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getAddScreenMethod(), responseObserver);
@@ -429,6 +467,14 @@ public final class TheaterServiceGrpc {
 
     /**
      */
+    public void deleteTheater(com.microservices.movie.grpc.DeleteTheaterRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.DeleteTheaterResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteTheaterMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void addScreen(com.microservices.movie.grpc.AddScreenRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ScreenResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -502,6 +548,13 @@ public final class TheaterServiceGrpc {
     public com.microservices.movie.grpc.ListTheatersResponse listTheaters(com.microservices.movie.grpc.ListTheatersRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListTheatersMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.microservices.movie.grpc.DeleteTheaterResponse deleteTheater(com.microservices.movie.grpc.DeleteTheaterRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteTheaterMethod(), getCallOptions(), request);
     }
 
     /**
@@ -583,6 +636,14 @@ public final class TheaterServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.DeleteTheaterResponse> deleteTheater(
+        com.microservices.movie.grpc.DeleteTheaterRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteTheaterMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ScreenResponse> addScreen(
         com.microservices.movie.grpc.AddScreenRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -618,10 +679,11 @@ public final class TheaterServiceGrpc {
   private static final int METHODID_UPDATE_THEATER = 1;
   private static final int METHODID_GET_THEATER = 2;
   private static final int METHODID_LIST_THEATERS = 3;
-  private static final int METHODID_ADD_SCREEN = 4;
-  private static final int METHODID_UPDATE_SCREEN = 5;
-  private static final int METHODID_GET_SCREEN = 6;
-  private static final int METHODID_LIST_SCREENS_BY_THEATER = 7;
+  private static final int METHODID_DELETE_THEATER = 4;
+  private static final int METHODID_ADD_SCREEN = 5;
+  private static final int METHODID_UPDATE_SCREEN = 6;
+  private static final int METHODID_GET_SCREEN = 7;
+  private static final int METHODID_LIST_SCREENS_BY_THEATER = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -655,6 +717,10 @@ public final class TheaterServiceGrpc {
         case METHODID_LIST_THEATERS:
           serviceImpl.listTheaters((com.microservices.movie.grpc.ListTheatersRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListTheatersResponse>) responseObserver);
+          break;
+        case METHODID_DELETE_THEATER:
+          serviceImpl.deleteTheater((com.microservices.movie.grpc.DeleteTheaterRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.DeleteTheaterResponse>) responseObserver);
           break;
         case METHODID_ADD_SCREEN:
           serviceImpl.addScreen((com.microservices.movie.grpc.AddScreenRequest) request,
@@ -718,6 +784,13 @@ public final class TheaterServiceGrpc {
               com.microservices.movie.grpc.ListTheatersRequest,
               com.microservices.movie.grpc.ListTheatersResponse>(
                 service, METHODID_LIST_THEATERS)))
+        .addMethod(
+          getDeleteTheaterMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.DeleteTheaterRequest,
+              com.microservices.movie.grpc.DeleteTheaterResponse>(
+                service, METHODID_DELETE_THEATER)))
         .addMethod(
           getAddScreenMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -798,6 +871,7 @@ public final class TheaterServiceGrpc {
               .addMethod(getUpdateTheaterMethod())
               .addMethod(getGetTheaterMethod())
               .addMethod(getListTheatersMethod())
+              .addMethod(getDeleteTheaterMethod())
               .addMethod(getAddScreenMethod())
               .addMethod(getUpdateScreenMethod())
               .addMethod(getGetScreenMethod())

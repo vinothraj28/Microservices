@@ -1,0 +1,296 @@
+<main class="auth-layout auth-layout--wide-card movie-page">
+  <section class="auth-card">
+    <header class="auth-card__header">
+      <p class="auth-chip">Theater onboarding</p>
+      <h2>{{ isEditMode() ? "Update Theater" : "Register Theater" }}</h2>
+      <p>
+        {{
+          isEditMode()
+            ? "Update theater details below."
+            : "Add a new theater to the platform."
+        }}
+      </p>
+    </header>
+
+    <form
+      [formGroup]="theaterForm"
+      (ngSubmit)="submitForm()"
+      class="auth-form"
+      novalidate
+    >
+      <mat-horizontal-stepper [linear]="true" #stepper class="theater-stepper">
+        <mat-step [stepControl]="theaterForm.controls.details">
+          <ng-template matStepLabel>Theater Details</ng-template>
+
+          <div
+            class="auth-form-grid theater-stepper__content"
+            [formGroup]="theaterForm.controls.details"
+          >
+            <label class="auth-field auth-field--full">
+              <span class="auth-field__label">Theater name</span>
+              <input
+                class="auth-input"
+                type="text"
+                formControlName="name"
+                placeholder="Grand Cineplex"
+              />
+              @if (
+                theaterForm.controls.details.controls.name.touched &&
+                theaterForm.controls.details.controls.name.invalid
+              ) {
+                <small class="auth-validation">Theater name is required.</small>
+              }
+            </label>
+
+            <label class="auth-field auth-field--full">
+              <span class="auth-field__label">Address</span>
+              <input
+                class="auth-input"
+                type="text"
+                formControlName="address"
+                placeholder="Street, area, landmark"
+              />
+              @if (
+                theaterForm.controls.details.controls.address.touched &&
+                theaterForm.controls.details.controls.address.invalid
+              ) {
+                <small class="auth-validation">Address is required.</small>
+              }
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label">City</span>
+              <input
+                class="auth-input"
+                type="text"
+                formControlName="city"
+                placeholder="City"
+              />
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label">State</span>
+              <input
+                class="auth-input"
+                type="text"
+                formControlName="state"
+                placeholder="State"
+              />
+              @if (
+                theaterForm.controls.details.controls.state.touched &&
+                theaterForm.controls.details.controls.state.invalid
+              ) {
+                <small class="auth-validation"
+                  >State is required and should contain only letters.</small
+                >
+              }
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label">Pincode</span>
+              <input
+                class="auth-input"
+                type="text"
+                formControlName="pincode"
+                placeholder="6 digit pincode"
+              />
+              @if (
+                theaterForm.controls.details.controls.pincode.touched &&
+                theaterForm.controls.details.controls.pincode.invalid
+              ) {
+                <small class="auth-validation"
+                  >Enter a valid 6 digit pincode.</small
+                >
+              }
+            </label>
+          </div>
+
+          <div class="theater-stepper__actions">
+            <span></span>
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              (click)="nextStep(stepper, theaterForm.controls.details)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="theaterForm.controls.contact">
+          <ng-template matStepLabel>Contact</ng-template>
+
+          <div
+            class="auth-form-grid theater-stepper__content"
+            [formGroup]="theaterForm.controls.contact"
+          >
+            <label class="auth-field">
+              <span class="auth-field__label">Phone</span>
+              <input
+                class="auth-input"
+                type="tel"
+                formControlName="phone"
+                placeholder="10 digit phone number"
+              />
+              @if (
+                theaterForm.controls.contact.controls.phone.touched &&
+                theaterForm.controls.contact.controls.phone.invalid
+              ) {
+                <small class="auth-validation">Phone must be 10 digits.</small>
+              }
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label">Email</span>
+              <input
+                class="auth-input"
+                type="email"
+                formControlName="email"
+                placeholder="contact@theater.com"
+              />
+              @if (
+                theaterForm.controls.contact.controls.email.touched &&
+                theaterForm.controls.contact.controls.email.invalid
+              ) {
+                <small class="auth-validation"
+                  >Enter a valid email address.</small
+                >
+              }
+            </label>
+          </div>
+
+          <div class="theater-stepper__actions">
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              (click)="nextStep(stepper, theaterForm.controls.contact)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="theaterForm.controls.location">
+          <ng-template matStepLabel>Location</ng-template>
+
+          <div
+            class="auth-form-grid theater-stepper__content"
+            [formGroup]="theaterForm.controls.location"
+          >
+            <label class="auth-field">
+              <span class="auth-field__label">Latitude</span>
+              <input
+                class="auth-input"
+                type="number"
+                step="any"
+                formControlName="latitude"
+                placeholder="12.9716"
+              />
+              @if (
+                theaterForm.controls.location.controls.latitude.touched &&
+                theaterForm.controls.location.controls.latitude.invalid
+              ) {
+                <small class="auth-validation"
+                  >Latitude must be between -90 and 90.</small
+                >
+              }
+            </label>
+
+            <label class="auth-field">
+              <span class="auth-field__label">Longitude</span>
+              <input
+                class="auth-input"
+                type="number"
+                step="any"
+                formControlName="longitude"
+                placeholder="77.5946"
+              />
+              @if (
+                theaterForm.controls.location.controls.longitude.touched &&
+                theaterForm.controls.location.controls.longitude.invalid
+              ) {
+                <small class="auth-validation"
+                  >Longitude must be between -180 and 180.</small
+                >
+              }
+            </label>
+          </div>
+
+          <div class="theater-stepper__actions">
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              (click)="nextStep(stepper, theaterForm.controls.location)"
+            >
+              Next
+            </button>
+          </div>
+        </mat-step>
+
+        <mat-step [stepControl]="theaterForm.controls.amenities">
+          <ng-template matStepLabel>Amenities</ng-template>
+
+          <div
+            class="theater-stepper__content"
+            [formGroup]="theaterForm.controls.amenities"
+          >
+            <p class="auth-note">
+              Select all amenities available in this theater.
+            </p>
+
+            <div class="theater-amenities">
+              @for (amenity of amenitiesList; track amenity) {
+                <button
+                  type="button"
+                  class="theater-chip"
+                  [class.theater-chip--active]="isAmenitySelected(amenity)"
+                  (click)="toggleAmenity(amenity)"
+                >
+                  {{ amenity }}
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="theater-stepper__actions">
+            <button
+              type="button"
+              class="theater-button"
+              mat-button
+              matStepperPrevious
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              class="theater-button"
+              mat-button
+              [disabled]="isSubmitting()"
+            >
+              {{ isEditMode() ? "Update Theater" : "Create Theater" }}
+            </button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </form>
+  </section>
+</main>

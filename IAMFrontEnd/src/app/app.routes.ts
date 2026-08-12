@@ -92,6 +92,60 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'theater',
+        canActivate: [authenticatedGuard],
+        children: [
+          {
+            path: '',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/theater-list/theater-list.component').then(
+                (component) => component.TheaterListComponent,
+              ),
+          },
+          {
+            path: ':theaterId/edit',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/theater-form/theater-form.component').then(
+                (component) => component.TheaterFormComponent,
+              ),
+          },
+          {
+            path: ':theaterId/screen/list',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/screen-list/screen-list.component').then(
+                (component) => component.ScreenListComponent,
+              ),
+          },
+          {
+            path: ':theaterId/screen/add',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/screen-form/screen-form.component').then(
+                (component) => component.ScreenFormComponent,
+              ),
+          },
+          {
+            path: 'add',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/theater-form/theater-form.component').then(
+                (component) => component.TheaterFormComponent,
+              ),
+          },
+          {
+            path: 'list',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/theater-list/theater-list.component').then(
+                (component) => component.TheaterListComponent,
+              ),
+          },
+        ],
+      },
+      {
         path: 'movie',
         canActivate: [authenticatedGuard],
         children: [

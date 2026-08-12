@@ -25,6 +25,21 @@ export interface AppConfig {
     getAllMoviesUrl: string;
     getImageById: string;
   };
+  theater: {
+    registerUrl: string;
+    updateUrl: string;
+    deleteUrl: string;
+    getTheaterByIdUrl: string;
+    getAllTheatersUrl: string;
+    screen: {
+      registerUrl: string;
+      updateUrl: string;
+      deleteUrl: string;
+      listUrl: string;
+      getScreenByIdUrl: string;
+      getAllScreensUrl: string;
+    };
+  };
 }
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');

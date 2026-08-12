@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { ToastService } from '../../core/services/toast/toast.service';
 import { CommonModule } from '@angular/common';
 import {
   MovieServiceService,
   MovieRegisterResponse,
   MovieListResponse,
 } from '../../core/services/movie/movie-service.service';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
+import { FormsModule } from "@angular/forms";
+import { MatStepContent } from "@angular/material/stepper";
 @Component({
   selector: 'app-movie-list',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule, MatStepContent],
   templateUrl: './movie-list.component.html',
   styleUrls: ['./movie-list.component.css'],
 })
@@ -23,7 +26,10 @@ export class MovieListComponent implements OnInit {
   protected totalCount = 0;
   protected hasNext = false;
 
-  constructor(private movieService: MovieServiceService) {}
+  constructor(
+    private movieService: MovieServiceService,
+    private toastService: ToastService,
+  ) {}
 
   ngOnInit(): void {
     this.loadMovies();
@@ -57,6 +63,36 @@ export class MovieListComponent implements OnInit {
     );
   }
 
+  protected deleteMovie(movieId: string): void {
+    if (this.isMovieLoading) return;
+
+    this.toastService.askForConfirmation(
+      'Delete this movie?',
+      () => {
+        this.toastService.askForConfirmation(
+          'This action cannot be undone. Confirm again?',
+          () => {
+            this.movieService.deleteMovie(movieId).subscribe({
+              next: () => {
+                console.log('Movie deleted successfully');
+                this.loadMovies();
+              },
+              error: (error: any) => {
+                console.error('Error deleting movie:', error);
+              },
+            });
+          },
+          () => {},
+          'Delete anyway',
+          'Cancel',
+        );
+      },
+      () => {},
+      'Continue',
+      'Cancel',
+    );
+  }
+
   protected prevPage(): void {
     if (this.page <= 0 || this.isMovieLoading) return;
     this.page--;
@@ -74,5 +110,13 @@ export class MovieListComponent implements OnInit {
     this.size = size;
     this.page = 0;
     this.loadMovies();
+  }
+
+  protected get averageRating(): string {
+    const rating = this.movies.reduce((sum, movie) => {
+      const movieRating = parseFloat(movie.rating);
+      return sum + (isNaN(movieRating) ? 0 : movieRating);
+    }, 0);
+    return rating > 0 ? (rating / this.movies.length).toFixed(1) : 'N/A';
   }
 }

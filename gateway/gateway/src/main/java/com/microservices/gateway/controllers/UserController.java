@@ -1,6 +1,5 @@
 package com.microservices.gateway.controllers;
 
-import com.microservices.gateway.DTOS.LoginRequestDTO;
 import com.microservices.gateway.DTOS.register.RegisterRequestDTO;
 import com.microservices.gateway.DTOS.register.RegisterResponseDTO;
 import com.microservices.gateway.services.gRPCServices.UserGRPCService;

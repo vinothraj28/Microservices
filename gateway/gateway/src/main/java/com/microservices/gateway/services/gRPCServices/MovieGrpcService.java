@@ -206,4 +206,14 @@ public class MovieGrpcService {
         return response;
 
     }
+
+    public boolean deleteMovieById(String movieId) {
+        DeleteMovieRequest deleteMovieRequest = DeleteMovieRequest.newBuilder()
+                .setMovieId(movieId)
+                .build();
+
+        DeleteMovieResponse response = movieServiceBlockingStub.deleteMovie(deleteMovieRequest);
+        log.info("movie deleted with id {}", movieId);
+        return response.getSuccess();
+    }
 }
