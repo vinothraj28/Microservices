@@ -1,6 +1,8 @@
 package com.microservices.movie.services.interfaces;
 
+import com.microservices.movie.grpc.SeatLayoutResponse;
 import com.microservices.movie.models.entities.Screen;
+import com.microservices.movie.models.entities.Seat;
 import com.microservices.movie.models.entities.Theater;
 import org.springframework.data.domain.Page;
 
@@ -30,4 +32,6 @@ public interface TheaterService {
     List<Screen> listScreensByTheater(UUID theaterId);
 
     DeleteRequest deleteTheater(UUID uuid);
+
+    List<Seat> getSeatLayoutByScreenId(UUID screenId);
 }

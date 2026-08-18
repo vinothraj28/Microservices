@@ -294,6 +294,37 @@ public final class TheaterServiceGrpc {
     return getListScreensByTheaterMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetScreenRequest,
+      com.microservices.movie.grpc.ListSeatLayoutResponse> getGetSeatLayoutMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetSeatLayout",
+      requestType = com.microservices.movie.grpc.GetScreenRequest.class,
+      responseType = com.microservices.movie.grpc.ListSeatLayoutResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetScreenRequest,
+      com.microservices.movie.grpc.ListSeatLayoutResponse> getGetSeatLayoutMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetScreenRequest, com.microservices.movie.grpc.ListSeatLayoutResponse> getGetSeatLayoutMethod;
+    if ((getGetSeatLayoutMethod = TheaterServiceGrpc.getGetSeatLayoutMethod) == null) {
+      synchronized (TheaterServiceGrpc.class) {
+        if ((getGetSeatLayoutMethod = TheaterServiceGrpc.getGetSeatLayoutMethod) == null) {
+          TheaterServiceGrpc.getGetSeatLayoutMethod = getGetSeatLayoutMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.GetScreenRequest, com.microservices.movie.grpc.ListSeatLayoutResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetSeatLayout"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.GetScreenRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.ListSeatLayoutResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new TheaterServiceMethodDescriptorSupplier("GetSeatLayout"))
+              .build();
+        }
+      }
+    }
+    return getGetSeatLayoutMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -404,6 +435,13 @@ public final class TheaterServiceGrpc {
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListScreensResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListScreensByTheaterMethod(), responseObserver);
     }
+
+    /**
+     */
+    default void getSeatLayout(com.microservices.movie.grpc.GetScreenRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListSeatLayoutResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetSeatLayoutMethod(), responseObserver);
+    }
   }
 
   /**
@@ -504,6 +542,14 @@ public final class TheaterServiceGrpc {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getListScreensByTheaterMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void getSeatLayout(com.microservices.movie.grpc.GetScreenRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListSeatLayoutResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetSeatLayoutMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -583,6 +629,13 @@ public final class TheaterServiceGrpc {
     public com.microservices.movie.grpc.ListScreensResponse listScreensByTheater(com.microservices.movie.grpc.ListScreensByTheaterRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListScreensByTheaterMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.microservices.movie.grpc.ListSeatLayoutResponse getSeatLayout(com.microservices.movie.grpc.GetScreenRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetSeatLayoutMethod(), getCallOptions(), request);
     }
   }
 
@@ -673,6 +726,14 @@ public final class TheaterServiceGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListScreensByTheaterMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ListSeatLayoutResponse> getSeatLayout(
+        com.microservices.movie.grpc.GetScreenRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetSeatLayoutMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_CREATE_THEATER = 0;
@@ -684,6 +745,7 @@ public final class TheaterServiceGrpc {
   private static final int METHODID_UPDATE_SCREEN = 6;
   private static final int METHODID_GET_SCREEN = 7;
   private static final int METHODID_LIST_SCREENS_BY_THEATER = 8;
+  private static final int METHODID_GET_SEAT_LAYOUT = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -737,6 +799,10 @@ public final class TheaterServiceGrpc {
         case METHODID_LIST_SCREENS_BY_THEATER:
           serviceImpl.listScreensByTheater((com.microservices.movie.grpc.ListScreensByTheaterRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListScreensResponse>) responseObserver);
+          break;
+        case METHODID_GET_SEAT_LAYOUT:
+          serviceImpl.getSeatLayout((com.microservices.movie.grpc.GetScreenRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListSeatLayoutResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -819,6 +885,13 @@ public final class TheaterServiceGrpc {
               com.microservices.movie.grpc.ListScreensByTheaterRequest,
               com.microservices.movie.grpc.ListScreensResponse>(
                 service, METHODID_LIST_SCREENS_BY_THEATER)))
+        .addMethod(
+          getGetSeatLayoutMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.GetScreenRequest,
+              com.microservices.movie.grpc.ListSeatLayoutResponse>(
+                service, METHODID_GET_SEAT_LAYOUT)))
         .build();
   }
 
@@ -876,6 +949,7 @@ public final class TheaterServiceGrpc {
               .addMethod(getUpdateScreenMethod())
               .addMethod(getGetScreenMethod())
               .addMethod(getListScreensByTheaterMethod())
+              .addMethod(getGetSeatLayoutMethod())
               .build();
         }
       }

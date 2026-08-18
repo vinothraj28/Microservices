@@ -1,0 +1,193 @@
+/* =========================================================
+   BASE STYLES & GLOBAL RESETS - BookQuick Application
+   Foundational styles applied globally
+   ========================================================= */
+
+/* ===== BOX MODEL RESET ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== ROOT & BODY ===== */
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background: var(--color-bg-primary);
+}
+
+/* ===== FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Remove default focus outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===== SCROLLBAR STYLES ===== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) var(--color-bg-secondary);
+}
+
+/* ===== SELECTION STYLES ===== */
+::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: var(--color-text);
+}
+
+::-moz-selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: var(--color-text);
+}
+
+/* ===== TYPOGRAPHY DEFAULTS ===== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ===== BUTTON RESET ===== */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ===== INPUT & FORM ELEMENT RESET ===== */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Remove spinner from number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* ===== IMAGE DEFAULTS ===== */
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+svg {
+  fill: currentColor;
+}
+
+/* ===== LIST RESET ===== */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== TABLE RESET ===== */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* ===== UTILITY CLASSES ===== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ===== ANIMATION UTILITIES ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

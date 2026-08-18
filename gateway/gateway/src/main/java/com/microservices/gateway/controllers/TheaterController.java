@@ -2,6 +2,7 @@ package com.microservices.gateway.controllers;
 
 import com.microservices.gateway.DTOS.screen.AddScreenRequestDTO;
 import com.microservices.gateway.DTOS.screen.ScreenResponseDTO;
+import com.microservices.gateway.DTOS.screen.SeatLayoutResponseDTO;
 import com.microservices.gateway.DTOS.theater.TheaterListResponseDTO;
 import com.microservices.gateway.DTOS.theater.TheaterRequestDTO;
 import com.microservices.gateway.DTOS.theater.TheaterResponseDTO;
@@ -81,6 +82,13 @@ public class TheaterController {
     @GetMapping("/{theaterId}/screens")
     public Mono<ResponseEntity<List<ScreenResponseDTO>>> listScreensByTheater(@PathVariable String theaterId) {
         return Mono.fromCallable(() -> theaterGRPCService.listScreensByTheater(theaterId))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(ResponseEntity::ok);
+    }
+
+    @GetMapping("/screens/{screenId}/seat-layout")
+    public Mono<ResponseEntity<List<SeatLayoutResponseDTO>>> getSeatLayout(@PathVariable String screenId){
+        return Mono.fromCallable(() -> theaterGRPCService.getSeatLayout(screenId))
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(ResponseEntity::ok);
     }

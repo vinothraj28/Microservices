@@ -114,6 +114,7 @@ service TheaterService {
   rpc UpdateScreen(UpdateScreenRequest) returns (ScreenResponse);
   rpc GetScreen(GetScreenRequest) returns (ScreenResponse);
   rpc ListScreensByTheater(ListScreensByTheaterRequest) returns (ListScreensResponse);
+  rpc GetSeatLayout(GetScreenRequest) returns (ListSeatLayoutResponse);
 }
 
 message CreateTheaterRequest {
@@ -240,6 +241,10 @@ message SeatLayoutResponse {
   int32 end_seat_number = 3;
   string seat_type = 4;
   double price_multiplier = 5;
+}
+
+message ListSeatLayoutResponse {
+  repeated SeatLayoutResponse seat_layout = 1;
 }
 
 message ListScreensResponse {

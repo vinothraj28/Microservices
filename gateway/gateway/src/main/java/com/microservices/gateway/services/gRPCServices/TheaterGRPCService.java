@@ -247,6 +247,21 @@ public class TheaterGRPCService {
                 .collect(Collectors.toList());
     }
 
+    public List<SeatLayoutResponseDTO> getSeatLayout(String screenId) {
+        log.info("Getting seat layout for screen: {}", screenId);
+        GetScreenRequest request = GetScreenRequest.newBuilder().setScreenId(screenId).build();
+        ScreenResponse response = theaterServiceBlockingStub.getScreen(request);
+        return response.getSeatLayoutList().stream()
+                .map(seat -> new SeatLayoutResponseDTO(
+                        seat.getRowName(),
+                        seat.getStartSeatNumber(),
+                        seat.getEndSeatNumber(),
+                        seat.getSeatType(),
+                        seat.getPriceMultiplier()
+                ))
+                .collect(Collectors.toList());
+    }
+
     private ScreenResponseDTO mapScreenResponseToDTO(ScreenResponse screenResponse) {
         List<SeatLayoutResponseDTO> seatLayout = screenResponse.getSeatLayoutList().stream()
                 .map(seat -> new SeatLayoutResponseDTO(

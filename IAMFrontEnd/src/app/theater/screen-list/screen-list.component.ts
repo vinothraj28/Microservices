@@ -97,6 +97,7 @@ export class ScreenListComponent implements OnInit {
 
   editScreen(screen: screenResponse): void {
     this.activeMenu = null;
+    
 
     // Navigate to edit screen.
     //

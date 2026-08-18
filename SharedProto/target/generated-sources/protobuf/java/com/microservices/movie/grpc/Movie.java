@@ -136,6 +136,11 @@ public final class Movie {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_movie_SeatLayoutResponse_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_movie_ListSeatLayoutResponse_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_movie_ListSeatLayoutResponse_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
     internal_static_movie_ListScreensResponse_descriptor;
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -476,201 +481,204 @@ public final class Movie {
       "tLayoutResponse\022\020\n\010row_name\030\001 \001(\t\022\031\n\021sta" +
       "rt_seat_number\030\002 \001(\005\022\027\n\017end_seat_number\030" +
       "\003 \001(\005\022\021\n\tseat_type\030\004 \001(\t\022\030\n\020price_multip" +
-      "lier\030\005 \001(\001\"=\n\023ListScreensResponse\022&\n\007scr" +
-      "eens\030\001 \003(\0132\025.movie.ScreenResponse\"w\n\021Cre" +
-      "ateShowRequest\022\020\n\010movie_id\030\001 \001(\t\022\021\n\tscre" +
-      "en_id\030\002 \001(\t\022\026\n\016show_date_time\030\003 \001(\t\022\022\n\nb" +
-      "ase_price\030\004 \001(\001\022\021\n\tshow_type\030\005 \001(\t\"c\n\021Up" +
-      "dateShowRequest\022\017\n\007show_id\030\001 \001(\t\022\026\n\016show" +
-      "_date_time\030\002 \001(\t\022\022\n\nbase_price\030\003 \001(\001\022\021\n\t" +
-      "show_type\030\004 \001(\t\"!\n\016GetShowRequest\022\017\n\007sho" +
-      "w_id\030\001 \001(\t\"G\n\027ListShowsByMovieRequest\022\020\n" +
-      "\010movie_id\030\001 \001(\t\022\014\n\004date\030\002 \001(\t\022\014\n\004city\030\003 " +
-      "\001(\t\"=\n\031ListShowsByTheaterRequest\022\022\n\nthea" +
-      "ter_id\030\001 \001(\t\022\014\n\004date\030\002 \001(\t\"+\n\030GetAvailab" +
-      "leSeatsRequest\022\017\n\007show_id\030\001 \001(\t\"\334\002\n\014Show" +
-      "Response\022\017\n\007show_id\030\001 \001(\t\022\020\n\010movie_id\030\002 " +
-      "\001(\t\022\021\n\tscreen_id\030\003 \001(\t\022\022\n\ntheater_id\030\004 \001" +
-      "(\t\022#\n\005movie\030\005 \001(\0132\024.movie.MovieResponse\022" +
-      "%\n\006screen\030\006 \001(\0132\025.movie.ScreenResponse\022\026" +
-      "\n\016show_date_time\030\007 \001(\t\022\022\n\nbase_price\030\010 \001" +
-      "(\001\022\021\n\tshow_type\030\t \001(\t\022\027\n\017available_seats" +
-      "\030\n \001(\005\022.\n\ncreated_at\030\013 \001(\0132\032.google.prot" +
-      "obuf.Timestamp\022.\n\nupdated_at\030\014 \001(\0132\032.goo" +
-      "gle.protobuf.Timestamp\"L\n\021ListShowsRespo" +
-      "nse\022\"\n\005shows\030\001 \003(\0132\023.movie.ShowResponse\022" +
-      "\023\n\013total_count\030\002 \001(\005\"b\n\026AvailableSeatsRe" +
-      "sponse\022\017\n\007show_id\030\001 \001(\t\022\036\n\005seats\030\002 \003(\0132\017" +
-      ".movie.SeatInfo\022\027\n\017total_available\030\003 \001(\005" +
-      "\"\212\001\n\010SeatInfo\022\017\n\007seat_id\030\001 \001(\t\022\020\n\010row_na" +
-      "me\030\002 \001(\t\022\023\n\013seat_number\030\003 \001(\005\022\021\n\tseat_ty" +
-      "pe\030\004 \001(\t\022\r\n\005price\030\005 \001(\001\022\016\n\006status\030\006 \001(\t\022" +
-      "\024\n\014locked_until\030\007 \001(\t\"F\n\020LockSeatsReques" +
-      "t\022\017\n\007show_id\030\001 \001(\t\022\020\n\010seat_ids\030\002 \003(\t\022\017\n\007" +
-      "user_id\030\003 \001(\t\"u\n\021LockSeatsResponse\022\017\n\007su" +
-      "ccess\030\001 \001(\010\022\017\n\007lock_id\030\002 \001(\t\022\017\n\007message\030" +
-      "\003 \001(\t\022\024\n\014locked_until\030\004 \001(\t\022\027\n\017locked_se" +
-      "at_ids\030\005 \003(\t\"%\n\022UnlockSeatsRequest\022\017\n\007lo" +
-      "ck_id\030\001 \001(\t\"7\n\023UnlockSeatsResponse\022\017\n\007su" +
-      "ccess\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\"9\n\024GetSeatS" +
-      "tatusRequest\022\017\n\007show_id\030\001 \001(\t\022\020\n\010seat_id" +
-      "s\030\002 \003(\t\"A\n\025GetSeatStatusResponse\022(\n\rseat" +
-      "_statuses\030\001 \003(\0132\021.movie.SeatStatus\"V\n\nSe" +
-      "atStatus\022\017\n\007seat_id\030\001 \001(\t\022\016\n\006status\030\002 \001(" +
-      "\t\022\021\n\tlocked_by\030\003 \001(\t\022\024\n\014locked_until\030\004 \001" +
-      "(\t\"h\n\024CreateBookingRequest\022\017\n\007user_id\030\001 " +
-      "\001(\t\022\017\n\007show_id\030\002 \001(\t\022\020\n\010seat_ids\030\003 \003(\t\022\r" +
-      "\n\005email\030\004 \001(\t\022\r\n\005phone\030\005 \001(\t\"?\n\025ConfirmB" +
-      "ookingRequest\022\022\n\nbooking_id\030\001 \001(\t\022\022\n\npay" +
-      "ment_id\030\002 \001(\t\":\n\024CancelBookingRequest\022\022\n" +
-      "\nbooking_id\030\001 \001(\t\022\016\n\006reason\030\002 \001(\t\"\'\n\021Get" +
-      "BookingRequest\022\022\n\nbooking_id\030\001 \001(\t\"V\n\027Li" +
-      "stUserBookingsRequest\022\017\n\007user_id\030\001 \001(\t\022\014" +
-      "\n\004page\030\002 \001(\005\022\014\n\004size\030\003 \001(\005\022\016\n\006status\030\004 \001" +
-      "(\t\"\323\002\n\017BookingResponse\022\022\n\nbooking_id\030\001 \001" +
-      "(\t\022\017\n\007user_id\030\002 \001(\t\022\017\n\007show_id\030\003 \001(\t\022!\n\004" +
-      "show\030\004 \001(\0132\023.movie.ShowResponse\022\036\n\005seats" +
-      "\030\005 \003(\0132\017.movie.SeatInfo\022\024\n\014total_amount\030" +
-      "\006 \001(\001\022\016\n\006status\030\007 \001(\t\022\r\n\005email\030\010 \001(\t\022\r\n\005" +
-      "phone\030\t \001(\t\022.\n\ncreated_at\030\n \001(\0132\032.google" +
-      ".protobuf.Timestamp\022.\n\nupdated_at\030\013 \001(\0132" +
-      "\032.google.protobuf.Timestamp\022\017\n\007lock_id\030\014" +
-      " \001(\t\022\022\n\nexpires_at\030\r \001(\t\"U\n\024ListBookings" +
-      "Response\022(\n\010bookings\030\001 \003(\0132\026.movie.Booki" +
-      "ngResponse\022\023\n\013total_count\030\002 \001(\005\"c\n\025Cance" +
-      "lBookingResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007mes" +
-      "sage\030\002 \001(\t\022\021\n\trefund_id\030\003 \001(\t\022\025\n\rrefund_" +
-      "amount\030\004 \001(\001\"\225\001\n\026InitiatePaymentRequest\022" +
-      "\022\n\nbooking_id\030\001 \001(\t\022\016\n\006amount\030\002 \001(\001\022\026\n\016p" +
-      "ayment_method\030\003 \001(\t\022\017\n\007user_id\030\004 \001(\t\022.\n\017" +
-      "payment_details\030\005 \001(\0132\025.movie.PaymentDet" +
-      "ails\"\234\001\n\016PaymentDetails\022\023\n\013card_number\030\001" +
-      " \001(\t\022\030\n\020card_holder_name\030\002 \001(\t\022\024\n\014expiry" +
-      "_month\030\003 \001(\t\022\023\n\013expiry_year\030\004 \001(\t\022\013\n\003cvv" +
-      "\030\005 \001(\t\022\016\n\006upi_id\030\006 \001(\t\022\023\n\013wallet_type\030\007 " +
-      "\001(\t\"B\n\024VerifyPaymentRequest\022\022\n\npayment_i" +
-      "d\030\001 \001(\t\022\026\n\016transaction_id\030\002 \001(\t\"Q\n\024Proce" +
-      "ssRefundRequest\022\022\n\npayment_id\030\001 \001(\t\022\025\n\rr" +
-      "efund_amount\030\002 \001(\001\022\016\n\006reason\030\003 \001(\t\"-\n\027Ge" +
-      "tPaymentStatusRequest\022\022\n\npayment_id\030\001 \001(" +
-      "\t\"\374\001\n\017PaymentResponse\022\022\n\npayment_id\030\001 \001(" +
-      "\t\022\022\n\nbooking_id\030\002 \001(\t\022\016\n\006amount\030\003 \001(\001\022\026\n" +
-      "\016payment_method\030\004 \001(\t\022\016\n\006status\030\005 \001(\t\022\026\n" +
-      "\016transaction_id\030\006 \001(\t\022\017\n\007message\030\007 \001(\t\0220" +
-      "\n\014payment_date\030\010 \001(\0132\032.google.protobuf.T" +
-      "imestamp\022.\n\ncreated_at\030\t \001(\0132\032.google.pr" +
-      "otobuf.Timestamp\"\270\001\n\016RefundResponse\022\021\n\tr" +
-      "efund_id\030\001 \001(\t\022\022\n\npayment_id\030\002 \001(\t\022\025\n\rre" +
-      "fund_amount\030\003 \001(\001\022\016\n\006status\030\004 \001(\t\022\026\n\016tra" +
-      "nsaction_id\030\005 \001(\t\022\017\n\007message\030\006 \001(\t\022/\n\013re" +
-      "fund_date\030\007 \001(\0132\032.google.protobuf.Timest" +
-      "amp\",\n\026GenerateTicketsRequest\022\022\n\nbooking" +
-      "_id\030\001 \001(\t\"%\n\020GetTicketRequest\022\021\n\tticket_" +
-      "id\030\001 \001(\t\"9\n\023VerifyTicketRequest\022\021\n\tticke" +
-      "t_id\030\001 \001(\t\022\017\n\007qr_code\030\002 \001(\t\"1\n\033ListTicke" +
-      "tsByBookingRequest\022\022\n\nbooking_id\030\001 \001(\t\"*" +
-      "\n\024CancelTicketsRequest\022\022\n\nbooking_id\030\001 \001" +
-      "(\t\"\226\002\n\016TicketResponse\022\021\n\tticket_id\030\001 \001(\t" +
-      "\022\022\n\nbooking_id\030\002 \001(\t\022\017\n\007seat_id\030\003 \001(\t\022\035\n" +
-      "\004seat\030\004 \001(\0132\017.movie.SeatInfo\022!\n\004show\030\005 \001" +
-      "(\0132\023.movie.ShowResponse\022\017\n\007qr_code\030\006 \001(\t" +
-      "\022\016\n\006status\030\007 \001(\t\022\r\n\005price\030\010 \001(\001\022-\n\tissue" +
-      "d_at\030\t \001(\0132\032.google.protobuf.Timestamp\022+" +
-      "\n\007used_at\030\n \001(\0132\032.google.protobuf.Timest" +
-      "amp\"k\n\027GenerateTicketsResponse\022&\n\007ticket" +
-      "s\030\001 \003(\0132\025.movie.TicketResponse\022\022\n\nbookin" +
-      "g_id\030\002 \001(\t\022\024\n\014ticket_count\030\003 \001(\005\"=\n\023List" +
-      "TicketsResponse\022&\n\007tickets\030\001 \003(\0132\025.movie" +
-      ".TicketResponse\"]\n\024VerifyTicketResponse\022" +
-      "\r\n\005valid\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022%\n\006ticke" +
-      "t\030\003 \001(\0132\025.movie.TicketResponse\"T\n\025Cancel" +
-      "TicketsResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007mess" +
-      "age\030\002 \001(\t\022\031\n\021tickets_cancelled\030\003 \001(\005\"]\n\022" +
-      "UploadImageRequest\022\014\n\004data\030\001 \001(\014\022\021\n\tfile" +
-      "_name\030\002 \001(\t\022\024\n\014content_type\030\003 \001(\t\022\020\n\010mov" +
-      "ie_id\030\004 \001(\t\"8\n\023UploadImageResponse\022\020\n\010im" +
-      "age_id\030\001 \001(\003\022\017\n\007message\030\002 \001(\t\"#\n\017GetImag" +
-      "eRequest\022\020\n\010image_id\030\001 \001(\003\"W\n\020GetImageRe" +
-      "sponse\022\014\n\004data\030\001 \001(\014\022\021\n\tfile_name\030\002 \001(\t\022" +
-      "\024\n\014content_type\030\003 \001(\t\022\014\n\004size\030\004 \001(\003\"&\n\022D" +
-      "eleteImageRequest\022\020\n\010image_id\030\001 \001(\t\"7\n\023D" +
-      "eleteImageResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007m" +
-      "essage\030\002 \001(\t2\321\002\n\014MovieService\022>\n\013CreateM" +
-      "ovie\022\031.movie.CreateMovieRequest\032\024.movie." +
-      "MovieResponse\022>\n\013UpdateMovie\022\031.movie.Upd" +
-      "ateMovieRequest\032\024.movie.MovieResponse\0228\n" +
-      "\010GetMovie\022\026.movie.GetMovieRequest\032\024.movi" +
-      "e.MovieResponse\022A\n\nListMovies\022\030.movie.Li" +
-      "stMoviesRequest\032\031.movie.ListMoviesRespon" +
-      "se\022D\n\013DeleteMovie\022\031.movie.DeleteMovieReq" +
-      "uest\032\032.movie.DeleteMovieResponse2\206\005\n\016The" +
-      "aterService\022D\n\rCreateTheater\022\033.movie.Cre" +
-      "ateTheaterRequest\032\026.movie.TheaterRespons" +
-      "e\022D\n\rUpdateTheater\022\033.movie.UpdateTheater" +
-      "Request\032\026.movie.TheaterResponse\022>\n\nGetTh" +
-      "eater\022\030.movie.GetTheaterRequest\032\026.movie." +
-      "TheaterResponse\022G\n\014ListTheaters\022\032.movie." +
-      "ListTheatersRequest\032\033.movie.ListTheaters" +
-      "Response\022J\n\rDeleteTheater\022\033.movie.Delete" +
-      "TheaterRequest\032\034.movie.DeleteTheaterResp" +
-      "onse\022;\n\tAddScreen\022\027.movie.AddScreenReque" +
-      "st\032\025.movie.ScreenResponse\022A\n\014UpdateScree" +
-      "n\022\032.movie.UpdateScreenRequest\032\025.movie.Sc" +
-      "reenResponse\022;\n\tGetScreen\022\027.movie.GetScr" +
-      "eenRequest\032\025.movie.ScreenResponse\022V\n\024Lis" +
-      "tScreensByTheater\022\".movie.ListScreensByT" +
-      "heaterRequest\032\032.movie.ListScreensRespons" +
-      "e2\263\003\n\013ShowService\022;\n\nCreateShow\022\030.movie." +
-      "CreateShowRequest\032\023.movie.ShowResponse\022;" +
-      "\n\nUpdateShow\022\030.movie.UpdateShowRequest\032\023" +
-      ".movie.ShowResponse\0225\n\007GetShow\022\025.movie.G" +
-      "etShowRequest\032\023.movie.ShowResponse\022L\n\020Li" +
-      "stShowsByMovie\022\036.movie.ListShowsByMovieR" +
-      "equest\032\030.movie.ListShowsResponse\022P\n\022List" +
-      "ShowsByTheater\022 .movie.ListShowsByTheate" +
-      "rRequest\032\030.movie.ListShowsResponse\022S\n\021Ge" +
-      "tAvailableSeats\022\037.movie.GetAvailableSeat" +
-      "sRequest\032\035.movie.AvailableSeatsResponse2" +
-      "\337\001\n\013SeatService\022>\n\tLockSeats\022\027.movie.Loc" +
-      "kSeatsRequest\032\030.movie.LockSeatsResponse\022" +
-      "D\n\013UnlockSeats\022\031.movie.UnlockSeatsReques" +
-      "t\032\032.movie.UnlockSeatsResponse\022J\n\rGetSeat" +
-      "Status\022\033.movie.GetSeatStatusRequest\032\034.mo" +
-      "vie.GetSeatStatusResponse2\373\002\n\016BookingSer" +
-      "vice\022D\n\rCreateBooking\022\033.movie.CreateBook" +
-      "ingRequest\032\026.movie.BookingResponse\022F\n\016Co" +
-      "nfirmBooking\022\034.movie.ConfirmBookingReque" +
-      "st\032\026.movie.BookingResponse\022J\n\rCancelBook" +
-      "ing\022\033.movie.CancelBookingRequest\032\034.movie" +
-      ".CancelBookingResponse\022>\n\nGetBooking\022\030.m" +
-      "ovie.GetBookingRequest\032\026.movie.BookingRe" +
-      "sponse\022O\n\020ListUserBookings\022\036.movie.ListU" +
-      "serBookingsRequest\032\033.movie.ListBookingsR" +
-      "esponse2\261\002\n\016PaymentService\022H\n\017InitiatePa" +
-      "yment\022\035.movie.InitiatePaymentRequest\032\026.m" +
-      "ovie.PaymentResponse\022D\n\rVerifyPayment\022\033." +
-      "movie.VerifyPaymentRequest\032\026.movie.Payme" +
-      "ntResponse\022C\n\rProcessRefund\022\033.movie.Proc" +
-      "essRefundRequest\032\025.movie.RefundResponse\022" +
-      "J\n\020GetPaymentStatus\022\036.movie.GetPaymentSt" +
-      "atusRequest\032\026.movie.PaymentResponse2\213\003\n\r" +
-      "TicketService\022P\n\017GenerateTickets\022\035.movie" +
-      ".GenerateTicketsRequest\032\036.movie.Generate" +
-      "TicketsResponse\022;\n\tGetTicket\022\027.movie.Get" +
-      "TicketRequest\032\025.movie.TicketResponse\022G\n\014" +
-      "VerifyTicket\022\032.movie.VerifyTicketRequest" +
-      "\032\033.movie.VerifyTicketResponse\022V\n\024ListTic" +
-      "ketsByBooking\022\".movie.ListTicketsByBooki" +
-      "ngRequest\032\032.movie.ListTicketsResponse\022J\n" +
-      "\rCancelTickets\022\033.movie.CancelTicketsRequ" +
-      "est\032\034.movie.CancelTicketsResponse2\327\001\n\014Im" +
-      "ageService\022D\n\013UploadImage\022\031.movie.Upload" +
-      "ImageRequest\032\032.movie.UploadImageResponse" +
-      "\022;\n\010GetImage\022\026.movie.GetImageRequest\032\027.m" +
-      "ovie.GetImageResponse\022D\n\013DeleteImage\022\031.m" +
-      "ovie.DeleteImageRequest\032\032.movie.DeleteIm" +
-      "ageResponseB \n\034com.microservices.movie.g" +
-      "rpcP\001b\006proto3"
+      "lier\030\005 \001(\001\"H\n\026ListSeatLayoutResponse\022.\n\013" +
+      "seat_layout\030\001 \003(\0132\031.movie.SeatLayoutResp" +
+      "onse\"=\n\023ListScreensResponse\022&\n\007screens\030\001" +
+      " \003(\0132\025.movie.ScreenResponse\"w\n\021CreateSho" +
+      "wRequest\022\020\n\010movie_id\030\001 \001(\t\022\021\n\tscreen_id\030" +
+      "\002 \001(\t\022\026\n\016show_date_time\030\003 \001(\t\022\022\n\nbase_pr" +
+      "ice\030\004 \001(\001\022\021\n\tshow_type\030\005 \001(\t\"c\n\021UpdateSh" +
+      "owRequest\022\017\n\007show_id\030\001 \001(\t\022\026\n\016show_date_" +
+      "time\030\002 \001(\t\022\022\n\nbase_price\030\003 \001(\001\022\021\n\tshow_t" +
+      "ype\030\004 \001(\t\"!\n\016GetShowRequest\022\017\n\007show_id\030\001" +
+      " \001(\t\"G\n\027ListShowsByMovieRequest\022\020\n\010movie" +
+      "_id\030\001 \001(\t\022\014\n\004date\030\002 \001(\t\022\014\n\004city\030\003 \001(\t\"=\n" +
+      "\031ListShowsByTheaterRequest\022\022\n\ntheater_id" +
+      "\030\001 \001(\t\022\014\n\004date\030\002 \001(\t\"+\n\030GetAvailableSeat" +
+      "sRequest\022\017\n\007show_id\030\001 \001(\t\"\334\002\n\014ShowRespon" +
+      "se\022\017\n\007show_id\030\001 \001(\t\022\020\n\010movie_id\030\002 \001(\t\022\021\n" +
+      "\tscreen_id\030\003 \001(\t\022\022\n\ntheater_id\030\004 \001(\t\022#\n\005" +
+      "movie\030\005 \001(\0132\024.movie.MovieResponse\022%\n\006scr" +
+      "een\030\006 \001(\0132\025.movie.ScreenResponse\022\026\n\016show" +
+      "_date_time\030\007 \001(\t\022\022\n\nbase_price\030\010 \001(\001\022\021\n\t" +
+      "show_type\030\t \001(\t\022\027\n\017available_seats\030\n \001(\005" +
+      "\022.\n\ncreated_at\030\013 \001(\0132\032.google.protobuf.T" +
+      "imestamp\022.\n\nupdated_at\030\014 \001(\0132\032.google.pr" +
+      "otobuf.Timestamp\"L\n\021ListShowsResponse\022\"\n" +
+      "\005shows\030\001 \003(\0132\023.movie.ShowResponse\022\023\n\013tot" +
+      "al_count\030\002 \001(\005\"b\n\026AvailableSeatsResponse" +
+      "\022\017\n\007show_id\030\001 \001(\t\022\036\n\005seats\030\002 \003(\0132\017.movie" +
+      ".SeatInfo\022\027\n\017total_available\030\003 \001(\005\"\212\001\n\010S" +
+      "eatInfo\022\017\n\007seat_id\030\001 \001(\t\022\020\n\010row_name\030\002 \001" +
+      "(\t\022\023\n\013seat_number\030\003 \001(\005\022\021\n\tseat_type\030\004 \001" +
+      "(\t\022\r\n\005price\030\005 \001(\001\022\016\n\006status\030\006 \001(\t\022\024\n\014loc" +
+      "ked_until\030\007 \001(\t\"F\n\020LockSeatsRequest\022\017\n\007s" +
+      "how_id\030\001 \001(\t\022\020\n\010seat_ids\030\002 \003(\t\022\017\n\007user_i" +
+      "d\030\003 \001(\t\"u\n\021LockSeatsResponse\022\017\n\007success\030" +
+      "\001 \001(\010\022\017\n\007lock_id\030\002 \001(\t\022\017\n\007message\030\003 \001(\t\022" +
+      "\024\n\014locked_until\030\004 \001(\t\022\027\n\017locked_seat_ids" +
+      "\030\005 \003(\t\"%\n\022UnlockSeatsRequest\022\017\n\007lock_id\030" +
+      "\001 \001(\t\"7\n\023UnlockSeatsResponse\022\017\n\007success\030" +
+      "\001 \001(\010\022\017\n\007message\030\002 \001(\t\"9\n\024GetSeatStatusR" +
+      "equest\022\017\n\007show_id\030\001 \001(\t\022\020\n\010seat_ids\030\002 \003(" +
+      "\t\"A\n\025GetSeatStatusResponse\022(\n\rseat_statu" +
+      "ses\030\001 \003(\0132\021.movie.SeatStatus\"V\n\nSeatStat" +
+      "us\022\017\n\007seat_id\030\001 \001(\t\022\016\n\006status\030\002 \001(\t\022\021\n\tl" +
+      "ocked_by\030\003 \001(\t\022\024\n\014locked_until\030\004 \001(\t\"h\n\024" +
+      "CreateBookingRequest\022\017\n\007user_id\030\001 \001(\t\022\017\n" +
+      "\007show_id\030\002 \001(\t\022\020\n\010seat_ids\030\003 \003(\t\022\r\n\005emai" +
+      "l\030\004 \001(\t\022\r\n\005phone\030\005 \001(\t\"?\n\025ConfirmBooking" +
+      "Request\022\022\n\nbooking_id\030\001 \001(\t\022\022\n\npayment_i" +
+      "d\030\002 \001(\t\":\n\024CancelBookingRequest\022\022\n\nbooki" +
+      "ng_id\030\001 \001(\t\022\016\n\006reason\030\002 \001(\t\"\'\n\021GetBookin" +
+      "gRequest\022\022\n\nbooking_id\030\001 \001(\t\"V\n\027ListUser" +
+      "BookingsRequest\022\017\n\007user_id\030\001 \001(\t\022\014\n\004page" +
+      "\030\002 \001(\005\022\014\n\004size\030\003 \001(\005\022\016\n\006status\030\004 \001(\t\"\323\002\n" +
+      "\017BookingResponse\022\022\n\nbooking_id\030\001 \001(\t\022\017\n\007" +
+      "user_id\030\002 \001(\t\022\017\n\007show_id\030\003 \001(\t\022!\n\004show\030\004" +
+      " \001(\0132\023.movie.ShowResponse\022\036\n\005seats\030\005 \003(\013" +
+      "2\017.movie.SeatInfo\022\024\n\014total_amount\030\006 \001(\001\022" +
+      "\016\n\006status\030\007 \001(\t\022\r\n\005email\030\010 \001(\t\022\r\n\005phone\030" +
+      "\t \001(\t\022.\n\ncreated_at\030\n \001(\0132\032.google.proto" +
+      "buf.Timestamp\022.\n\nupdated_at\030\013 \001(\0132\032.goog" +
+      "le.protobuf.Timestamp\022\017\n\007lock_id\030\014 \001(\t\022\022" +
+      "\n\nexpires_at\030\r \001(\t\"U\n\024ListBookingsRespon" +
+      "se\022(\n\010bookings\030\001 \003(\0132\026.movie.BookingResp" +
+      "onse\022\023\n\013total_count\030\002 \001(\005\"c\n\025CancelBooki" +
+      "ngResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002" +
+      " \001(\t\022\021\n\trefund_id\030\003 \001(\t\022\025\n\rrefund_amount" +
+      "\030\004 \001(\001\"\225\001\n\026InitiatePaymentRequest\022\022\n\nboo" +
+      "king_id\030\001 \001(\t\022\016\n\006amount\030\002 \001(\001\022\026\n\016payment" +
+      "_method\030\003 \001(\t\022\017\n\007user_id\030\004 \001(\t\022.\n\017paymen" +
+      "t_details\030\005 \001(\0132\025.movie.PaymentDetails\"\234" +
+      "\001\n\016PaymentDetails\022\023\n\013card_number\030\001 \001(\t\022\030" +
+      "\n\020card_holder_name\030\002 \001(\t\022\024\n\014expiry_month" +
+      "\030\003 \001(\t\022\023\n\013expiry_year\030\004 \001(\t\022\013\n\003cvv\030\005 \001(\t" +
+      "\022\016\n\006upi_id\030\006 \001(\t\022\023\n\013wallet_type\030\007 \001(\t\"B\n" +
+      "\024VerifyPaymentRequest\022\022\n\npayment_id\030\001 \001(" +
+      "\t\022\026\n\016transaction_id\030\002 \001(\t\"Q\n\024ProcessRefu" +
+      "ndRequest\022\022\n\npayment_id\030\001 \001(\t\022\025\n\rrefund_" +
+      "amount\030\002 \001(\001\022\016\n\006reason\030\003 \001(\t\"-\n\027GetPayme" +
+      "ntStatusRequest\022\022\n\npayment_id\030\001 \001(\t\"\374\001\n\017" +
+      "PaymentResponse\022\022\n\npayment_id\030\001 \001(\t\022\022\n\nb" +
+      "ooking_id\030\002 \001(\t\022\016\n\006amount\030\003 \001(\001\022\026\n\016payme" +
+      "nt_method\030\004 \001(\t\022\016\n\006status\030\005 \001(\t\022\026\n\016trans" +
+      "action_id\030\006 \001(\t\022\017\n\007message\030\007 \001(\t\0220\n\014paym" +
+      "ent_date\030\010 \001(\0132\032.google.protobuf.Timesta" +
+      "mp\022.\n\ncreated_at\030\t \001(\0132\032.google.protobuf" +
+      ".Timestamp\"\270\001\n\016RefundResponse\022\021\n\trefund_" +
+      "id\030\001 \001(\t\022\022\n\npayment_id\030\002 \001(\t\022\025\n\rrefund_a" +
+      "mount\030\003 \001(\001\022\016\n\006status\030\004 \001(\t\022\026\n\016transacti" +
+      "on_id\030\005 \001(\t\022\017\n\007message\030\006 \001(\t\022/\n\013refund_d" +
+      "ate\030\007 \001(\0132\032.google.protobuf.Timestamp\",\n" +
+      "\026GenerateTicketsRequest\022\022\n\nbooking_id\030\001 " +
+      "\001(\t\"%\n\020GetTicketRequest\022\021\n\tticket_id\030\001 \001" +
+      "(\t\"9\n\023VerifyTicketRequest\022\021\n\tticket_id\030\001" +
+      " \001(\t\022\017\n\007qr_code\030\002 \001(\t\"1\n\033ListTicketsByBo" +
+      "okingRequest\022\022\n\nbooking_id\030\001 \001(\t\"*\n\024Canc" +
+      "elTicketsRequest\022\022\n\nbooking_id\030\001 \001(\t\"\226\002\n" +
+      "\016TicketResponse\022\021\n\tticket_id\030\001 \001(\t\022\022\n\nbo" +
+      "oking_id\030\002 \001(\t\022\017\n\007seat_id\030\003 \001(\t\022\035\n\004seat\030" +
+      "\004 \001(\0132\017.movie.SeatInfo\022!\n\004show\030\005 \001(\0132\023.m" +
+      "ovie.ShowResponse\022\017\n\007qr_code\030\006 \001(\t\022\016\n\006st" +
+      "atus\030\007 \001(\t\022\r\n\005price\030\010 \001(\001\022-\n\tissued_at\030\t" +
+      " \001(\0132\032.google.protobuf.Timestamp\022+\n\007used" +
+      "_at\030\n \001(\0132\032.google.protobuf.Timestamp\"k\n" +
+      "\027GenerateTicketsResponse\022&\n\007tickets\030\001 \003(" +
+      "\0132\025.movie.TicketResponse\022\022\n\nbooking_id\030\002" +
+      " \001(\t\022\024\n\014ticket_count\030\003 \001(\005\"=\n\023ListTicket" +
+      "sResponse\022&\n\007tickets\030\001 \003(\0132\025.movie.Ticke" +
+      "tResponse\"]\n\024VerifyTicketResponse\022\r\n\005val" +
+      "id\030\001 \001(\010\022\017\n\007message\030\002 \001(\t\022%\n\006ticket\030\003 \001(" +
+      "\0132\025.movie.TicketResponse\"T\n\025CancelTicket" +
+      "sResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message\030\002 " +
+      "\001(\t\022\031\n\021tickets_cancelled\030\003 \001(\005\"]\n\022Upload" +
+      "ImageRequest\022\014\n\004data\030\001 \001(\014\022\021\n\tfile_name\030" +
+      "\002 \001(\t\022\024\n\014content_type\030\003 \001(\t\022\020\n\010movie_id\030" +
+      "\004 \001(\t\"8\n\023UploadImageResponse\022\020\n\010image_id" +
+      "\030\001 \001(\003\022\017\n\007message\030\002 \001(\t\"#\n\017GetImageReque" +
+      "st\022\020\n\010image_id\030\001 \001(\003\"W\n\020GetImageResponse" +
+      "\022\014\n\004data\030\001 \001(\014\022\021\n\tfile_name\030\002 \001(\t\022\024\n\014con" +
+      "tent_type\030\003 \001(\t\022\014\n\004size\030\004 \001(\003\"&\n\022DeleteI" +
+      "mageRequest\022\020\n\010image_id\030\001 \001(\t\"7\n\023DeleteI" +
+      "mageResponse\022\017\n\007success\030\001 \001(\010\022\017\n\007message" +
+      "\030\002 \001(\t2\321\002\n\014MovieService\022>\n\013CreateMovie\022\031" +
+      ".movie.CreateMovieRequest\032\024.movie.MovieR" +
+      "esponse\022>\n\013UpdateMovie\022\031.movie.UpdateMov" +
+      "ieRequest\032\024.movie.MovieResponse\0228\n\010GetMo" +
+      "vie\022\026.movie.GetMovieRequest\032\024.movie.Movi" +
+      "eResponse\022A\n\nListMovies\022\030.movie.ListMovi" +
+      "esRequest\032\031.movie.ListMoviesResponse\022D\n\013" +
+      "DeleteMovie\022\031.movie.DeleteMovieRequest\032\032" +
+      ".movie.DeleteMovieResponse2\317\005\n\016TheaterSe" +
+      "rvice\022D\n\rCreateTheater\022\033.movie.CreateThe" +
+      "aterRequest\032\026.movie.TheaterResponse\022D\n\rU" +
+      "pdateTheater\022\033.movie.UpdateTheaterReques" +
+      "t\032\026.movie.TheaterResponse\022>\n\nGetTheater\022" +
+      "\030.movie.GetTheaterRequest\032\026.movie.Theate" +
+      "rResponse\022G\n\014ListTheaters\022\032.movie.ListTh" +
+      "eatersRequest\032\033.movie.ListTheatersRespon" +
+      "se\022J\n\rDeleteTheater\022\033.movie.DeleteTheate" +
+      "rRequest\032\034.movie.DeleteTheaterResponse\022;" +
+      "\n\tAddScreen\022\027.movie.AddScreenRequest\032\025.m" +
+      "ovie.ScreenResponse\022A\n\014UpdateScreen\022\032.mo" +
+      "vie.UpdateScreenRequest\032\025.movie.ScreenRe" +
+      "sponse\022;\n\tGetScreen\022\027.movie.GetScreenReq" +
+      "uest\032\025.movie.ScreenResponse\022V\n\024ListScree" +
+      "nsByTheater\022\".movie.ListScreensByTheater" +
+      "Request\032\032.movie.ListScreensResponse\022G\n\rG" +
+      "etSeatLayout\022\027.movie.GetScreenRequest\032\035." +
+      "movie.ListSeatLayoutResponse2\263\003\n\013ShowSer" +
+      "vice\022;\n\nCreateShow\022\030.movie.CreateShowReq" +
+      "uest\032\023.movie.ShowResponse\022;\n\nUpdateShow\022" +
+      "\030.movie.UpdateShowRequest\032\023.movie.ShowRe" +
+      "sponse\0225\n\007GetShow\022\025.movie.GetShowRequest" +
+      "\032\023.movie.ShowResponse\022L\n\020ListShowsByMovi" +
+      "e\022\036.movie.ListShowsByMovieRequest\032\030.movi" +
+      "e.ListShowsResponse\022P\n\022ListShowsByTheate" +
+      "r\022 .movie.ListShowsByTheaterRequest\032\030.mo" +
+      "vie.ListShowsResponse\022S\n\021GetAvailableSea" +
+      "ts\022\037.movie.GetAvailableSeatsRequest\032\035.mo" +
+      "vie.AvailableSeatsResponse2\337\001\n\013SeatServi" +
+      "ce\022>\n\tLockSeats\022\027.movie.LockSeatsRequest" +
+      "\032\030.movie.LockSeatsResponse\022D\n\013UnlockSeat" +
+      "s\022\031.movie.UnlockSeatsRequest\032\032.movie.Unl" +
+      "ockSeatsResponse\022J\n\rGetSeatStatus\022\033.movi" +
+      "e.GetSeatStatusRequest\032\034.movie.GetSeatSt" +
+      "atusResponse2\373\002\n\016BookingService\022D\n\rCreat" +
+      "eBooking\022\033.movie.CreateBookingRequest\032\026." +
+      "movie.BookingResponse\022F\n\016ConfirmBooking\022" +
+      "\034.movie.ConfirmBookingRequest\032\026.movie.Bo" +
+      "okingResponse\022J\n\rCancelBooking\022\033.movie.C" +
+      "ancelBookingRequest\032\034.movie.CancelBookin" +
+      "gResponse\022>\n\nGetBooking\022\030.movie.GetBooki" +
+      "ngRequest\032\026.movie.BookingResponse\022O\n\020Lis" +
+      "tUserBookings\022\036.movie.ListUserBookingsRe" +
+      "quest\032\033.movie.ListBookingsResponse2\261\002\n\016P" +
+      "aymentService\022H\n\017InitiatePayment\022\035.movie" +
+      ".InitiatePaymentRequest\032\026.movie.PaymentR" +
+      "esponse\022D\n\rVerifyPayment\022\033.movie.VerifyP" +
+      "aymentRequest\032\026.movie.PaymentResponse\022C\n" +
+      "\rProcessRefund\022\033.movie.ProcessRefundRequ" +
+      "est\032\025.movie.RefundResponse\022J\n\020GetPayment" +
+      "Status\022\036.movie.GetPaymentStatusRequest\032\026" +
+      ".movie.PaymentResponse2\213\003\n\rTicketService" +
+      "\022P\n\017GenerateTickets\022\035.movie.GenerateTick" +
+      "etsRequest\032\036.movie.GenerateTicketsRespon" +
+      "se\022;\n\tGetTicket\022\027.movie.GetTicketRequest" +
+      "\032\025.movie.TicketResponse\022G\n\014VerifyTicket\022" +
+      "\032.movie.VerifyTicketRequest\032\033.movie.Veri" +
+      "fyTicketResponse\022V\n\024ListTicketsByBooking" +
+      "\022\".movie.ListTicketsByBookingRequest\032\032.m" +
+      "ovie.ListTicketsResponse\022J\n\rCancelTicket" +
+      "s\022\033.movie.CancelTicketsRequest\032\034.movie.C" +
+      "ancelTicketsResponse2\327\001\n\014ImageService\022D\n" +
+      "\013UploadImage\022\031.movie.UploadImageRequest\032" +
+      "\032.movie.UploadImageResponse\022;\n\010GetImage\022" +
+      "\026.movie.GetImageRequest\032\027.movie.GetImage" +
+      "Response\022D\n\013DeleteImage\022\031.movie.DeleteIm" +
+      "ageRequest\032\032.movie.DeleteImageResponseB " +
+      "\n\034com.microservices.movie.grpcP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -821,296 +829,302 @@ public final class Movie {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_SeatLayoutResponse_descriptor,
         new java.lang.String[] { "RowName", "StartSeatNumber", "EndSeatNumber", "SeatType", "PriceMultiplier", });
-    internal_static_movie_ListScreensResponse_descriptor =
+    internal_static_movie_ListSeatLayoutResponse_descriptor =
       getDescriptor().getMessageTypes().get(24);
+    internal_static_movie_ListSeatLayoutResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_movie_ListSeatLayoutResponse_descriptor,
+        new java.lang.String[] { "SeatLayout", });
+    internal_static_movie_ListScreensResponse_descriptor =
+      getDescriptor().getMessageTypes().get(25);
     internal_static_movie_ListScreensResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListScreensResponse_descriptor,
         new java.lang.String[] { "Screens", });
     internal_static_movie_CreateShowRequest_descriptor =
-      getDescriptor().getMessageTypes().get(25);
+      getDescriptor().getMessageTypes().get(26);
     internal_static_movie_CreateShowRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CreateShowRequest_descriptor,
         new java.lang.String[] { "MovieId", "ScreenId", "ShowDateTime", "BasePrice", "ShowType", });
     internal_static_movie_UpdateShowRequest_descriptor =
-      getDescriptor().getMessageTypes().get(26);
+      getDescriptor().getMessageTypes().get(27);
     internal_static_movie_UpdateShowRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_UpdateShowRequest_descriptor,
         new java.lang.String[] { "ShowId", "ShowDateTime", "BasePrice", "ShowType", });
     internal_static_movie_GetShowRequest_descriptor =
-      getDescriptor().getMessageTypes().get(27);
+      getDescriptor().getMessageTypes().get(28);
     internal_static_movie_GetShowRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetShowRequest_descriptor,
         new java.lang.String[] { "ShowId", });
     internal_static_movie_ListShowsByMovieRequest_descriptor =
-      getDescriptor().getMessageTypes().get(28);
+      getDescriptor().getMessageTypes().get(29);
     internal_static_movie_ListShowsByMovieRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListShowsByMovieRequest_descriptor,
         new java.lang.String[] { "MovieId", "Date", "City", });
     internal_static_movie_ListShowsByTheaterRequest_descriptor =
-      getDescriptor().getMessageTypes().get(29);
+      getDescriptor().getMessageTypes().get(30);
     internal_static_movie_ListShowsByTheaterRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListShowsByTheaterRequest_descriptor,
         new java.lang.String[] { "TheaterId", "Date", });
     internal_static_movie_GetAvailableSeatsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(30);
+      getDescriptor().getMessageTypes().get(31);
     internal_static_movie_GetAvailableSeatsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetAvailableSeatsRequest_descriptor,
         new java.lang.String[] { "ShowId", });
     internal_static_movie_ShowResponse_descriptor =
-      getDescriptor().getMessageTypes().get(31);
+      getDescriptor().getMessageTypes().get(32);
     internal_static_movie_ShowResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ShowResponse_descriptor,
         new java.lang.String[] { "ShowId", "MovieId", "ScreenId", "TheaterId", "Movie", "Screen", "ShowDateTime", "BasePrice", "ShowType", "AvailableSeats", "CreatedAt", "UpdatedAt", });
     internal_static_movie_ListShowsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(32);
+      getDescriptor().getMessageTypes().get(33);
     internal_static_movie_ListShowsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListShowsResponse_descriptor,
         new java.lang.String[] { "Shows", "TotalCount", });
     internal_static_movie_AvailableSeatsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(33);
+      getDescriptor().getMessageTypes().get(34);
     internal_static_movie_AvailableSeatsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_AvailableSeatsResponse_descriptor,
         new java.lang.String[] { "ShowId", "Seats", "TotalAvailable", });
     internal_static_movie_SeatInfo_descriptor =
-      getDescriptor().getMessageTypes().get(34);
+      getDescriptor().getMessageTypes().get(35);
     internal_static_movie_SeatInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_SeatInfo_descriptor,
         new java.lang.String[] { "SeatId", "RowName", "SeatNumber", "SeatType", "Price", "Status", "LockedUntil", });
     internal_static_movie_LockSeatsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(35);
+      getDescriptor().getMessageTypes().get(36);
     internal_static_movie_LockSeatsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_LockSeatsRequest_descriptor,
         new java.lang.String[] { "ShowId", "SeatIds", "UserId", });
     internal_static_movie_LockSeatsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(36);
+      getDescriptor().getMessageTypes().get(37);
     internal_static_movie_LockSeatsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_LockSeatsResponse_descriptor,
         new java.lang.String[] { "Success", "LockId", "Message", "LockedUntil", "LockedSeatIds", });
     internal_static_movie_UnlockSeatsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(37);
+      getDescriptor().getMessageTypes().get(38);
     internal_static_movie_UnlockSeatsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_UnlockSeatsRequest_descriptor,
         new java.lang.String[] { "LockId", });
     internal_static_movie_UnlockSeatsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(38);
+      getDescriptor().getMessageTypes().get(39);
     internal_static_movie_UnlockSeatsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_UnlockSeatsResponse_descriptor,
         new java.lang.String[] { "Success", "Message", });
     internal_static_movie_GetSeatStatusRequest_descriptor =
-      getDescriptor().getMessageTypes().get(39);
+      getDescriptor().getMessageTypes().get(40);
     internal_static_movie_GetSeatStatusRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetSeatStatusRequest_descriptor,
         new java.lang.String[] { "ShowId", "SeatIds", });
     internal_static_movie_GetSeatStatusResponse_descriptor =
-      getDescriptor().getMessageTypes().get(40);
+      getDescriptor().getMessageTypes().get(41);
     internal_static_movie_GetSeatStatusResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetSeatStatusResponse_descriptor,
         new java.lang.String[] { "SeatStatuses", });
     internal_static_movie_SeatStatus_descriptor =
-      getDescriptor().getMessageTypes().get(41);
+      getDescriptor().getMessageTypes().get(42);
     internal_static_movie_SeatStatus_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_SeatStatus_descriptor,
         new java.lang.String[] { "SeatId", "Status", "LockedBy", "LockedUntil", });
     internal_static_movie_CreateBookingRequest_descriptor =
-      getDescriptor().getMessageTypes().get(42);
+      getDescriptor().getMessageTypes().get(43);
     internal_static_movie_CreateBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CreateBookingRequest_descriptor,
         new java.lang.String[] { "UserId", "ShowId", "SeatIds", "Email", "Phone", });
     internal_static_movie_ConfirmBookingRequest_descriptor =
-      getDescriptor().getMessageTypes().get(43);
+      getDescriptor().getMessageTypes().get(44);
     internal_static_movie_ConfirmBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ConfirmBookingRequest_descriptor,
         new java.lang.String[] { "BookingId", "PaymentId", });
     internal_static_movie_CancelBookingRequest_descriptor =
-      getDescriptor().getMessageTypes().get(44);
+      getDescriptor().getMessageTypes().get(45);
     internal_static_movie_CancelBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CancelBookingRequest_descriptor,
         new java.lang.String[] { "BookingId", "Reason", });
     internal_static_movie_GetBookingRequest_descriptor =
-      getDescriptor().getMessageTypes().get(45);
+      getDescriptor().getMessageTypes().get(46);
     internal_static_movie_GetBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetBookingRequest_descriptor,
         new java.lang.String[] { "BookingId", });
     internal_static_movie_ListUserBookingsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(46);
+      getDescriptor().getMessageTypes().get(47);
     internal_static_movie_ListUserBookingsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListUserBookingsRequest_descriptor,
         new java.lang.String[] { "UserId", "Page", "Size", "Status", });
     internal_static_movie_BookingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(47);
+      getDescriptor().getMessageTypes().get(48);
     internal_static_movie_BookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_BookingResponse_descriptor,
         new java.lang.String[] { "BookingId", "UserId", "ShowId", "Show", "Seats", "TotalAmount", "Status", "Email", "Phone", "CreatedAt", "UpdatedAt", "LockId", "ExpiresAt", });
     internal_static_movie_ListBookingsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(48);
+      getDescriptor().getMessageTypes().get(49);
     internal_static_movie_ListBookingsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListBookingsResponse_descriptor,
         new java.lang.String[] { "Bookings", "TotalCount", });
     internal_static_movie_CancelBookingResponse_descriptor =
-      getDescriptor().getMessageTypes().get(49);
+      getDescriptor().getMessageTypes().get(50);
     internal_static_movie_CancelBookingResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CancelBookingResponse_descriptor,
         new java.lang.String[] { "Success", "Message", "RefundId", "RefundAmount", });
     internal_static_movie_InitiatePaymentRequest_descriptor =
-      getDescriptor().getMessageTypes().get(50);
+      getDescriptor().getMessageTypes().get(51);
     internal_static_movie_InitiatePaymentRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_InitiatePaymentRequest_descriptor,
         new java.lang.String[] { "BookingId", "Amount", "PaymentMethod", "UserId", "PaymentDetails", });
     internal_static_movie_PaymentDetails_descriptor =
-      getDescriptor().getMessageTypes().get(51);
+      getDescriptor().getMessageTypes().get(52);
     internal_static_movie_PaymentDetails_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_PaymentDetails_descriptor,
         new java.lang.String[] { "CardNumber", "CardHolderName", "ExpiryMonth", "ExpiryYear", "Cvv", "UpiId", "WalletType", });
     internal_static_movie_VerifyPaymentRequest_descriptor =
-      getDescriptor().getMessageTypes().get(52);
+      getDescriptor().getMessageTypes().get(53);
     internal_static_movie_VerifyPaymentRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_VerifyPaymentRequest_descriptor,
         new java.lang.String[] { "PaymentId", "TransactionId", });
     internal_static_movie_ProcessRefundRequest_descriptor =
-      getDescriptor().getMessageTypes().get(53);
+      getDescriptor().getMessageTypes().get(54);
     internal_static_movie_ProcessRefundRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ProcessRefundRequest_descriptor,
         new java.lang.String[] { "PaymentId", "RefundAmount", "Reason", });
     internal_static_movie_GetPaymentStatusRequest_descriptor =
-      getDescriptor().getMessageTypes().get(54);
+      getDescriptor().getMessageTypes().get(55);
     internal_static_movie_GetPaymentStatusRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetPaymentStatusRequest_descriptor,
         new java.lang.String[] { "PaymentId", });
     internal_static_movie_PaymentResponse_descriptor =
-      getDescriptor().getMessageTypes().get(55);
+      getDescriptor().getMessageTypes().get(56);
     internal_static_movie_PaymentResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_PaymentResponse_descriptor,
         new java.lang.String[] { "PaymentId", "BookingId", "Amount", "PaymentMethod", "Status", "TransactionId", "Message", "PaymentDate", "CreatedAt", });
     internal_static_movie_RefundResponse_descriptor =
-      getDescriptor().getMessageTypes().get(56);
+      getDescriptor().getMessageTypes().get(57);
     internal_static_movie_RefundResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_RefundResponse_descriptor,
         new java.lang.String[] { "RefundId", "PaymentId", "RefundAmount", "Status", "TransactionId", "Message", "RefundDate", });
     internal_static_movie_GenerateTicketsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(57);
+      getDescriptor().getMessageTypes().get(58);
     internal_static_movie_GenerateTicketsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GenerateTicketsRequest_descriptor,
         new java.lang.String[] { "BookingId", });
     internal_static_movie_GetTicketRequest_descriptor =
-      getDescriptor().getMessageTypes().get(58);
+      getDescriptor().getMessageTypes().get(59);
     internal_static_movie_GetTicketRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetTicketRequest_descriptor,
         new java.lang.String[] { "TicketId", });
     internal_static_movie_VerifyTicketRequest_descriptor =
-      getDescriptor().getMessageTypes().get(59);
+      getDescriptor().getMessageTypes().get(60);
     internal_static_movie_VerifyTicketRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_VerifyTicketRequest_descriptor,
         new java.lang.String[] { "TicketId", "QrCode", });
     internal_static_movie_ListTicketsByBookingRequest_descriptor =
-      getDescriptor().getMessageTypes().get(60);
+      getDescriptor().getMessageTypes().get(61);
     internal_static_movie_ListTicketsByBookingRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListTicketsByBookingRequest_descriptor,
         new java.lang.String[] { "BookingId", });
     internal_static_movie_CancelTicketsRequest_descriptor =
-      getDescriptor().getMessageTypes().get(61);
+      getDescriptor().getMessageTypes().get(62);
     internal_static_movie_CancelTicketsRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CancelTicketsRequest_descriptor,
         new java.lang.String[] { "BookingId", });
     internal_static_movie_TicketResponse_descriptor =
-      getDescriptor().getMessageTypes().get(62);
+      getDescriptor().getMessageTypes().get(63);
     internal_static_movie_TicketResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_TicketResponse_descriptor,
         new java.lang.String[] { "TicketId", "BookingId", "SeatId", "Seat", "Show", "QrCode", "Status", "Price", "IssuedAt", "UsedAt", });
     internal_static_movie_GenerateTicketsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(63);
+      getDescriptor().getMessageTypes().get(64);
     internal_static_movie_GenerateTicketsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GenerateTicketsResponse_descriptor,
         new java.lang.String[] { "Tickets", "BookingId", "TicketCount", });
     internal_static_movie_ListTicketsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(64);
+      getDescriptor().getMessageTypes().get(65);
     internal_static_movie_ListTicketsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_ListTicketsResponse_descriptor,
         new java.lang.String[] { "Tickets", });
     internal_static_movie_VerifyTicketResponse_descriptor =
-      getDescriptor().getMessageTypes().get(65);
+      getDescriptor().getMessageTypes().get(66);
     internal_static_movie_VerifyTicketResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_VerifyTicketResponse_descriptor,
         new java.lang.String[] { "Valid", "Message", "Ticket", });
     internal_static_movie_CancelTicketsResponse_descriptor =
-      getDescriptor().getMessageTypes().get(66);
+      getDescriptor().getMessageTypes().get(67);
     internal_static_movie_CancelTicketsResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_CancelTicketsResponse_descriptor,
         new java.lang.String[] { "Success", "Message", "TicketsCancelled", });
     internal_static_movie_UploadImageRequest_descriptor =
-      getDescriptor().getMessageTypes().get(67);
+      getDescriptor().getMessageTypes().get(68);
     internal_static_movie_UploadImageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_UploadImageRequest_descriptor,
         new java.lang.String[] { "Data", "FileName", "ContentType", "MovieId", });
     internal_static_movie_UploadImageResponse_descriptor =
-      getDescriptor().getMessageTypes().get(68);
+      getDescriptor().getMessageTypes().get(69);
     internal_static_movie_UploadImageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_UploadImageResponse_descriptor,
         new java.lang.String[] { "ImageId", "Message", });
     internal_static_movie_GetImageRequest_descriptor =
-      getDescriptor().getMessageTypes().get(69);
+      getDescriptor().getMessageTypes().get(70);
     internal_static_movie_GetImageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetImageRequest_descriptor,
         new java.lang.String[] { "ImageId", });
     internal_static_movie_GetImageResponse_descriptor =
-      getDescriptor().getMessageTypes().get(70);
+      getDescriptor().getMessageTypes().get(71);
     internal_static_movie_GetImageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_GetImageResponse_descriptor,
         new java.lang.String[] { "Data", "FileName", "ContentType", "Size", });
     internal_static_movie_DeleteImageRequest_descriptor =
-      getDescriptor().getMessageTypes().get(71);
+      getDescriptor().getMessageTypes().get(72);
     internal_static_movie_DeleteImageRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_DeleteImageRequest_descriptor,
         new java.lang.String[] { "ImageId", });
     internal_static_movie_DeleteImageResponse_descriptor =
-      getDescriptor().getMessageTypes().get(72);
+      getDescriptor().getMessageTypes().get(73);
     internal_static_movie_DeleteImageResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_movie_DeleteImageResponse_descriptor,

@@ -197,7 +197,17 @@
           </button>
 
           <div class="action-menu" *ngIf="activeMenu === screen.screenId">
-            <button type="button" (click)="editScreen(screen)">
+            <button
+              type="button"
+              [routerLink]="[
+                '/base',
+                'theater',
+                theaterId,
+                'screen',
+                'edit',
+                screen.screenId,
+              ]"
+            >
               <span>✎</span>
               Edit
             </button>
@@ -261,7 +271,11 @@
 
       <p>Try changing your search or add a new screen.</p>
 
-      <button type="button" class="primary-button" (click)="addScreen()">
+      <button
+        type="button"
+        class="primary-button"
+        [routerLink]="['/base', 'theater', theaterId, 'screen', 'add']"
+      >
         Add screen
       </button>
     </div>

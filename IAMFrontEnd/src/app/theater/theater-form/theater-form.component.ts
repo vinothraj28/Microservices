@@ -21,6 +21,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { ToastService } from '../../core/services/toast/toast.service';
+import { NavigationService } from '../../core/services/navigation/navigation.service';
 
 type TheaterDetailsForm = {
   name: FormControl<string>;
@@ -66,6 +67,7 @@ export class TheaterFormComponent implements OnInit {
 
   private router = inject(Router);
   private toastService = inject(ToastService);
+  private navigationService = inject(NavigationService);
 
   async ngOnInit(): Promise<void> {
     const theaterId = this.route.snapshot.paramMap.get('theaterId');
@@ -191,6 +193,18 @@ export class TheaterFormComponent implements OnInit {
     } finally {
       this.isSubmitting.set(false);
     }
+  }
+
+  protected handleGoBack(stepper: MatStepper): void {
+    if (stepper.selectedIndex === 0) {
+      this.goBack();
+    } else {
+      stepper.previous();
+    }
+  }
+
+  protected goBack(): void {
+    this.navigationService.goBackWithFallback();
   }
 
   protected async submitForm(): Promise<void> {

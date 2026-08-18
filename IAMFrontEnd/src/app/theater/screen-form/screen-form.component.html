@@ -4,7 +4,7 @@
     <div>
       <p class="screen-header__eyebrow">Theater management</p>
 
-      <h1>Add New Screen</h1>
+      <h1>{{ pageTitle() }}</h1>
 
       <p>Design the screen details and seat layout.</p>
     </div>
@@ -34,6 +34,13 @@
   </header>
 
   <div class="screen-workspace">
+    <!-- Add loading state -->
+    @if (isLoading()) {
+      <div class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading screen data...</p>
+      </div>
+    }
     <!-- LEFT SIDEBAR -->
     <aside class="screen-sidebar">
       <!-- STEPS -->
@@ -492,16 +499,17 @@
 
   <!-- FOOTER -->
   <footer class="screen-footer">
-    <button type="button" class="button button--secondary">
+    <button type="button" class="button button--secondary"
+    (click)="cancel()">
       ← Back to Details
     </button>
 
     <button
       type="submit"
       class="button button--primary"
-      [disabled]="isSubmitting()"
+      [disabled]="isSubmitting() || isLoading()"
     >
-      Review & Save →
+      {{ isEditMode() ? 'Update Screen →' : 'Review & Save →' }}
     </button>
   </footer>
 

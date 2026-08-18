@@ -50,6 +50,7 @@ com\microservices\profile\grpc\MfaSetupResponse$1.class
 com\microservices\movie\grpc\PaymentServiceGrpc$PaymentServiceBaseDescriptorSupplier.class
 com\microservices\movie\grpc\CreateTheaterRequest$1.class
 com\microservices\movie\grpc\ListTicketsResponse$1.class
+com\microservices\movie\grpc\ListSeatLayoutResponseOrBuilder.class
 com\microservices\movie\grpc\TheaterResponse$Builder.class
 com\microservices\movie\grpc\UploadImageRequestOrBuilder.class
 com\microservices\oauth2\grpc\GetClientRequestOrBuilder.class
@@ -315,6 +316,7 @@ com\microservices\movie\grpc\BookingServiceGrpc$1.class
 com\microservices\movie\grpc\DeleteTheaterResponse$Builder.class
 com\microservices\movie\grpc\ImageServiceGrpc$ImageServiceBlockingStub.class
 com\microservices\movie\grpc\SeatInfoOrBuilder.class
+com\microservices\movie\grpc\ListSeatLayoutResponse$1.class
 com\microservices\oauth2\grpc\DeleteClientResponse$Builder.class
 com\microservices\oauth2\grpc\TokenRequest$Builder.class
 com\microservices\movie\grpc\CreateShowRequest$Builder.class
@@ -513,6 +515,7 @@ com\microservices\movie\grpc\BookingServiceGrpc$AsyncService.class
 com\microservices\movie\grpc\SeatServiceGrpc$SeatServiceImplBase.class
 com\microservices\oauth2\grpc\IntrospectTokenResponse$1.class
 com\microservices\movie\grpc\BookingServiceGrpc$3.class
+com\microservices\movie\grpc\ListSeatLayoutResponse.class
 com\microservices\movie\grpc\AvailableSeatsResponse$Builder.class
 com\microservices\movie\grpc\GetSeatStatusResponse$Builder.class
 com\microservices\oauth2\grpc\TokenResponse$Builder.class
@@ -565,6 +568,7 @@ com\microservices\profile\grpc\LoginResponse$1.class
 com\microservices\oauth2\grpc\UpdateClientResponseOrBuilder.class
 com\microservices\movie\grpc\ListTheatersRequest.class
 com\microservices\movie\grpc\SeatServiceGrpc$SeatServiceStub.class
+com\microservices\movie\grpc\ListSeatLayoutResponse$Builder.class
 com\microservices\movie\grpc\BookingServiceGrpc$BookingServiceMethodDescriptorSupplier.class
 com\microservices\address\grpc\Address$1.class
 com\microservices\movie\grpc\TicketResponseOrBuilder.class

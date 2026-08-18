@@ -1,4 +1,71 @@
+/* =========================================================
+   BOOKQUICK - MAIN STYLESHEET
+   Layered CSS Architecture (ITCSS-inspired)
+   ========================================================= */
+
+/* Layer 1: Design Tokens - CSS Custom Properties */
+@import './styles/tokens.css';
+
+/* Layer 2: Base Styles - Resets and element defaults */
+@import './styles/base.css';
+
+/* Layer 3: Layout - App shell, grid, containers */
+@import './styles/layout.css';
+
+/* Layer 4: Components - Reusable UI patterns */
+@import './styles/components.css';
+
+/* Layer 5: Auth Pages - Authentication-specific layouts */
 @import './styles/auth-design.css';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Layer 6: Material Design Overrides */
+/* Material theme is loaded via custom-theme.scss */
+
+/* ===== Material Component Overrides ===== */
+.mat-stepper-vertical,
+.mat-stepper-horizontal {
+  background: transparent;
+  padding: 0;
+}
+
+.mat-step-header {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: var(--radius-lg);
+  margin-bottom: 0.5rem;
+}
+
+.mat-step-header:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.mat-step-header.mat-active {
+  background: rgba(126, 224, 214, 0.15) !important;
+  border: 1px solid rgba(126, 224, 214, 0.3);
+}
+
+.mat-step-content {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-auth);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  margin-top: 0.5rem;
+}
+
+.mat-step-label {
+  color: var(--color-text-auth-soft);
+  font-weight: var(--font-weight-medium);
+}
+
+.mat-step-label.mat-step-label-active {
+  color: var(--color-text-auth);
+}
+
+.mat-step-icon {
+  background: rgba(126, 224, 214, 0.2) !important;
+  color: var(--color-accent-cool) !important;
+}
+
+.mat-step-icon.mat-step-icon-selected {
+  background: var(--color-accent-cool) !important;
+  color: #1f1305 !important;
+}

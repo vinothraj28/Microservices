@@ -5,6 +5,7 @@ import com.microservices.movie.grpc.*;
 import com.microservices.movie.mappers.ScreenMapper;
 import com.microservices.movie.mappers.TheaterMapper;
 import com.microservices.movie.models.entities.Screen;
+import com.microservices.movie.models.entities.Seat;
 import com.microservices.movie.models.entities.Theater;
 import com.microservices.movie.services.interfaces.TheaterService;
 import io.grpc.Status;
@@ -14,8 +15,8 @@ import net.devh.boot.grpc.server.service.GrpcService;
 import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @GrpcService
@@ -234,5 +235,94 @@ public class TheaterGrpcService extends TheaterServiceGrpc.TheaterServiceImplBas
                 );
             }
         }
+
+        public void getScreen(GetScreenRequest request, StreamObserver<ScreenResponse> responseObserver) {
+            try {
+                Screen screen = theaterService.getScreen(UUID.fromString(request.getScreenId()));
+                ScreenResponse screenResponse = screenMapper.toScreenResponse(screen);
+                responseObserver.onNext(screenResponse);
+                responseObserver.onCompleted();
+            } catch (IllegalArgumentException e) {
+                responseObserver.onError(
+                        Status.INVALID_ARGUMENT
+                                .withDescription("Invalid screen ID")
+                                .asRuntimeException()
+                );
+            } catch (Exception e) {
+                log.error("Error retrieving screen", e);
+                responseObserver.onError(
+                        Status.INTERNAL
+                                .withDescription("Internal server error")
+                                .withCause(e)
+                                .asRuntimeException()
+                );
+            }
+        }
+
+//        public void updateScreen(UpdateScreenRequest request, StreamObserver<ScreenResponse> responseObserver) {
+//            try {
+//
+//                Screen screen = screenMapper.toScreen(request);
+//                Screen updatedScreen = theaterService.updateScreen(UUID.fromString(request.getTheaterId()), UUID.fromString(request.getScreenId()), screen);
+//                ScreenResponse screenResponse = screenMapper.toScreenResponse(updatedScreen);
+//                responseObserver.onNext(screenResponse);
+//                responseObserver.onCompleted();
+//            } catch (IllegalArgumentException e) {
+//                responseObserver.onError(
+//                        Status.INVALID_ARGUMENT
+//                                .withDescription("Invalid theater or screen ID")
+//                                .asRuntimeException()
+//                );
+//            } catch (Exception e) {
+//                log.error("Error updating screen", e);
+//                responseObserver.onError(
+//                        Status.INTERNAL
+//                                .withDescription("Internal server error")
+//                                .withCause(e)
+//                                .asRuntimeException()
+//                );
+//            }
+//        }
+
+    @Override
+    public void getSeatLayout(GetScreenRequest request,
+                              StreamObserver<ListSeatLayoutResponse> responseObserver) {
+
+        log.info("Received request to get seat layout for screen ID: {}", request.getScreenId());
+
+        UUID screenId = UUID.fromString(request.getScreenId());
+
+        List<Seat> seats = theaterService.getSeatLayoutByScreenId(screenId);
+
+        Map<String, List<Seat>> seatLayoutMap = seats.stream()
+                .collect(Collectors.groupingBy(
+                        Seat::getRowName,
+                        TreeMap::new, // keeps rows ordered: A, B, C...
+                        Collectors.toList()
+                ));
+
+        List<SeatLayoutResponse> seatLayouts = seatLayoutMap.entrySet()
+                .stream()
+                .map(entry -> {
+                    String rowName = entry.getKey();
+                    List<Seat> rowSeats = entry.getValue();
+
+                    return SeatLayoutResponse.newBuilder()
+                            .setStartSeatNumber(1)
+                            .setEndSeatNumber(rowSeats.size())
+                            .setRowName(rowName)
+                            .setPriceMultiplier(rowSeats.get(0).getPriceMultiplier())
+                            .setSeatType(rowSeats.get(0).getSeatType().name())
+                            .build();
+                })
+                .toList();
+
+        ListSeatLayoutResponse response = ListSeatLayoutResponse.newBuilder()
+                .addAllSeatLayout(seatLayouts)
+                .build();
+
+        responseObserver.onNext(response);
+        responseObserver.onCompleted();
+    }
 
 }

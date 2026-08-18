@@ -1,53 +1,65 @@
-<main class="auth-page">
-	<div class="auth-page__orb auth-page__orb--left" aria-hidden="true"></div>
-	<div class="auth-page__orb auth-page__orb--right" aria-hidden="true"></div>
+<section class="auth-layout auth-layout--wide-card">
+  <aside class="auth-showcase">
+    <p class="auth-showcase__eyebrow">Session overview</p>
+    <h1 class="auth-showcase__title">IAM session is active.</h1>
+    <p class="auth-showcase__lead">
+      Review your identity context and security status before accessing
+      protected resources.
+    </p>
+    <ul class="auth-points">
+      <li>Identity claims are shown from your current access token.</li>
+      <li>MFA state remains visible to catch incomplete sign-in steps.</li>
+      <li>Sign out ends local session data on this browser.</li>
+    </ul>
+  </aside>
 
-	<section class="auth-layout auth-layout--wide-card">
-		<aside class="auth-showcase">
-			<p class="auth-showcase__eyebrow">Session overview</p>
-			<h1 class="auth-showcase__title">IAM session is active.</h1>
-			<p class="auth-showcase__lead">
-				Review your identity context and security status before accessing protected resources.
-			</p>
-			<ul class="auth-points">
-				<li>Identity claims are shown from your current access token.</li>
-				<li>MFA state remains visible to catch incomplete sign-in steps.</li>
-				<li>Sign out ends local session data on this browser.</li>
-			</ul>
-		</aside>
+  <section class="auth-card">
+    <header class="auth-card__header">
+      <h2>Current session</h2>
+      <p>Use this panel to validate account identity and security posture.</p>
+    </header>
 
-		<section class="auth-card">
-			<header class="auth-card__header">
-				<h2>Current session</h2>
-				<p>Use this panel to validate account identity and security posture.</p>
-			</header>
+    <div class="auth-form">
+      <div
+        class="auth-feedback"
+        [class.auth-feedback--success]="hasToken()"
+        [class.auth-feedback--error]="!hasToken()"
+      >
+        @if (hasToken()) {
+          Access token is present in this session.
+        } @else {
+          Access token not found. Sign in again to continue securely.
+        }
+      </div>
 
-			<div class="auth-form">
-				<div class="auth-feedback" [class.auth-feedback--success]="hasToken()" [class.auth-feedback--error]="!hasToken()">
-					@if (hasToken()) {
-						Access token is present in this session.
-					} @else {
-						Access token not found. Sign in again to continue securely.
-					}
-				</div>
+      <label class="auth-field">
+        <span class="auth-field__label">Signed-in identity</span>
+        <div class="auth-note">
+          {{ email() ?? "Not available in token claims" }}
+        </div>
+      </label>
 
-				<label class="auth-field">
-					<span class="auth-field__label">Signed-in identity</span>
-					<div class="auth-note">{{ email() ?? 'Not available in token claims' }}</div>
-				</label>
+      <label class="auth-field">
+        <span class="auth-field__label">Roles</span>
+        <div class="auth-note">
+          {{ roles().length ? roles().join(", ") : "No role claim found" }}
+        </div>
+      </label>
 
-				<label class="auth-field">
-					<span class="auth-field__label">Roles</span>
-					<div class="auth-note">{{ roles().length ? roles().join(', ') : 'No role claim found' }}</div>
-				</label>
+      <label class="auth-field">
+        <span class="auth-field__label">MFA state</span>
+        <div class="auth-note">
+          {{
+            mfaPending()
+              ? "Pending verification"
+              : "Verified or not required for this session"
+          }}
+        </div>
+      </label>
 
-				<label class="auth-field">
-					<span class="auth-field__label">MFA state</span>
-					<div class="auth-note">{{ mfaPending() ? 'Pending verification' : 'Verified or not required for this session' }}</div>
-				</label>
-
-				<button type="button" class="auth-button" (click)="logout()">Sign out</button>
-			</div>
-		</section>
-	</section>
-</main>
+      <button type="button" class="auth-button" (click)="logout()">
+        Sign out
+      </button>
+    </div>
+  </section>
+</section>

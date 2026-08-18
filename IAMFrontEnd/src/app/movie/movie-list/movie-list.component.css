@@ -410,7 +410,7 @@
    ROOT
    ========================================================= */
 
-.theater-list {
+.movie-list {
   --bg-page: #081b28;
   --bg-card: #0d2534;
   --bg-card-hover: #102d3d;
@@ -446,7 +446,7 @@
    HEADER
    ========================================================= */
 
-.theater-header {
+.movie-header {
   display: flex;
 
   align-items: flex-end;
@@ -458,7 +458,7 @@
 }
 
 
-.theater-header__content {
+.movie-header__content {
   min-width: 0;
 }
 
@@ -490,7 +490,7 @@
 }
 
 
-.theater-header h1 {
+.movie-header h1 {
   margin: 0;
 
   color: #ffffff;
@@ -504,7 +504,7 @@
 }
 
 
-.theater-header p {
+.movie-header p {
   margin: 8px 0 0;
 
   color: var(--auth-text);

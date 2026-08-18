@@ -128,6 +128,14 @@ export const routes: Routes = [
               ),
           },
           {
+            path: ':theaterId/screen/edit/:screenId', // NEW: Edit route
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./theater/screen-form/screen-form.component').then(
+                (component) => component.ScreenFormComponent,
+              ),
+          },
+          {
             path: 'add',
             canActivate: [authenticatedGuard],
             loadComponent: () =>

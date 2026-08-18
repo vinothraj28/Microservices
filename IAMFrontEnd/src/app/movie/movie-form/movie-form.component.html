@@ -24,6 +24,7 @@
               type="button"
               mat-button
               matStepperPrevious
+              (click)="handleGoBack(stepper)"
               (disabled)="(stepper.selectedIndex === 0)"
             >
               Back

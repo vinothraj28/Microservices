@@ -1,6 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, RouterModule } from '@angular/router';
+import { MatStepper } from '@angular/material/stepper';
+import { NavigationService } from '../core/services/navigation/navigation.service';
 import { firstValueFrom } from 'rxjs';
 
 import { AuthService } from '../core/services/auth/auth.service';
@@ -17,7 +29,7 @@ interface RegisterForm {
   imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
   private readonly authService = inject(AuthService);
@@ -30,19 +42,22 @@ export class RegisterComponent {
   protected readonly authContext = signal<'user' | 'admin'>('user');
 
   protected readonly form = new FormGroup<RegisterForm>({
-    userName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    userName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
     dateOfBirth: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required]
+      validators: [Validators.required],
     }),
     email: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.email]
+      validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(8)]
-    })
+      validators: [Validators.required, Validators.minLength(8)],
+    }),
   });
 
   constructor() {
@@ -54,13 +69,17 @@ export class RegisterComponent {
     return this.authContext() === 'admin';
   }
 
+  
+
   protected async submit(): Promise<void> {
     this.submitted.set(true);
     this.submitError.set(null);
     this.submitSuccess.set(false);
 
     if (this.isAdminContext) {
-      this.submitError.set('Admin registration is restricted. Ask a super-admin to provision your account.');
+      this.submitError.set(
+        'Admin registration is restricted. Ask a super-admin to provision your account.',
+      );
       return;
     }
 
@@ -79,8 +98,8 @@ export class RegisterComponent {
           userName: formValue.userName,
           emailAddress: formValue.email,
           dob: formValue.dateOfBirth,
-          password: formValue.password
-        })
+          password: formValue.password,
+        }),
       );
 
       this.submitSuccess.set(true);
@@ -88,7 +107,7 @@ export class RegisterComponent {
         userName: '',
         dateOfBirth: '',
         email: '',
-        password: ''
+        password: '',
       });
       this.submitted.set(false);
     } catch {

@@ -98,6 +98,8 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListScreensByTheaterRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListScreensResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListScreensResponseOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListSeatLayoutResponse.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListSeatLayoutResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByMovieRequest.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByMovieRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByTheaterRequest.java

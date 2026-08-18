@@ -31,6 +31,7 @@ import { MovieReviewComponent } from '../movie-review/movie-review.component';
 import { UpdatedDetailsComponent } from '../updated-details/updated-details.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ToastService } from '../../core/services/toast/toast.service';
+import { NavigationService } from '../../core/services/navigation/navigation.service';
 
 export interface MovieDetailsForm {
   title: FormControl<string>;
@@ -107,6 +108,7 @@ export class MovieFormComponent implements OnInit {
 
   private toastService = inject(ToastService);
   private router = inject(Router);
+  private navigationService = inject(NavigationService);
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('movieId');
@@ -274,6 +276,18 @@ export class MovieFormComponent implements OnInit {
     } finally {
       this.isFormLoading.set(false);
     }
+  }
+
+  protected handleGoBack(stepper: MatStepper): void {
+    if (stepper.selectedIndex === 0) {
+      this.goBack();
+    } else {
+      stepper.previous();
+    }
+  }
+
+  protected goBack(): void {
+    this.navigationService.goBackWithFallback();
   }
 
   protected async submit(): Promise<void> {

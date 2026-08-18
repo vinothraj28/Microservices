@@ -189,6 +189,13 @@ public class TheaterServiceImpl implements TheaterService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<Seat> getSeatLayoutByScreenId(UUID screenId) {
+        Screen screen = getScreen(screenId);
+        return screen.getSeats();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Screen> listScreensByTheater(UUID theaterId) {
         getTheater(theaterId);
         return screenRepository.findByTheaterId(theaterId);

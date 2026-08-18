@@ -71,4 +71,27 @@ export class ScreenService {
       { observe: 'response' },
     );
   }
+  // Add to screen.service.ts
+
+  getScreenById(
+    theaterId: string,
+    screenId: string,
+  ): Observable<HttpResponse<screenResponse>> {
+    return this.httpClient.get<screenResponse>(
+      `${this.appConfig.theater.screen.listUrl}screens/${screenId}`,
+      { observe: 'response' },
+    );
+  }
+
+  updateScreen(
+    theaterId: string,
+    screenId: string,
+    screenData: screenRequest,
+  ): Observable<HttpResponse<screenResponse>> {
+    return this.httpClient.put<screenResponse>(
+      `${this.appConfig.theater.screen.listUrl}${theaterId}/screens/${screenId}`,
+      screenData,
+      { observe: 'response' },
+    );
+  }
 }
