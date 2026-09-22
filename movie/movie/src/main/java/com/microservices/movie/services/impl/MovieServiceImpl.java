@@ -59,6 +59,26 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findByGenreAndLanguage(genre, language, pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Movie> searchMovies(String query, int limit) {
+        String normalizedQuery = query == null ? "" : query.trim();
+        int pageSize = limit > 0 ? limit : 5;
+        Pageable pageable = PageRequest.of(0, pageSize, Sort.by("title").ascending());
+
+        if (normalizedQuery.isEmpty()) {
+            return Page.empty(pageable);
+        }
+
+        return movieRepository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrGenreContainingIgnoreCaseOrLanguageContainingIgnoreCase(
+                normalizedQuery,
+                normalizedQuery,
+                normalizedQuery,
+                normalizedQuery,
+                pageable
+        );
+    }
+
 @Override
 @Transactional
 public MovieService.DeleteResult deleteMovie(UUID movieId) {

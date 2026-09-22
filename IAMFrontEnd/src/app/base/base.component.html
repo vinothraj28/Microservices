@@ -208,7 +208,82 @@
         </div>
 
         <!-- Shows -->
-        <a class="nav-item" routerLink="/base/show" routerLinkActive="active">
+        <div class="nav-item-group">
+          <button
+            type="button"
+            class="nav-item nav-menu-trigger"
+            [class.open]="isShowMenuOpen"
+            (click)="toggleShowMenu()"
+            [attr.aria-expanded]="isShowMenuOpen"
+          >
+            <span class="nav-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-0.9 2-2V4c0-1.1-.9-2-2-2zm-2 12h-8v2h8v-2zm0-3h-8v2h8v-2zm0-3H4V6h14v2z"
+                />
+              </svg>
+            </span>
+
+            <span class="nav-label">Shows</span>
+
+            <svg
+              class="chevron"
+              [class.open]="isShowMenuOpen"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M7 10l5 5 5-5z" />
+            </svg>
+          </button>
+
+          <div class="dropdown-menu" *ngIf="isShowMenuOpen">
+            <div class="dropdown-heading">
+              <span>Shows</span>
+              <small>Get your shows</small>
+            </div>
+
+            <a
+              class="dropdown-item"
+              routerLink="/base/show/setup"
+              routerLinkActive="active"
+              (click)="isShowMenuOpen = false"
+            >
+              <span class="dropdown-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                </svg>
+              </span>
+
+              <span>
+                <strong>Manage Show</strong>
+                <small>Setup a show</small>
+              </span>
+            </a>
+
+            <a
+              class="dropdown-item"
+              routerLink="/base/show/list"
+              routerLinkActive="active"
+              (click)="isShowMenuOpen = false"
+            >
+              <span class="dropdown-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"
+                  />
+                </svg>
+              </span>
+
+              <span>
+                <strong>List Shows</strong>
+                <small>View all shows</small>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <!-- <a class="nav-item" routerLink="/base/show" routerLinkActive="active">
           <span class="nav-icon">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path
@@ -218,7 +293,7 @@
           </span>
 
           <span class="nav-label">Shows</span>
-        </a>
+        </a> -->
 
         <!-- Bookings -->
         <a

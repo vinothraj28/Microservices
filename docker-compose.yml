@@ -1,0 +1,86 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: microservices-postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./ops/postgres/init:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  profile:
+    build:
+      context: .
+      dockerfile: profile/profile/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: ${PROFILE_HTTP_PORT:-8081}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_PROFILE_DB:-MicroServices}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
+      SECURITY_ENCRYPTION_KEY: ${PROFILE_SECURITY_ENCRYPTION_KEY:-dev-only-encryption-key}
+    ports:
+      - "${PROFILE_HTTP_PORT:-8081}:8081"
+      - "9090:9090"
+
+  movie:
+    build:
+      context: .
+      dockerfile: movie/movie/Dockerfile
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SERVER_PORT: ${MOVIE_HTTP_PORT:-8082}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_MOVIE_DB:-MovieService}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
+    ports:
+      - "${MOVIE_HTTP_PORT:-8082}:8082"
+      - "9091:9091"
+
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/gateway/Dockerfile
+    depends_on:
+      - profile
+      - movie
+    environment:
+      SERVER_PORT: ${GATEWAY_HTTP_PORT:-8080}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
+      GRPC_CLIENT_PROFILE_SERVICE_ADDRESS: static://profile:9090
+      GRPC_CLIENT_ADDRESS_SERVICE_ADDRESS: static://profile:9090
+      GRPC_CLIENT_MFA_SERVICE_ADDRESS: static://profile:9090
+      GRPC_CLIENT_MOVIE_SERVICE_ADDRESS: static://movie:9091
+      GRPC_CLIENT_IMAGE_SERVICE_ADDRESS: static://movie:9091
+      GRPC_CLIENT_THEATER_SERVICE_ADDRESS: static://movie:9091
+      OAUTH2_FRONTEND_BASE_URL: http://frontend:${FRONTEND_HTTP_PORT:-4200}
+    ports:
+      - "${GATEWAY_HTTP_PORT:-8080}:8080"
+
+  frontend:
+    build:
+      context: ./IAMFrontEnd
+      dockerfile: Dockerfile
+    depends_on:
+      - gateway
+    ports:
+      - "${FRONTEND_HTTP_PORT:-4200}:80"
+
+volumes:
+  postgres_data:
+

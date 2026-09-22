@@ -856,7 +856,8 @@ export class ScreenFormComponent implements OnInit {
       // Navigate back to list after short delay
       setTimeout(() => {
         this.router.navigate([
-          '/theater',
+          'base',
+          'theater',
           this.theaterId(),
           'screen',
           'list',
@@ -865,9 +866,7 @@ export class ScreenFormComponent implements OnInit {
     } catch (error) {
       console.error(error);
       const action = this.mode() === 'edit' ? 'update' : 'save';
-      this.submitError.set(
-        `Unable to ${action} the screen. Please try again.`,
-      );
+      this.submitError.set(`Unable to ${action} the screen. Please try again.`);
     } finally {
       this.isSubmitting.set(false);
     }

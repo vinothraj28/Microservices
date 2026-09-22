@@ -26,6 +26,8 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\AddScreenRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\AvailableSeatsResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\AvailableSeatsResponseOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\AvailableShowTimesResponse.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\AvailableShowTimesResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\BookingResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\BookingResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\CancelBookingRequest.java
@@ -64,6 +66,8 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GenerateTicketsResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetAvailableSeatsRequest.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetAvailableSeatsRequestOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetAvailableShowTimesRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetAvailableShowTimesRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetBookingRequest.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetBookingRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\GetImageRequest.java
@@ -104,6 +108,8 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByMovieRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByTheaterRequest.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsByTheaterRequestOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListShowsResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ListTheatersRequest.java
@@ -135,6 +141,12 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\RefundResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ScreenResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ScreenResponseOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchMoviesRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchMoviesRequestOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchShowsRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchShowsRequestOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchTheatersRequest.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SearchTheatersRequestOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SeatInfo.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SeatInfoOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SeatLayoutRequest.java
@@ -145,6 +157,8 @@ D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microser
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\SeatStatusOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ShowResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ShowResponseOrBuilder.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ShowTimeSlot.java
+D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\ShowTimeSlotOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\TheaterResponse.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\TheaterResponseOrBuilder.java
 D:\Microservices\SharedProto\target\generated-sources\protobuf\java\com\microservices\movie\grpc\TicketResponse.java

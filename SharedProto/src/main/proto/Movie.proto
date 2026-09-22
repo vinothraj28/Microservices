@@ -14,6 +14,7 @@ service MovieService {
   rpc UpdateMovie(UpdateMovieRequest) returns (MovieResponse);
   rpc GetMovie(GetMovieRequest) returns (MovieResponse);
   rpc ListMovies(ListMoviesRequest) returns (ListMoviesResponse);
+  rpc SearchMovies(SearchMoviesRequest) returns (ListMoviesResponse);
   rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse);
 }
 
@@ -66,6 +67,11 @@ message ListMoviesRequest {
   string language = 4;
 }
 
+message SearchMoviesRequest {
+  string query = 1;
+  int32 limit = 2;
+}
+
 message DeleteMovieRequest {
   string movie_id = 1;
 }
@@ -109,6 +115,7 @@ service TheaterService {
   rpc UpdateTheater(UpdateTheaterRequest) returns (TheaterResponse);
   rpc GetTheater(GetTheaterRequest) returns (TheaterResponse);
   rpc ListTheaters(ListTheatersRequest) returns (ListTheatersResponse);
+  rpc SearchTheaters(SearchTheatersRequest) returns (ListTheatersResponse);
   rpc DeleteTheater(DeleteTheaterRequest) returns (DeleteTheaterResponse);
   rpc AddScreen(AddScreenRequest) returns (ScreenResponse);
   rpc UpdateScreen(UpdateScreenRequest) returns (ScreenResponse);
@@ -152,6 +159,11 @@ message ListTheatersRequest {
   int32 page = 1;
   int32 size = 2;
   string city = 3;
+}
+
+message SearchTheatersRequest {
+  string query = 1;
+  int32 limit = 2;
 }
 
 message TheaterResponse {
@@ -257,9 +269,12 @@ service ShowService {
   rpc CreateShow(CreateShowRequest) returns (ShowResponse);
   rpc UpdateShow(UpdateShowRequest) returns (ShowResponse);
   rpc GetShow(GetShowRequest) returns (ShowResponse);
+  rpc ListShows(ListShowsRequest) returns (ListShowsResponse);
   rpc ListShowsByMovie(ListShowsByMovieRequest) returns (ListShowsResponse);
   rpc ListShowsByTheater(ListShowsByTheaterRequest) returns (ListShowsResponse);
+  rpc SearchShows(SearchShowsRequest) returns (ListShowsResponse);
   rpc GetAvailableSeats(GetAvailableSeatsRequest) returns (AvailableSeatsResponse);
+  rpc GetAvailableShowTimes(GetAvailableShowTimesRequest) returns (AvailableShowTimesResponse);
 }
 
 message CreateShowRequest {
@@ -268,6 +283,7 @@ message CreateShowRequest {
   string show_date_time = 3; // ISO datetime format
   double base_price = 4;
   string show_type = 5; // MORNING, MATINEE, EVENING, NIGHT
+  string theater_id = 6;
 }
 
 message UpdateShowRequest {
@@ -281,6 +297,12 @@ message GetShowRequest {
   string show_id = 1;
 }
 
+message ListShowsRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string date = 3; // YYYY-MM-DD
+}
+
 message ListShowsByMovieRequest {
   string movie_id = 1;
   string date = 2; // YYYY-MM-DD
@@ -290,6 +312,18 @@ message ListShowsByMovieRequest {
 message ListShowsByTheaterRequest {
   string theater_id = 1;
   string date = 2;
+}
+
+message SearchShowsRequest {
+  string movie_id = 1;
+  string theater_id = 2;
+  string date = 3;
+  string city = 4;
+  int32 page = 5;
+  int32 size = 6;
+  string show_type = 7;
+  string genre = 8;
+  string language = 9;
 }
 
 message GetAvailableSeatsRequest {
@@ -314,12 +348,34 @@ message ShowResponse {
 message ListShowsResponse {
   repeated ShowResponse shows = 1;
   int32 total_count = 2;
+  int32 total_pages = 3;
+  bool has_next = 4;
 }
 
 message AvailableSeatsResponse {
   string show_id = 1;
   repeated SeatInfo seats = 2;
   int32 total_available = 3;
+}
+
+message GetAvailableShowTimesRequest {
+  string theater_id = 1;
+  string screen_id = 2;
+  int32 movie_runtime_minutes = 3;
+  string requested_show_date_time = 4; // ISO datetime format
+}
+
+message AvailableShowTimesResponse {
+  string theater_id = 1;
+  string screen_id = 2;
+  string requested_date = 3; // YYYY-MM-DD
+  repeated ShowTimeSlot slots = 4;
+  int32 total_count = 5;
+}
+
+message ShowTimeSlot {
+  string start_time = 1; // ISO datetime format
+  string end_time = 2; // ISO datetime format
 }
 
 message SeatInfo {

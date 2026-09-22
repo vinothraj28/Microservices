@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.hibernate.sql.Update;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -80,6 +81,33 @@ public class TheaterGrpcService extends TheaterServiceGrpc.TheaterServiceImplBas
             );
         }
 
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public void searchTheaters(SearchTheatersRequest request, StreamObserver<ListTheatersResponse> responseObserver) {
+        try {
+            log.info("gRPC: Searching theaters with query '{}' and limit {}", request.getQuery(), request.getLimit());
+
+            Page<Theater> theaters = theaterService.searchTheaters(request.getQuery(), request.getLimit());
+            ListTheatersResponse.Builder responseBuilder = ListTheatersResponse.newBuilder();
+            theaters.getContent().forEach(theater -> responseBuilder.addTheaters(theaterMapper.toTheaterResponse(theater)));
+            responseBuilder.setPage(theaters.getNumber());
+            responseBuilder.setSize(theaters.getSize());
+            responseBuilder.setTotalCount((int) theaters.getTotalElements());
+            responseBuilder.setTotalPages(theaters.getTotalPages());
+            responseBuilder.setHasNext(theaters.hasNext());
+            responseObserver.onNext(responseBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            log.error("gRPC: Error searching theaters", e);
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription("Internal server error while searching theaters")
+                            .withCause(e)
+                            .asRuntimeException()
+            );
+        }
     }
 
     @Override

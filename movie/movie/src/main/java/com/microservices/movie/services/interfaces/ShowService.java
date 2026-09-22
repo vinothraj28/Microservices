@@ -3,6 +3,7 @@ package com.microservices.movie.services.interfaces;
 import com.microservices.movie.models.entities.Show;
 import com.microservices.movie.models.enums.SeatStatus;
 import com.microservices.movie.models.enums.SeatType;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -22,10 +23,23 @@ public interface ShowService {
 
     List<Show> listShowsByTheater(UUID theaterId);
 
+    Page<Show> listShows(int page, int size);
+
+    Page<Show> searchShows(
+            UUID movieId,
+            UUID theaterId,
+            LocalDate date,
+            String city,
+            String showType,
+            String genre,
+            String language,
+            int page,
+            int size
+    );
+
     List<SeatAvailability> getAvailableSeats(UUID showId);
 
-
-    List<ShowTimeAvailability> getAvailableShowTimesForDate(LocalDate date, UUID screenId, Integer movieDurationMinutes);
+    List<ShowTimeAvailability> getAvailableShowTimesForDate(LocalDate date, UUID theaterId, UUID screenId, Integer movieDurationMinutes);
 
     record SeatAvailability(
             UUID seatId,

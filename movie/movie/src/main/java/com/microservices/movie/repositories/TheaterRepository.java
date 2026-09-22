@@ -14,4 +14,11 @@ public interface TheaterRepository extends JpaRepository<Theater, UUID> {
     Page<Theater> findByCity(String city, Pageable pageable);
     List<Theater> findByCity(String city);
     boolean existsByNameAndCity(String name, String city);
+
+    Page<Theater> findByNameContainingIgnoreCaseOrCityContainingIgnoreCaseOrAddressContainingIgnoreCase(
+            String name,
+            String city,
+            String address,
+            Pageable pageable
+    );
 }

@@ -1,0 +1,510 @@
+<div class="show-list">
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <header class="show-list__toolbar">
+    <div class="toolbar-left">
+      <div class="eyebrow">BOOKQUICK</div>
+
+      <h1>
+        Shows
+        <span *ngIf="totalCount() > 0"> {{ totalCount() }} results </span>
+      </h1>
+
+      <p class="page-description">Find a movie, theater or showtime.</p>
+    </div>
+
+    <div class="toolbar-right">
+      <!-- Only expose this for authorized theater admins.
+           Backend authorization must still enforce this. -->
+      <button
+        *ngIf="canManageShows"
+        type="button"
+        class="btn-primary"
+        (click)="createShow()"
+      >
+        + Create Show
+      </button>
+    </div>
+  </header>
+
+  <!-- =====================================================
+       SEARCH / FILTER PANEL
+       ===================================================== -->
+  <section class="show-search-panel">
+    <!-- Search -->
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-4-4"></path>
+        </svg>
+      </span>
+
+      <input
+        type="text"
+        class="search-input"
+        [formControl]="searchControl"
+        placeholder="Search movies, theaters or shows..."
+        autocomplete="off"
+        role="combobox"
+        [attr.aria-expanded]="showSearchSuggestions"
+        aria-controls="show-search-results"
+      />
+
+      <button
+        *ngIf="searchControl.value"
+        type="button"
+        class="search-clear"
+        aria-label="Clear search"
+        (click)="clearSearch()"
+      >
+        ×
+      </button>
+
+      <span
+        *ngIf="isSearching"
+        class="search-spinner"
+        aria-hidden="true"
+      ></span>
+    </div>
+
+    <!-- Search suggestions -->
+    <div
+      *ngIf="showSearchSuggestions"
+      id="show-search-results"
+      class="search-suggestions"
+    >
+      <div
+        *ngIf="searchQuery.length > 0 && searchQuery.length < 2"
+        class="search-hint"
+      >
+        Type at least 2 characters.
+      </div>
+
+      <div
+        *ngIf="
+          searchQuery.length >= 2 && !isSearching && !searchSuggestions.length
+        "
+        class="search-empty"
+      >
+        No movies or theaters found.
+      </div>
+
+      <!-- Movies -->
+      <ng-container *ngIf="searchSuggestions.length">
+        <button
+          *ngFor="let result of searchSuggestions"
+          type="button"
+          class="search-suggestion"
+          (click)="selectSearchResult(result)"
+        >
+          <div
+            class="suggestion-icon"
+            [class.suggestion-icon--movie]="result.type === 'MOVIE'"
+            [class.suggestion-icon--theater]="result.type === 'THEATER'"
+          >
+            {{ result.type === "MOVIE" ? "🎬" : "🎭" }}
+          </div>
+
+          <div class="suggestion-content">
+            <strong>{{ result.title }}</strong>
+
+            <span *ngIf="result.subtitle">
+              {{ result.subtitle }}
+            </span>
+          </div>
+
+          <span class="suggestion-arrow">→</span>
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- Selected search entity -->
+    <div *ngIf="selectedSearchResult as result" class="selected-search">
+      <div class="selected-search__icon">
+        {{ result.type === "MOVIE" ? "🎬" : "🎭" }}
+      </div>
+
+      <div class="selected-search__content">
+        <span class="selected-search__type">
+          {{ result.type === "MOVIE" ? "Movie" : "Theater" }}
+        </span>
+
+        <strong>
+          {{ result.title }}
+        </strong>
+      </div>
+
+      <button
+        type="button"
+        class="selected-search__remove"
+        aria-label="Remove search filter"
+        (click)="clearSearch()"
+      >
+        ×
+      </button>
+    </div>
+
+    <!-- ===================================================
+         DATE FILTER
+         =================================================== -->
+    <div class="date-filter">
+      <button
+        *ngFor="let date of dateOptions"
+        type="button"
+        class="date-chip"
+        [class.date-chip--active]="selectedDate() === date.value"
+        (click)="selectDate(date.value)"
+      >
+        <span class="date-chip__day">
+          {{ date.label }}
+        </span>
+
+        <span class="date-chip__date">
+          {{ date.shortDate }}
+        </span>
+      </button>
+    </div>
+
+    <!-- ===================================================
+         SECONDARY FILTERS
+         =================================================== -->
+    <div class="secondary-filters">
+      <div class="filter-group">
+        <label for="location"> Location </label>
+
+        <input
+          id="location"
+          type="text"
+          class="filter-input"
+          [(ngModel)]="selectedCity"
+          placeholder="City"
+          (ngModelChange)="onCityChange($event)"
+          (keyup.enter)="onCityChange(selectedCity, true)"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label for="timeFilter"> Time </label>
+
+        <select
+          id="timeFilter"
+          class="filter-input"
+          [(ngModel)]="selectedTime"
+          (change)="applyFilters()"
+        >
+          <option value="">All times</option>
+          @for (showType of showTypes; track showType) {
+            <option [value]="showType">{{ showType }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="language"> Language </label>
+
+        <select
+          id="language"
+          class="filter-input"
+          [(ngModel)]="selectedLanguage"
+          (change)="applyFilters()"
+        >
+          <option value="">All languages</option>
+
+          <option *ngFor="let language of languages" [value]="language">
+            {{ language }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="genre"> Genre </label>
+
+        <select
+          id="genre"
+          class="filter-input"
+          [(ngModel)]="selectedGenre"
+          (change)="applyFilters()"
+        >
+          <option value="">All genres</option>
+
+          <option *ngFor="let genre of genres" [value]="genre">
+            {{ genre }}
+          </option>
+        </select>
+      </div>
+
+      <button
+        type="button"
+        class="btn-secondary filter-clear"
+        (click)="clearAllFilters()"
+      >
+        Clear
+      </button>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       ACTIVE FILTER SUMMARY
+       ===================================================== -->
+  <div *ngIf="hasActiveFilters" class="active-filters">
+    <span class="active-filters__label"> Filtering by </span>
+
+    <span *ngIf="selectedSearchResult" class="filter-pill">
+      {{ selectedSearchResult.title }}
+    </span>
+
+    <span *ngIf="selectedCity" class="filter-pill">
+      {{ selectedCity }}
+    </span>
+
+    <span *ngIf="selectedDate()" class="filter-pill">
+      {{ formatDateForDisplay(selectedDate()) }}
+    </span>
+  </div>
+
+  <!-- =====================================================
+       LOADING
+       ===================================================== -->
+  <div *ngIf="isLoading()" class="loading-indicator">
+    <div class="loading-spinner"></div>
+    <span>Finding shows...</span>
+  </div>
+
+  <!-- =====================================================
+       ERROR
+       ===================================================== -->
+  <div *ngIf="!isLoading() && error()" class="error-message">
+    <strong>Something went wrong.</strong>
+
+    <span>
+      {{ error() }}
+    </span>
+
+    <button type="button" class="btn-secondary" (click)="loadShows()">
+      Try again
+    </button>
+  </div>
+
+  <!-- =====================================================
+       EMPTY
+       ===================================================== -->
+  <div
+    *ngIf="!isLoading() && !error() && shows().length === 0"
+    class="empty-state"
+  >
+    <div class="empty-state__icon">🎬</div>
+
+    <h3>No shows found</h3>
+
+    <p>Try another movie, theater, date or location.</p>
+
+    <button type="button" class="btn-secondary" (click)="clearAllFilters()">
+      Clear filters
+    </button>
+  </div>
+
+  <!-- =====================================================
+       SHOW RESULTS
+       ===================================================== -->
+  <section
+    *ngIf="!isLoading() && !error() && shows().length"
+    class="show-results"
+  >
+    <div class="results-header">
+      <div>
+        <span class="results-count"> {{ totalCount() }} shows </span>
+
+        <span *ngIf="selectedSearchResult" class="results-context">
+          for {{ selectedSearchResult.title }}
+        </span>
+      </div>
+
+      <div class="size-control">
+        <label for="pageSize"> Show </label>
+
+        <select
+          id="pageSize"
+          [(ngModel)]="pageSize"
+          (change)="setPageSize(pageSize)"
+        >
+          <option [ngValue]="12">12</option>
+          <option [ngValue]="24">24</option>
+          <option [ngValue]="48">48</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="show-grid">
+      <article
+        *ngFor="let show of shows(); trackBy: trackByShowId"
+        class="show-card"
+      >
+        <!-- Poster -->
+        <div class="show-card__poster">
+          <img
+            *ngIf="image[show.movieId]"
+            [src]="image[show.movieId]"
+            [alt]="show.movie.title + ' movie poster'"
+            class="show-card__poster-image"
+          />
+
+          <div *ngIf="!image[show.movieId]" class="show-card__poster-fallback">
+            <span>🎬</span>
+          </div>
+        </div>
+
+        <!-- Header -->
+        <div class="show-card__header">
+          <span class="show-type-badge">
+            {{ getShowTypeLabel(show) }}
+          </span>
+
+          <span class="show-price"> €{{ show.basePrice }} </span>
+        </div>
+
+        <!-- Content -->
+        <div class="show-card__content">
+          <h3>
+            {{ show.movie.title }}
+          </h3>
+
+          <div *ngIf="show.movie.genre" class="movie-genre">
+            {{ show.movie.genre }}
+          </div>
+
+          <div class="show-time">
+            <span class="show-time__icon"> ◷ </span>
+
+            <span>
+              {{ formatShowTime(show.showDateTime) }}
+            </span>
+          </div>
+
+          <div class="show-details">
+            <div class="detail-row">
+              <span class="label"> Theater </span>
+
+              <span class="value">
+                {{ show.theaterName || show.theaterId }}
+              </span>
+            </div>
+
+            <div class="detail-row">
+              <span class="label"> Screen </span>
+
+              <span class="value">
+                {{ show.screen.screenName }}
+              </span>
+            </div>
+
+            <div class="detail-row">
+              <span class="label"> Duration </span>
+
+              <span class="value"> {{ show.movie.durationMinutes }} min </span>
+            </div>
+
+            <div class="detail-row">
+              <span class="label"> Seats </span>
+
+              <span class="value" [class.low-seats]="show.availableSeats <= 10">
+                {{ show.availableSeats }} available
+              </span>
+            </div>
+          </div>
+
+          <!-- Inventory status -->
+          <div class="show-status">
+            <span
+              class="status-badge"
+              [ngClass]="{
+                'status-available': getSeatStatus(show) === 'AVAILABLE',
+                'status-filling': getSeatStatus(show) === 'FILLING FAST',
+                'status-soldout': getSeatStatus(show) === 'SOLD OUT',
+              }"
+            >
+              {{ getSeatStatus(show) }}
+            </span>
+          </div>
+        </div>
+
+        <!-- =================================================
+             ACTIONS
+             ================================================= -->
+        <div class="show-card__actions">
+          <!-- USER -->
+          <button
+            *ngIf="!canManageShows"
+            type="button"
+            class="btn-primary btn-sm"
+            [disabled]="show.availableSeats <= 0"
+            (click)="selectSeats(show)"
+          >
+            {{ show.availableSeats > 0 ? "Select Seats" : "Sold Out" }}
+          </button>
+
+          <!-- ADMIN -->
+          <ng-container *ngIf="canManageShows">
+            <button
+              type="button"
+              class="btn-primary btn-sm"
+              [disabled]="show.availableSeats <= 0"
+              (click)="selectSeats(show)"
+            >
+              View Seats
+            </button>
+
+            <button
+              type="button"
+              class="btn-secondary btn-sm"
+              (click)="editShow(show)"
+            >
+              Edit
+            </button>
+
+            <button
+              type="button"
+              class="btn-secondary btn-sm"
+              (click)="viewBookings(show)"
+            >
+              Bookings
+            </button>
+          </ng-container>
+        </div>
+      </article>
+    </div>
+
+    <!-- =====================================================
+         PAGINATION
+         ===================================================== -->
+    <footer *ngIf="totalPages() > 1" class="theater-pagination">
+      <button
+        type="button"
+        class="pagination-btn"
+        [disabled]="page() === 0"
+        (click)="prevPage()"
+      >
+        ← Previous
+      </button>
+
+      <span class="pagination-page pagination-page--active">
+        {{ page() + 1 }}
+      </span>
+
+      <button
+        type="button"
+        class="pagination-btn"
+        [disabled]="!hasNext()"
+        (click)="nextPage()"
+      >
+        Next →
+      </button>
+
+      <span class="pagination-total">
+        {{ totalCount() }}
+        <span>total</span>
+      </span>
+    </footer>
+  </section>
+</div>

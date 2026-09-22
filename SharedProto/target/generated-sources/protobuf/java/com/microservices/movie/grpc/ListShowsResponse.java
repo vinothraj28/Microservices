@@ -92,6 +92,28 @@ private static final long serialVersionUID = 0L;
     return totalCount_;
   }
 
+  public static final int TOTAL_PAGES_FIELD_NUMBER = 3;
+  private int totalPages_ = 0;
+  /**
+   * <code>int32 total_pages = 3;</code>
+   * @return The totalPages.
+   */
+  @java.lang.Override
+  public int getTotalPages() {
+    return totalPages_;
+  }
+
+  public static final int HAS_NEXT_FIELD_NUMBER = 4;
+  private boolean hasNext_ = false;
+  /**
+   * <code>bool has_next = 4;</code>
+   * @return The hasNext.
+   */
+  @java.lang.Override
+  public boolean getHasNext() {
+    return hasNext_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -112,6 +134,12 @@ private static final long serialVersionUID = 0L;
     if (totalCount_ != 0) {
       output.writeInt32(2, totalCount_);
     }
+    if (totalPages_ != 0) {
+      output.writeInt32(3, totalPages_);
+    }
+    if (hasNext_ != false) {
+      output.writeBool(4, hasNext_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -128,6 +156,14 @@ private static final long serialVersionUID = 0L;
     if (totalCount_ != 0) {
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(2, totalCount_);
+    }
+    if (totalPages_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(3, totalPages_);
+    }
+    if (hasNext_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(4, hasNext_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -148,6 +184,10 @@ private static final long serialVersionUID = 0L;
         .equals(other.getShowsList())) return false;
     if (getTotalCount()
         != other.getTotalCount()) return false;
+    if (getTotalPages()
+        != other.getTotalPages()) return false;
+    if (getHasNext()
+        != other.getHasNext()) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -165,6 +205,11 @@ private static final long serialVersionUID = 0L;
     }
     hash = (37 * hash) + TOTAL_COUNT_FIELD_NUMBER;
     hash = (53 * hash) + getTotalCount();
+    hash = (37 * hash) + TOTAL_PAGES_FIELD_NUMBER;
+    hash = (53 * hash) + getTotalPages();
+    hash = (37 * hash) + HAS_NEXT_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getHasNext());
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -304,6 +349,8 @@ private static final long serialVersionUID = 0L;
       }
       bitField0_ = (bitField0_ & ~0x00000001);
       totalCount_ = 0;
+      totalPages_ = 0;
+      hasNext_ = false;
       return this;
     }
 
@@ -352,6 +399,12 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000002) != 0)) {
         result.totalCount_ = totalCount_;
+      }
+      if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.totalPages_ = totalPages_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
+        result.hasNext_ = hasNext_;
       }
     }
 
@@ -428,6 +481,12 @@ private static final long serialVersionUID = 0L;
       if (other.getTotalCount() != 0) {
         setTotalCount(other.getTotalCount());
       }
+      if (other.getTotalPages() != 0) {
+        setTotalPages(other.getTotalPages());
+      }
+      if (other.getHasNext() != false) {
+        setHasNext(other.getHasNext());
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -472,6 +531,16 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000002;
               break;
             } // case 16
+            case 24: {
+              totalPages_ = input.readInt32();
+              bitField0_ |= 0x00000004;
+              break;
+            } // case 24
+            case 32: {
+              hasNext_ = input.readBool();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -757,6 +826,70 @@ private static final long serialVersionUID = 0L;
     public Builder clearTotalCount() {
       bitField0_ = (bitField0_ & ~0x00000002);
       totalCount_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private int totalPages_ ;
+    /**
+     * <code>int32 total_pages = 3;</code>
+     * @return The totalPages.
+     */
+    @java.lang.Override
+    public int getTotalPages() {
+      return totalPages_;
+    }
+    /**
+     * <code>int32 total_pages = 3;</code>
+     * @param value The totalPages to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTotalPages(int value) {
+
+      totalPages_ = value;
+      bitField0_ |= 0x00000004;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 total_pages = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTotalPages() {
+      bitField0_ = (bitField0_ & ~0x00000004);
+      totalPages_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private boolean hasNext_ ;
+    /**
+     * <code>bool has_next = 4;</code>
+     * @return The hasNext.
+     */
+    @java.lang.Override
+    public boolean getHasNext() {
+      return hasNext_;
+    }
+    /**
+     * <code>bool has_next = 4;</code>
+     * @param value The hasNext to set.
+     * @return This builder for chaining.
+     */
+    public Builder setHasNext(boolean value) {
+
+      hasNext_ = value;
+      bitField0_ |= 0x00000008;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool has_next = 4;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearHasNext() {
+      bitField0_ = (bitField0_ & ~0x00000008);
+      hasNext_ = false;
       onChanged();
       return this;
     }

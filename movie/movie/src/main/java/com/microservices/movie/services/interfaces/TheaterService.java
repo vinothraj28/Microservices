@@ -23,6 +23,8 @@ public interface TheaterService {
 
     Page<Theater> listTheaters(int page, int size, String city);
 
+    Page<Theater> searchTheaters(String query, int limit);
+
     Screen addScreen(UUID theaterId, Screen screen);
 
     Screen updateScreen(UUID theaterId, UUID screenId, Screen screen);

@@ -1,0 +1,274 @@
+<div class="show-list">
+  <!-- Filters Section -->
+  <div class="show-list__filters">
+    <h2>Show Filters</h2>
+    <div class="filters-grid">
+      <!-- <div class="filter-group">
+        <label for="filterType">Show by</label>
+        <select
+          id="filterType"
+          [value]="filterType() || ''"
+          (change)="selectFilterType($any($event.target).value)"
+          class="filter-input"
+          [disabled]="isLoadingOptions() || isLoading()"
+        >
+          <option value="">Select movie or theater</option>
+          <option value="movie">Movie</option>
+          <option value="theater">Theater</option>
+        </select>
+      </div> -->
+
+      <div class="filter-group" *ngIf="filterType() === 'movie'">
+        <label for="movieFilter">Movie</label>
+        <select
+          id="movieFilter"
+          [value]="movieId() || ''"
+          (change)="selectMovie($any($event.target).value)"
+          class="filter-input"
+          [disabled]="isLoadingOptions() || isLoading()"
+        >
+          <option value="">Select a movie</option>
+          <option *ngFor="let movie of movies()" [value]="movie.movieId">
+            {{ movie.title }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group" *ngIf="filterType() === 'theater'">
+        <label for="theaterFilter">Theater</label>
+        <select
+          id="theaterFilter"
+          [value]="theaterId() || ''"
+          (change)="selectTheater($any($event.target).value)"
+          class="filter-input"
+          [disabled]="isLoadingOptions() || isLoading()"
+        >
+          <option value="">Select a theater</option>
+          <option
+            *ngFor="let theater of theaters()"
+            [value]="theater.theaterId"
+          >
+            {{ theater.name }} - {{ theater.city }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Date Filter -->
+      <div class="filter-group">
+        <label for="dateFilter">Date</label>
+        <input
+          type="date"
+          id="dateFilter"
+          [value]="selectedDate() || getTodayDate()"
+          (change)="selectedDate.set($any($event.target).value)"
+          class="filter-input"
+        />
+      </div>
+
+      <!-- City Filter (only for movie filter) -->
+      <div class="filter-group" *ngIf="filterType() === 'movie'">
+        <label for="cityFilter">City</label>
+        <input
+          type="text"
+          id="cityFilter"
+          [value]="selectedCity() || ''"
+          (input)="selectedCity.set($any($event.target).value)"
+          placeholder="e.g., haarlem"
+          class="filter-input"
+        />
+      </div>
+
+      <!-- Filter Actions -->
+      <div class="filter-actions">
+        <button
+          class="btn-primary"
+          (click)="applyFilters()"
+          [disabled]="
+            isLoading() ||
+            !filterType() ||
+            (filterType() === 'movie' && !movieId()) ||
+            (filterType() === 'theater' && !theaterId())
+          "
+        >
+          Apply Filters
+        </button>
+        <button
+          class="btn-secondary"
+          (click)="clearFilters()"
+          [disabled]="isLoading()"
+        >
+          Clear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="show-list__toolbar">
+    <div class="toolbar-left">
+      <h2>
+        Shows
+        <span *ngIf="filterType() === 'movie'">(By Movie)</span>
+        <span *ngIf="filterType() === 'theater'">(By Theater)</span>
+      </h2>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn-primary" [routerLink]="['/base/show/create']">
+        + Create Show
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading()" class="loading-indicator">
+    <p>Loading shows...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error()" class="error-message">
+    <p>{{ error() }}</p>
+    <button class="btn-secondary" (click)="loadShows()">Retry</button>
+  </div>
+
+  <!-- Empty State -->
+  <div
+    *ngIf="!isLoading() && !error() && shows().length === 0"
+    class="empty-state"
+  >
+    <p *ngIf="filterType()">No shows found for the selected filters.</p>
+    <p *ngIf="!filterType()">
+      No shows available. Please select a movie or theater to view shows.
+    </p>
+  </div>
+
+  <!-- Shows Grid -->
+  <div class="show-grid" *ngIf="!isLoading() && !error() && shows().length > 0">
+    <div class="show-card" *ngFor="let show of shows()">
+      <div class="show-card__header">
+        <div class="show-card__poster">
+          <img
+            *ngIf="image[show.movie.movieId]; else posterFallback"
+            [src]="image[show.movie.movieId]"
+            [alt]="show.movie.title + ' movie poster'"
+            class="show-card__poster-image"
+            loading="lazy"
+            decoding="async"
+            (error)="$any($event.target).style.display = 'none'"
+          />
+
+          <ng-template #posterFallback>
+            <div class="show-card__poster-fallback" aria-hidden="true">
+              No poster available
+            </div>
+          </ng-template>
+        </div>
+        <span class="show-type-badge" [attr.data-type]="show.showType">
+          {{ show.showType }}
+        </span>
+        <span class="show-price">₹{{ show.basePrice }}</span>
+      </div>
+
+      <div class="show-card__content">
+        <h3>{{ formatShowTime(show.showDateTime) }}</h3>
+
+        <div class="show-details">
+          <div class="detail-row">
+            <span class="label">Movie:</span>
+            <span class="value">{{ show.movie.title }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Theater ID:</span>
+            <span class="value">{{ show.theaterId }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Screen:</span>
+            <span class="value">{{ show.screen.screenName }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Duration:</span>
+            <span class="value">{{ show.movie.durationMinutes }} mins</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Available Seats:</span>
+            <span class="value" [class.low-seats]="show.availableSeats < 20">
+              {{ show.availableSeats }} / {{ show.screen.totalSeats }}
+            </span>
+          </div>
+        </div>
+
+        <div class="show-status">
+          <span
+            class="status-badge"
+            [class.status-available]="show.availableSeats > 20"
+            [class.status-filling]="
+              show.availableSeats > 0 && show.availableSeats <= 20
+            "
+            [class.status-soldout]="show.availableSeats === 0"
+          >
+            {{
+              show.availableSeats === 0
+                ? "SOLD OUT"
+                : show.availableSeats < 20
+                  ? "FILLING FAST"
+                  : "AVAILABLE"
+            }}
+          </span>
+        </div>
+      </div>
+
+      <div class="show-card__actions">
+        <button
+          class="btn-primary btn-sm"
+          (click)="viewSeatAvailability(show.showId)"
+          [disabled]="show.availableSeats === 0"
+        >
+          View Seats
+        </button>
+        <button class="btn-secondary btn-sm" (click)="editShow(show.showId)">
+          Edit
+        </button>
+        <button class="btn-danger btn-sm" (click)="deleteShow(show.showId)">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="theater-pagination" *ngIf="this.totalPages() > 0">
+  <button
+    type="button"
+    class="pagination-btn pagination-btn--wide"
+    (click)="prevPage()"
+    [disabled]="this.page() === 0 || this.isLoading()"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m15 18-6-6 6-6"></path>
+    </svg>
+
+    Previous
+  </button>
+
+  <div class="pagination-pages">
+    <span class="pagination-page pagination-page--active">
+      {{ this.page() + 1 }}
+    </span>
+  </div>
+
+  <button
+    type="button"
+    class="pagination-btn pagination-btn--wide"
+    (click)="nextPage()"
+    [disabled]="!this.hasNext() || this.isLoading()"
+  >
+    Next
+
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="m9 18 6-6-6-6"></path>
+    </svg>
+  </button>
+
+  <span class="pagination-total">
+    Page {{ this.page() + 1 }} of {{ this.totalPages() }}
+    <span>({{ this.totalCount() }} total)</span>
+  </span>
+</footer>

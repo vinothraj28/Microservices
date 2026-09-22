@@ -21,6 +21,7 @@ private static final long serialVersionUID = 0L;
     screenId_ = "";
     showDateTime_ = "";
     showType_ = "";
+    theaterId_ = "";
   }
 
   @java.lang.Override
@@ -226,6 +227,45 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int THEATER_ID_FIELD_NUMBER = 6;
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object theaterId_ = "";
+  /**
+   * <code>string theater_id = 6;</code>
+   * @return The theaterId.
+   */
+  @java.lang.Override
+  public java.lang.String getTheaterId() {
+    java.lang.Object ref = theaterId_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      theaterId_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string theater_id = 6;</code>
+   * @return The bytes for theaterId.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString
+      getTheaterIdBytes() {
+    java.lang.Object ref = theaterId_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      theaterId_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   @java.lang.Override
   public final boolean isInitialized() {
@@ -255,6 +295,9 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(showType_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 5, showType_);
     }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(theaterId_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, theaterId_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -279,6 +322,9 @@ private static final long serialVersionUID = 0L;
     }
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(showType_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, showType_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(theaterId_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, theaterId_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -306,6 +352,8 @@ private static final long serialVersionUID = 0L;
             other.getBasePrice())) return false;
     if (!getShowType()
         .equals(other.getShowType())) return false;
+    if (!getTheaterId()
+        .equals(other.getTheaterId())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -328,6 +376,8 @@ private static final long serialVersionUID = 0L;
         java.lang.Double.doubleToLongBits(getBasePrice()));
     hash = (37 * hash) + SHOW_TYPE_FIELD_NUMBER;
     hash = (53 * hash) + getShowType().hashCode();
+    hash = (37 * hash) + THEATER_ID_FIELD_NUMBER;
+    hash = (53 * hash) + getTheaterId().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -464,6 +514,7 @@ private static final long serialVersionUID = 0L;
       showDateTime_ = "";
       basePrice_ = 0D;
       showType_ = "";
+      theaterId_ = "";
       return this;
     }
 
@@ -511,6 +562,9 @@ private static final long serialVersionUID = 0L;
       }
       if (((from_bitField0_ & 0x00000010) != 0)) {
         result.showType_ = showType_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.theaterId_ = theaterId_;
       }
     }
 
@@ -581,6 +635,11 @@ private static final long serialVersionUID = 0L;
         bitField0_ |= 0x00000010;
         onChanged();
       }
+      if (!other.getTheaterId().isEmpty()) {
+        theaterId_ = other.theaterId_;
+        bitField0_ |= 0x00000020;
+        onChanged();
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -632,6 +691,11 @@ private static final long serialVersionUID = 0L;
               bitField0_ |= 0x00000010;
               break;
             } // case 42
+            case 50: {
+              theaterId_ = input.readStringRequireUtf8();
+              bitField0_ |= 0x00000020;
+              break;
+            } // case 50
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -1005,6 +1069,78 @@ private static final long serialVersionUID = 0L;
       checkByteStringIsUtf8(value);
       showType_ = value;
       bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object theaterId_ = "";
+    /**
+     * <code>string theater_id = 6;</code>
+     * @return The theaterId.
+     */
+    public java.lang.String getTheaterId() {
+      java.lang.Object ref = theaterId_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        theaterId_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string theater_id = 6;</code>
+     * @return The bytes for theaterId.
+     */
+    public com.google.protobuf.ByteString
+        getTheaterIdBytes() {
+      java.lang.Object ref = theaterId_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        theaterId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string theater_id = 6;</code>
+     * @param value The theaterId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTheaterId(
+        java.lang.String value) {
+      if (value == null) { throw new NullPointerException(); }
+      theaterId_ = value;
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string theater_id = 6;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearTheaterId() {
+      theaterId_ = getDefaultInstance().getTheaterId();
+      bitField0_ = (bitField0_ & ~0x00000020);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string theater_id = 6;</code>
+     * @param value The bytes for theaterId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setTheaterIdBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) { throw new NullPointerException(); }
+      checkByteStringIsUtf8(value);
+      theaterId_ = value;
+      bitField0_ |= 0x00000020;
       onChanged();
       return this;
     }

@@ -3,23 +3,22 @@ package com.microservices.movie.services.impl;
 import com.microservices.movie.exceptions.InvalidRequestException;
 import com.microservices.movie.exceptions.ResourceAlreadyExistsException;
 import com.microservices.movie.exceptions.ResourceNotFoundException;
-import com.microservices.movie.models.entities.Booking;
-import com.microservices.movie.models.entities.Movie;
-import com.microservices.movie.models.entities.Screen;
-import com.microservices.movie.models.entities.Seat;
-import com.microservices.movie.models.entities.SeatLock;
-import com.microservices.movie.models.entities.Show;
+import com.microservices.movie.models.entities.*;
 import com.microservices.movie.models.enums.BookingStatus;
 import com.microservices.movie.models.enums.SeatStatus;
-import com.microservices.movie.repositories.BookingRepository;
-import com.microservices.movie.repositories.MovieRepository;
-import com.microservices.movie.repositories.ScreenRepository;
-import com.microservices.movie.repositories.SeatLockRepository;
-import com.microservices.movie.repositories.SeatRepository;
-import com.microservices.movie.repositories.ShowRepository;
+import com.microservices.movie.models.enums.ShowType;
+import com.microservices.movie.repositories.*;
 import com.microservices.movie.services.interfaces.ShowService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,12 +48,21 @@ public class ShowServiceImpl implements ShowService {
     public Show createShow(Show show) {
         UUID movieId = requireEntityId(show.getMovie(), "movie");
         UUID screenId = requireEntityId(show.getScreen(), "screen");
-        log.info("Creating show for movie {} on screen {}", movieId, screenId);
+        UUID requestedTheaterId = show.getTheaterId();
+        log.info("Creating show for movie {} on screen {} requested theater {}", movieId, screenId, requestedTheaterId);
 
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie", movieId.toString()));
         Screen screen = screenRepository.findById(screenId)
                 .orElseThrow(() -> new ResourceNotFoundException("Screen", screenId.toString()));
+
+        if (screen.getTheater() == null) {
+            throw new InvalidRequestException("Screen " + screenId + " is not assigned to a theater");
+        }
+        // Theater is always derived from the screen (single source of truth) rather than trusted from client input.
+        if (requestedTheaterId != null && !requestedTheaterId.equals(screen.getTheater().getId())) {
+            throw new InvalidRequestException("Provided theater does not match the screen's theater");
+        }
 
         validateSchedule(screenId, show.getShowDateTime(), movie.getDurationMinutes(), null);
 
@@ -65,6 +73,7 @@ public class ShowServiceImpl implements ShowService {
                 .basePrice(show.getBasePrice())
                 .showType(show.getShowType())
                 .build();
+        // theaterId is populated automatically by Show's @PrePersist from screen.getTheater()
         return showRepository.save(showToPersist);
     }
 
@@ -135,13 +144,83 @@ public class ShowServiceImpl implements ShowService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ShowTimeAvailability> getAvailableShowTimesForDate(LocalDate date, UUID screenId, Integer movieDurationMinutes){
+    public Page<Show> listShows(int page, int size) {
+        if( size == 0){
+           size = 10;
+        }
+        Pageable pageable = PageRequest.of(page, size, Sort.by("showDateTime").ascending());
+        return showRepository.findByShowDateTimeGreaterThanEqual(LocalDate.now().atStartOfDay(), pageable);
+    }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Show> searchShows(
+            UUID movieId,
+            UUID theaterId,
+            LocalDate date,
+            String city,
+            String showType,
+            String genre,
+            String language,
+            int page,
+            int size
+    ) {
+        int normalizedPage = Math.max(page, 0);
+        int normalizedSize = size > 0 ? size : 10;
+        Pageable pageable = PageRequest.of(normalizedPage, normalizedSize, Sort.by("showDateTime").ascending());
+
+        LocalDateTime startDateTime = date == null ? null : date.atStartOfDay();
+        LocalDateTime endDateTime = date == null ? null : date.plusDays(1).atStartOfDay();
+
+        ShowType parsedShowType = null;
+        if (showType != null && !showType.isBlank()) {
+            try {
+                parsedShowType = ShowType.valueOf(showType.trim().toUpperCase(Locale.ROOT));
+            } catch (IllegalArgumentException ex) {
+                throw new InvalidRequestException("Invalid showType. Allowed values: MORNING, MATINEE, EVENING, NIGHT");
+            }
+        }
+
+        String normalizedCity = normalizeOptional(city);
+        String normalizedGenre = normalizeOptional(genre);
+        String normalizedLanguage = normalizeOptional(language);
+
+        Specification<Show> specification = buildShowSearchSpecification(
+                movieId,
+                theaterId,
+                startDateTime,
+                endDateTime,
+                normalizedCity,
+                parsedShowType,
+                normalizedGenre,
+                normalizedLanguage
+        );
+
+        return showRepository.findAll(specification, pageable);
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ShowTimeAvailability> getAvailableShowTimesForDate(LocalDate date, UUID theaterId, UUID screenId, Integer movieDurationMinutes){
+
+        if (date == null) {
+            throw new InvalidRequestException("Date must be provided");
+        }
+        if (theaterId == null) {
+            throw new InvalidRequestException("Theater Id must be provided");
+        }
         if (screenId == null) {
             throw new InvalidRequestException("Screen Id must be provided");
         }
         if(movieDurationMinutes == null || movieDurationMinutes <= 0){
             throw new InvalidRequestException("Movie duration must be provided and greater than zero");
+        }
+        Screen screen = screenRepository.findById(screenId)
+                .orElseThrow(() -> new ResourceNotFoundException("Screen", screenId.toString()));
+
+        if (screen.getTheater() == null || !theaterId.equals(screen.getTheater().getId())) {
+            throw new InvalidRequestException("Screen does not belong to the provided theater");
         }
 
         List<ShowTimeAvailability> availableShowTimes = new ArrayList<>();
@@ -170,8 +249,9 @@ public class ShowServiceImpl implements ShowService {
                 cursor = showEnd;
             }
         }
-        if(cursor.plus(movieDuration).isBefore(dayEnd) || cursor.plus(movieDuration).isEqual(dayEnd)) {
+        while(cursor.plus(movieDuration).isBefore(dayEnd) || cursor.plus(movieDuration).isEqual(dayEnd)) {
             availableShowTimes.add(new ShowTimeAvailability(cursor, cursor.plus(movieDuration)));
+            cursor = cursor.plus(movieDuration);
         }
         return availableShowTimes;
     }
@@ -182,6 +262,9 @@ public class ShowServiceImpl implements ShowService {
         }
         if (entity instanceof Screen screen && screen.getId() != null) {
             return screen.getId();
+        }
+        if (entity instanceof Theater theater && theater.getId() != null) {
+            return theater.getId();
         }
         throw new InvalidRequestException("Show " + entityName + " id is required");
     }
@@ -243,5 +326,60 @@ public class ShowServiceImpl implements ShowService {
 
     private double defaultMultiplier(Seat seat) {
         return seat.getPriceMultiplier() == null ? 1.0D : seat.getPriceMultiplier();
+    }
+
+    private String normalizeOptional(String value) {
+        if (value == null) {
+            return null;
+        }
+        String normalized = value.trim();
+        return normalized.isEmpty() ? null : normalized;
+    }
+
+    private Specification<Show> buildShowSearchSpecification(
+            UUID movieId,
+            UUID theaterId,
+            LocalDateTime startDateTime,
+            LocalDateTime endDateTime,
+            String city,
+            ShowType showType,
+            String genre,
+            String language
+    ) {
+        return (root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
+
+            if (movieId != null) {
+                predicates.add(cb.equal(root.get("movie").get("id"), movieId));
+            }
+            if (theaterId != null) {
+                predicates.add(cb.equal(root.get("theaterId"), theaterId));
+            }
+            if (startDateTime != null) {
+                predicates.add(cb.greaterThanOrEqualTo(root.get("showDateTime"), startDateTime));
+            }
+            if (endDateTime != null) {
+                predicates.add(cb.lessThan(root.get("showDateTime"), endDateTime));
+            }
+            if (showType != null) {
+                predicates.add(cb.equal(root.get("showType"), showType));
+            }
+            if (city != null) {
+                Join<Show, Screen> screenJoin = root.join("screen", JoinType.INNER);
+                Join<Screen, Theater> theaterJoin = screenJoin.join("theater", JoinType.INNER);
+                predicates.add(cb.equal(cb.lower(theaterJoin.get("city")), city.toLowerCase(Locale.ROOT)));
+            }
+            if (genre != null || language != null) {
+                Join<Show, Movie> movieJoin = root.join("movie", JoinType.INNER);
+                if (genre != null) {
+                    predicates.add(cb.equal(cb.lower(movieJoin.get("genre")), genre.toLowerCase(Locale.ROOT)));
+                }
+                if (language != null) {
+                    predicates.add(cb.equal(cb.lower(movieJoin.get("language")), language.toLowerCase(Locale.ROOT)));
+                }
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        };
     }
 }

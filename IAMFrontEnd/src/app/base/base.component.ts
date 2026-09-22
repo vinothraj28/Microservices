@@ -13,16 +13,28 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 export class BaseComponent {
   isMovieMenuOpen = false;
   isTheaterMenuOpen = false;
+  isShowMenuOpen = false;
   isUserMenuOpen = false;
 
   toggleMovieMenu() {
     this.isMovieMenuOpen = !this.isMovieMenuOpen;
     this.isTheaterMenuOpen = false;
+    this.isShowMenuOpen = false;
+    this.isUserMenuOpen = false;
   }
 
   toggleTheaterMenu() {
     this.isTheaterMenuOpen = !this.isTheaterMenuOpen;
     this.isMovieMenuOpen = false;
+    this.isShowMenuOpen = false;
+    this.isUserMenuOpen = false;
+  }
+
+  toggleShowMenu() {
+    this.isShowMenuOpen = !this.isShowMenuOpen;
+    this.isMovieMenuOpen = false;
+    this.isTheaterMenuOpen = false;
+    this.isUserMenuOpen = false;
   }
 
   toggleUserMenu() {

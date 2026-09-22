@@ -21,5 +21,7 @@ public interface MovieService {
 
     Page<Movie> listMovies(int page, int size, String genre, String language);
 
+    Page<Movie> searchMovies(String query, int limit);
+
     DeleteResult deleteMovie(UUID movieId);
 }

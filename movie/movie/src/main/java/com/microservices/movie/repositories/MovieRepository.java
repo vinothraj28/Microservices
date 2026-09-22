@@ -13,4 +13,11 @@ public interface MovieRepository extends JpaRepository<Movie, UUID> {
     Page<Movie> findByGenre(String genre, Pageable pageable);
     Page<Movie> findByLanguage(String language, Pageable pageable);
     Page<Movie> findByGenreAndLanguage(String genre, String language, Pageable pageable);
+    Page<Movie> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseOrGenreContainingIgnoreCaseOrLanguageContainingIgnoreCase(
+            String title,
+            String description,
+            String genre,
+            String language,
+            Pageable pageable
+    );
 }

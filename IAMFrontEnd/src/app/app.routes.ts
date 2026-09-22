@@ -191,6 +191,52 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'show',
+        canActivate: [authenticatedGuard],
+        children: [
+          {
+            path: 'setup',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./show/show-list/show-list.component').then(
+                (component) => component.ShowListComponent,
+              ),
+          },
+          {
+            path: 'list',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./show/show-list-v2/show-list-v2.component').then(
+                (component) => component.ShowListComponentV2,
+              ),
+          },
+          {
+            path: 'create',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./show/show-form/show-form.component').then(
+                (component) => component.ShowFormComponent,
+              ),
+          },
+          {
+            path: ':id/edit',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./show/show-form/show-form.component').then(
+                (component) => component.ShowFormComponent,
+              ),
+          },
+          {
+            path: ':id/seats',
+            canActivate: [authenticatedGuard],
+            loadComponent: () =>
+              import('./show/seat-selection/seat-selection.component').then(
+                (component) => component.SeatSelectionComponent,
+              ),
+          },
+        ],
+      },
     ],
   },
 ];

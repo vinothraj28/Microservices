@@ -37,4 +37,16 @@ public interface ListShowsResponseOrBuilder extends
    * @return The totalCount.
    */
   int getTotalCount();
+
+  /**
+   * <code>int32 total_pages = 3;</code>
+   * @return The totalPages.
+   */
+  int getTotalPages();
+
+  /**
+   * <code>bool has_next = 4;</code>
+   * @return The hasNext.
+   */
+  boolean getHasNext();
 }

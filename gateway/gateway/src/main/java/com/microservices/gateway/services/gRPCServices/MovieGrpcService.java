@@ -3,6 +3,7 @@ package com.microservices.gateway.services.gRPCServices;
 import com.google.protobuf.ByteString;
 
 import com.microservices.gateway.DTOS.movie.MovieRequestDTO;
+import com.microservices.gateway.DTOS.movie.MovieListResponseDTO;
 import com.microservices.gateway.DTOS.movie.MovieResponseDTO;
 import com.microservices.gateway.DTOS.movie.MovieUpdateRequestDTO;
 import com.microservices.movie.grpc.*;
@@ -18,6 +19,8 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -189,6 +192,45 @@ public class MovieGrpcService {
                 response.getImageId()
         );
         return movieResponseDTO;
+    }
+
+    public MovieListResponseDTO searchMovies(String query, int limit) {
+        SearchMoviesRequest searchMoviesRequest = SearchMoviesRequest.newBuilder()
+                .setQuery(query == null ? "" : query)
+                .setLimit(limit)
+                .build();
+
+        ListMoviesResponse response = movieServiceBlockingStub.searchMovies(searchMoviesRequest);
+        log.info("movies found for search query '{}' with count {}", query, response.getMoviesCount());
+
+        List<MovieResponseDTO> movieResponseDTOs = response.getMoviesList().stream()
+                .map(movie -> new MovieResponseDTO(
+                        movie.getMovieId(),
+                        movie.getTitle(),
+                        movie.getDescription(),
+                        movie.getDurationMinutes(),
+                        movie.getGenre(),
+                        movie.getLanguage(),
+                        movie.getReleaseDate(),
+                        movie.getPosterUrl(),
+                        movie.getTrailerUrl(),
+                        movie.getRating(),
+                        movie.getCastList(),
+                        movie.getCrewList(),
+                        null,
+                        null,
+                        movie.getImageId()
+                ))
+                .collect(Collectors.toList());
+
+        return new MovieListResponseDTO(
+                movieResponseDTOs,
+                response.getTotalCount(),
+                response.getPage(),
+                response.getSize(),
+                response.getTotalPages(),
+                response.getHasNext()
+        );
     }
 
     public ListMoviesResponse listMovies(int page, int size, String genre, String language) {

@@ -77,4 +77,16 @@ public interface CreateShowRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getShowTypeBytes();
+
+  /**
+   * <code>string theater_id = 6;</code>
+   * @return The theaterId.
+   */
+  java.lang.String getTheaterId();
+  /**
+   * <code>string theater_id = 6;</code>
+   * @return The bytes for theaterId.
+   */
+  com.google.protobuf.ByteString
+      getTheaterIdBytes();
 }

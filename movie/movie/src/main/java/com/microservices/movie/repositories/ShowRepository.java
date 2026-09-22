@@ -1,7 +1,12 @@
 package com.microservices.movie.repositories;
 
 import com.microservices.movie.models.entities.Show;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -11,7 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public interface ShowRepository extends JpaRepository<Show, UUID> {
+public interface ShowRepository extends JpaRepository<Show, UUID>, JpaSpecificationExecutor<Show> {
     
     @Query("SELECT s FROM Show s WHERE s.movie.id = :movieId AND s.showDateTime BETWEEN :startDate AND :endDate")
     List<Show> findByMovieIdAndDateRange(@Param("movieId") UUID movieId, 
@@ -34,4 +39,10 @@ public interface ShowRepository extends JpaRepository<Show, UUID> {
     List<Show> findByMovie_IdOrderByShowDateTimeAsc(UUID movieId);
     List<Show> findByScreen_Theater_IdOrderByShowDateTimeAsc(UUID theaterId);
     List<Show> findByTheaterId(UUID theaterId);
+    Page<Show> findByShowDateTimeGreaterThanEqual(LocalDateTime showDateTime, Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"movie", "screen", "screen.theater"})
+    Page<Show> findAll(Specification<Show> spec, Pageable pageable);
+
 }

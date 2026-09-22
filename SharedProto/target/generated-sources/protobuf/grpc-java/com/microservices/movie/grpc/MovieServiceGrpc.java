@@ -139,6 +139,37 @@ public final class MovieServiceGrpc {
     return getListMoviesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchMoviesRequest,
+      com.microservices.movie.grpc.ListMoviesResponse> getSearchMoviesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SearchMovies",
+      requestType = com.microservices.movie.grpc.SearchMoviesRequest.class,
+      responseType = com.microservices.movie.grpc.ListMoviesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchMoviesRequest,
+      com.microservices.movie.grpc.ListMoviesResponse> getSearchMoviesMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchMoviesRequest, com.microservices.movie.grpc.ListMoviesResponse> getSearchMoviesMethod;
+    if ((getSearchMoviesMethod = MovieServiceGrpc.getSearchMoviesMethod) == null) {
+      synchronized (MovieServiceGrpc.class) {
+        if ((getSearchMoviesMethod = MovieServiceGrpc.getSearchMoviesMethod) == null) {
+          MovieServiceGrpc.getSearchMoviesMethod = getSearchMoviesMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.SearchMoviesRequest, com.microservices.movie.grpc.ListMoviesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SearchMovies"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.SearchMoviesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.ListMoviesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new MovieServiceMethodDescriptorSupplier("SearchMovies"))
+              .build();
+        }
+      }
+    }
+    return getSearchMoviesMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.DeleteMovieRequest,
       com.microservices.movie.grpc.DeleteMovieResponse> getDeleteMovieMethod;
 
@@ -248,6 +279,13 @@ public final class MovieServiceGrpc {
 
     /**
      */
+    default void searchMovies(com.microservices.movie.grpc.SearchMoviesRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListMoviesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchMoviesMethod(), responseObserver);
+    }
+
+    /**
+     */
     default void deleteMovie(com.microservices.movie.grpc.DeleteMovieRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.DeleteMovieResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteMovieMethod(), responseObserver);
@@ -315,6 +353,14 @@ public final class MovieServiceGrpc {
 
     /**
      */
+    public void searchMovies(com.microservices.movie.grpc.SearchMoviesRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListMoviesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSearchMoviesMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void deleteMovie(com.microservices.movie.grpc.DeleteMovieRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.DeleteMovieResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -364,6 +410,13 @@ public final class MovieServiceGrpc {
     public com.microservices.movie.grpc.ListMoviesResponse listMovies(com.microservices.movie.grpc.ListMoviesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListMoviesMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.microservices.movie.grpc.ListMoviesResponse searchMovies(com.microservices.movie.grpc.SearchMoviesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSearchMoviesMethod(), getCallOptions(), request);
     }
 
     /**
@@ -424,6 +477,14 @@ public final class MovieServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ListMoviesResponse> searchMovies(
+        com.microservices.movie.grpc.SearchMoviesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSearchMoviesMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.DeleteMovieResponse> deleteMovie(
         com.microservices.movie.grpc.DeleteMovieRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -435,7 +496,8 @@ public final class MovieServiceGrpc {
   private static final int METHODID_UPDATE_MOVIE = 1;
   private static final int METHODID_GET_MOVIE = 2;
   private static final int METHODID_LIST_MOVIES = 3;
-  private static final int METHODID_DELETE_MOVIE = 4;
+  private static final int METHODID_SEARCH_MOVIES = 4;
+  private static final int METHODID_DELETE_MOVIE = 5;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -468,6 +530,10 @@ public final class MovieServiceGrpc {
           break;
         case METHODID_LIST_MOVIES:
           serviceImpl.listMovies((com.microservices.movie.grpc.ListMoviesRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListMoviesResponse>) responseObserver);
+          break;
+        case METHODID_SEARCH_MOVIES:
+          serviceImpl.searchMovies((com.microservices.movie.grpc.SearchMoviesRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListMoviesResponse>) responseObserver);
           break;
         case METHODID_DELETE_MOVIE:
@@ -520,6 +586,13 @@ public final class MovieServiceGrpc {
               com.microservices.movie.grpc.ListMoviesRequest,
               com.microservices.movie.grpc.ListMoviesResponse>(
                 service, METHODID_LIST_MOVIES)))
+        .addMethod(
+          getSearchMoviesMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.SearchMoviesRequest,
+              com.microservices.movie.grpc.ListMoviesResponse>(
+                service, METHODID_SEARCH_MOVIES)))
         .addMethod(
           getDeleteMovieMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
@@ -579,6 +652,7 @@ public final class MovieServiceGrpc {
               .addMethod(getUpdateMovieMethod())
               .addMethod(getGetMovieMethod())
               .addMethod(getListMoviesMethod())
+              .addMethod(getSearchMoviesMethod())
               .addMethod(getDeleteMovieMethod())
               .build();
         }

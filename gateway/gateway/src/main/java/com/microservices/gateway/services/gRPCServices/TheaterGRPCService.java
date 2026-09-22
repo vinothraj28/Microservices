@@ -87,6 +87,24 @@ public class TheaterGRPCService {
         return theaterListResponseDTO;
     }
 
+    public TheaterListResponseDTO searchTheaters(String query, int limit) {
+        SearchTheatersRequest searchTheatersRequest = SearchTheatersRequest.newBuilder()
+                .setQuery(query == null ? "" : query)
+                .setLimit(limit)
+                .build();
+
+        ListTheatersResponse theaterResponses = theaterServiceBlockingStub.searchTheaters(searchTheatersRequest);
+
+        return new TheaterListResponseDTO(
+                mapTheaterResponsesToDTOs(theaterResponses),
+                theaterResponses.getTotalCount(),
+                theaterResponses.getPage(),
+                theaterResponses.getSize(),
+                theaterResponses.getTotalPages(),
+                theaterResponses.getHasNext()
+        );
+    }
+
 
     private List<TheaterResponseDTO> mapTheaterResponsesToDTOs(ListTheatersResponse theaterResponses) {
         return theaterResponses.getTheatersList().stream().map(theaterResponse -> new TheaterResponseDTO(

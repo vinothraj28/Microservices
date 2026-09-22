@@ -108,6 +108,37 @@ public final class ShowServiceGrpc {
     return getGetShowMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.ListShowsRequest,
+      com.microservices.movie.grpc.ListShowsResponse> getListShowsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListShows",
+      requestType = com.microservices.movie.grpc.ListShowsRequest.class,
+      responseType = com.microservices.movie.grpc.ListShowsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.ListShowsRequest,
+      com.microservices.movie.grpc.ListShowsResponse> getListShowsMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.ListShowsRequest, com.microservices.movie.grpc.ListShowsResponse> getListShowsMethod;
+    if ((getListShowsMethod = ShowServiceGrpc.getListShowsMethod) == null) {
+      synchronized (ShowServiceGrpc.class) {
+        if ((getListShowsMethod = ShowServiceGrpc.getListShowsMethod) == null) {
+          ShowServiceGrpc.getListShowsMethod = getListShowsMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.ListShowsRequest, com.microservices.movie.grpc.ListShowsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "ListShows"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.ListShowsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.ListShowsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShowServiceMethodDescriptorSupplier("ListShows"))
+              .build();
+        }
+      }
+    }
+    return getListShowsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.ListShowsByMovieRequest,
       com.microservices.movie.grpc.ListShowsResponse> getListShowsByMovieMethod;
 
@@ -170,6 +201,37 @@ public final class ShowServiceGrpc {
     return getListShowsByTheaterMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchShowsRequest,
+      com.microservices.movie.grpc.ListShowsResponse> getSearchShowsMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SearchShows",
+      requestType = com.microservices.movie.grpc.SearchShowsRequest.class,
+      responseType = com.microservices.movie.grpc.ListShowsResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchShowsRequest,
+      com.microservices.movie.grpc.ListShowsResponse> getSearchShowsMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.SearchShowsRequest, com.microservices.movie.grpc.ListShowsResponse> getSearchShowsMethod;
+    if ((getSearchShowsMethod = ShowServiceGrpc.getSearchShowsMethod) == null) {
+      synchronized (ShowServiceGrpc.class) {
+        if ((getSearchShowsMethod = ShowServiceGrpc.getSearchShowsMethod) == null) {
+          ShowServiceGrpc.getSearchShowsMethod = getSearchShowsMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.SearchShowsRequest, com.microservices.movie.grpc.ListShowsResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SearchShows"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.SearchShowsRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.ListShowsResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShowServiceMethodDescriptorSupplier("SearchShows"))
+              .build();
+        }
+      }
+    }
+    return getSearchShowsMethod;
+  }
+
   private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetAvailableSeatsRequest,
       com.microservices.movie.grpc.AvailableSeatsResponse> getGetAvailableSeatsMethod;
 
@@ -199,6 +261,37 @@ public final class ShowServiceGrpc {
       }
     }
     return getGetAvailableSeatsMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetAvailableShowTimesRequest,
+      com.microservices.movie.grpc.AvailableShowTimesResponse> getGetAvailableShowTimesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetAvailableShowTimes",
+      requestType = com.microservices.movie.grpc.GetAvailableShowTimesRequest.class,
+      responseType = com.microservices.movie.grpc.AvailableShowTimesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetAvailableShowTimesRequest,
+      com.microservices.movie.grpc.AvailableShowTimesResponse> getGetAvailableShowTimesMethod() {
+    io.grpc.MethodDescriptor<com.microservices.movie.grpc.GetAvailableShowTimesRequest, com.microservices.movie.grpc.AvailableShowTimesResponse> getGetAvailableShowTimesMethod;
+    if ((getGetAvailableShowTimesMethod = ShowServiceGrpc.getGetAvailableShowTimesMethod) == null) {
+      synchronized (ShowServiceGrpc.class) {
+        if ((getGetAvailableShowTimesMethod = ShowServiceGrpc.getGetAvailableShowTimesMethod) == null) {
+          ShowServiceGrpc.getGetAvailableShowTimesMethod = getGetAvailableShowTimesMethod =
+              io.grpc.MethodDescriptor.<com.microservices.movie.grpc.GetAvailableShowTimesRequest, com.microservices.movie.grpc.AvailableShowTimesResponse>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetAvailableShowTimes"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.GetAvailableShowTimesRequest.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.microservices.movie.grpc.AvailableShowTimesResponse.getDefaultInstance()))
+              .setSchemaDescriptor(new ShowServiceMethodDescriptorSupplier("GetAvailableShowTimes"))
+              .build();
+        }
+      }
+    }
+    return getGetAvailableShowTimesMethod;
   }
 
   /**
@@ -272,6 +365,13 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    default void listShows(com.microservices.movie.grpc.ListShowsRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListShowsMethod(), responseObserver);
+    }
+
+    /**
+     */
     default void listShowsByMovie(com.microservices.movie.grpc.ListShowsByMovieRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getListShowsByMovieMethod(), responseObserver);
@@ -286,9 +386,23 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    default void searchShows(com.microservices.movie.grpc.SearchShowsRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getSearchShowsMethod(), responseObserver);
+    }
+
+    /**
+     */
     default void getAvailableSeats(com.microservices.movie.grpc.GetAvailableSeatsRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableSeatsResponse> responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAvailableSeatsMethod(), responseObserver);
+    }
+
+    /**
+     */
+    default void getAvailableShowTimes(com.microservices.movie.grpc.GetAvailableShowTimesRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableShowTimesResponse> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getGetAvailableShowTimesMethod(), responseObserver);
     }
   }
 
@@ -345,6 +459,14 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public void listShows(com.microservices.movie.grpc.ListShowsRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListShowsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void listShowsByMovie(com.microservices.movie.grpc.ListShowsByMovieRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
@@ -361,10 +483,26 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public void searchShows(com.microservices.movie.grpc.SearchShowsRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getSearchShowsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
     public void getAvailableSeats(com.microservices.movie.grpc.GetAvailableSeatsRequest request,
         io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableSeatsResponse> responseObserver) {
       io.grpc.stub.ClientCalls.asyncUnaryCall(
           getChannel().newCall(getGetAvailableSeatsMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getAvailableShowTimes(com.microservices.movie.grpc.GetAvailableShowTimesRequest request,
+        io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableShowTimesResponse> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetAvailableShowTimesMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -407,6 +545,13 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public com.microservices.movie.grpc.ListShowsResponse listShows(com.microservices.movie.grpc.ListShowsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListShowsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.microservices.movie.grpc.ListShowsResponse listShowsByMovie(com.microservices.movie.grpc.ListShowsByMovieRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListShowsByMovieMethod(), getCallOptions(), request);
@@ -421,9 +566,23 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public com.microservices.movie.grpc.ListShowsResponse searchShows(com.microservices.movie.grpc.SearchShowsRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getSearchShowsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
     public com.microservices.movie.grpc.AvailableSeatsResponse getAvailableSeats(com.microservices.movie.grpc.GetAvailableSeatsRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getGetAvailableSeatsMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public com.microservices.movie.grpc.AvailableShowTimesResponse getAvailableShowTimes(com.microservices.movie.grpc.GetAvailableShowTimesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetAvailableShowTimesMethod(), getCallOptions(), request);
     }
   }
 
@@ -469,6 +628,14 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ListShowsResponse> listShows(
+        com.microservices.movie.grpc.ListShowsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListShowsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ListShowsResponse> listShowsByMovie(
         com.microservices.movie.grpc.ListShowsByMovieRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
@@ -485,19 +652,38 @@ public final class ShowServiceGrpc {
 
     /**
      */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.ListShowsResponse> searchShows(
+        com.microservices.movie.grpc.SearchShowsRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getSearchShowsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
     public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.AvailableSeatsResponse> getAvailableSeats(
         com.microservices.movie.grpc.GetAvailableSeatsRequest request) {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getGetAvailableSeatsMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.microservices.movie.grpc.AvailableShowTimesResponse> getAvailableShowTimes(
+        com.microservices.movie.grpc.GetAvailableShowTimesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetAvailableShowTimesMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_CREATE_SHOW = 0;
   private static final int METHODID_UPDATE_SHOW = 1;
   private static final int METHODID_GET_SHOW = 2;
-  private static final int METHODID_LIST_SHOWS_BY_MOVIE = 3;
-  private static final int METHODID_LIST_SHOWS_BY_THEATER = 4;
-  private static final int METHODID_GET_AVAILABLE_SEATS = 5;
+  private static final int METHODID_LIST_SHOWS = 3;
+  private static final int METHODID_LIST_SHOWS_BY_MOVIE = 4;
+  private static final int METHODID_LIST_SHOWS_BY_THEATER = 5;
+  private static final int METHODID_SEARCH_SHOWS = 6;
+  private static final int METHODID_GET_AVAILABLE_SEATS = 7;
+  private static final int METHODID_GET_AVAILABLE_SHOW_TIMES = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -528,6 +714,10 @@ public final class ShowServiceGrpc {
           serviceImpl.getShow((com.microservices.movie.grpc.GetShowRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ShowResponse>) responseObserver);
           break;
+        case METHODID_LIST_SHOWS:
+          serviceImpl.listShows((com.microservices.movie.grpc.ListShowsRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse>) responseObserver);
+          break;
         case METHODID_LIST_SHOWS_BY_MOVIE:
           serviceImpl.listShowsByMovie((com.microservices.movie.grpc.ListShowsByMovieRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse>) responseObserver);
@@ -536,9 +726,17 @@ public final class ShowServiceGrpc {
           serviceImpl.listShowsByTheater((com.microservices.movie.grpc.ListShowsByTheaterRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse>) responseObserver);
           break;
+        case METHODID_SEARCH_SHOWS:
+          serviceImpl.searchShows((com.microservices.movie.grpc.SearchShowsRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.ListShowsResponse>) responseObserver);
+          break;
         case METHODID_GET_AVAILABLE_SEATS:
           serviceImpl.getAvailableSeats((com.microservices.movie.grpc.GetAvailableSeatsRequest) request,
               (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableSeatsResponse>) responseObserver);
+          break;
+        case METHODID_GET_AVAILABLE_SHOW_TIMES:
+          serviceImpl.getAvailableShowTimes((com.microservices.movie.grpc.GetAvailableShowTimesRequest) request,
+              (io.grpc.stub.StreamObserver<com.microservices.movie.grpc.AvailableShowTimesResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -580,6 +778,13 @@ public final class ShowServiceGrpc {
               com.microservices.movie.grpc.ShowResponse>(
                 service, METHODID_GET_SHOW)))
         .addMethod(
+          getListShowsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.ListShowsRequest,
+              com.microservices.movie.grpc.ListShowsResponse>(
+                service, METHODID_LIST_SHOWS)))
+        .addMethod(
           getListShowsByMovieMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
@@ -594,12 +799,26 @@ public final class ShowServiceGrpc {
               com.microservices.movie.grpc.ListShowsResponse>(
                 service, METHODID_LIST_SHOWS_BY_THEATER)))
         .addMethod(
+          getSearchShowsMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.SearchShowsRequest,
+              com.microservices.movie.grpc.ListShowsResponse>(
+                service, METHODID_SEARCH_SHOWS)))
+        .addMethod(
           getGetAvailableSeatsMethod(),
           io.grpc.stub.ServerCalls.asyncUnaryCall(
             new MethodHandlers<
               com.microservices.movie.grpc.GetAvailableSeatsRequest,
               com.microservices.movie.grpc.AvailableSeatsResponse>(
                 service, METHODID_GET_AVAILABLE_SEATS)))
+        .addMethod(
+          getGetAvailableShowTimesMethod(),
+          io.grpc.stub.ServerCalls.asyncUnaryCall(
+            new MethodHandlers<
+              com.microservices.movie.grpc.GetAvailableShowTimesRequest,
+              com.microservices.movie.grpc.AvailableShowTimesResponse>(
+                service, METHODID_GET_AVAILABLE_SHOW_TIMES)))
         .build();
   }
 
@@ -651,9 +870,12 @@ public final class ShowServiceGrpc {
               .addMethod(getCreateShowMethod())
               .addMethod(getUpdateShowMethod())
               .addMethod(getGetShowMethod())
+              .addMethod(getListShowsMethod())
               .addMethod(getListShowsByMovieMethod())
               .addMethod(getListShowsByTheaterMethod())
+              .addMethod(getSearchShowsMethod())
               .addMethod(getGetAvailableSeatsMethod())
+              .addMethod(getGetAvailableShowTimesMethod())
               .build();
         }
       }

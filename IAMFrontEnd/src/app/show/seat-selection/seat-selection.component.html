@@ -1,0 +1,169 @@
+<div class="seat-selection-container">
+  <!-- Header -->
+  <div class="seat-selection-header">
+    <button class="btn-secondary" (click)="goBack()">← Back to Shows</button>
+    <h1>Select Your Seats</h1>
+  </div>
+
+  <!-- Show Info Card -->
+  <div class="show-info-card" *ngIf="show()">
+    <div class="show-info-content">
+      <h2>{{ formatShowTime(show()!.showDateTime) }}</h2>
+      <div class="show-details">
+        <span>🎬 Movie: {{ show()!.movie.title }}</span>
+        <span>🏛️ Theater: {{ show()!.theaterId }}</span>
+        <span>📺 Screen: {{ show()!.screen.screenName }}</span>
+        <span>⏱️ {{ show()!.movie.durationMinutes }} mins</span>
+        <span>💰 Base Price: ₹{{ show()!.basePrice }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading()" class="loading-indicator">
+    <p>Loading seats...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error()" class="error-message">
+    <p>{{ error() }}</p>
+    <button class="btn-secondary" (click)="loadShowAndSeats(showId())">
+      Retry
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="seat-selection-content" *ngIf="!isLoading() && !error()">
+    <!-- Legend -->
+    <div class="seat-legend">
+      <h3>Legend</h3>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="seat-demo available"></div>
+          <span>Available</span>
+        </div>
+        <div class="legend-item">
+          <div class="seat-demo selected"></div>
+          <span>Selected</span>
+        </div>
+        <div class="legend-item">
+          <div class="seat-demo booked"></div>
+          <span>Booked</span>
+        </div>
+        <div class="legend-item">
+          <div class="seat-demo locked"></div>
+          <span>Locked</span>
+        </div>
+      </div>
+
+      <div class="seat-types">
+        <h4>Seat Types</h4>
+        <div
+          class="type-item"
+          *ngFor="
+            let type of [
+              SeatType.REGULAR,
+              SeatType.PREMIUM,
+              SeatType.RECLINER,
+              SeatType.VIP,
+            ]
+          "
+        >
+          <span class="type-label">{{ getSeatTypeLabel(type) }}</span>
+          <span class="type-multiplier">{{ getSeatTypeMultiplier(type) }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theater Screen -->
+    <div class="theater-section">
+      <div class="cinema-screen">
+        <div class="cinema-screen__surface">SCREEN</div>
+      </div>
+
+      <!-- Seats Grid -->
+      <div class="seat-map">
+        <div class="seat-row" *ngFor="let row of rows">
+          <span class="seat-row__name">{{ row }}</span>
+          <div class="seat-row__seats">
+            <button
+              type="button"
+              *ngFor="let seat of seatsGroupedByRow.get(row)"
+              class="seat"
+              [class.seat--regular]="seat.seatType === SeatType.REGULAR"
+              [class.seat--premium]="seat.seatType === SeatType.PREMIUM"
+              [class.seat--recliner]="seat.seatType === SeatType.RECLINER"
+              [class.seat--vip]="seat.seatType === SeatType.VIP"
+              [class.seat--selected]="isSeatSelected(seat)"
+              [class.seat--booked]="seat.status === SeatStatus.BOOKED"
+              [class.seat--locked]="seat.status === SeatStatus.LOCKED"
+              [disabled]="seat.status !== SeatStatus.AVAILABLE"
+              [attr.aria-label]="
+                row +
+                ' ' +
+                seat.seatNumber +
+                ', ' +
+                getSeatTypeLabel($any(seat.seatType)) +
+                ', ' +
+                seat.status.toLowerCase()
+              "
+              (click)="toggleSeatSelection(seat)"
+            >
+              {{ seat.seatNumber }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="seat-statistics">
+      <div class="stat-card">
+        <span class="stat-value">{{ show()!.availableSeats }}</span>
+        <span class="stat-label">Available</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ seatsGroupedByStatus.booked.length }}</span>
+        <span class="stat-label">Booked</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">{{ show()!.screen.totalSeats }}</span>
+        <span class="stat-label">Total Seats</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selection Summary -->
+  <div class="selection-summary" *ngIf="selectedSeats().size > 0">
+    <div class="summary-content">
+      <div class="summary-info">
+        <h3>Selected Seats</h3>
+        <div class="selected-seats-list">
+          <span class="seat-badge" *ngFor="let seat of selectedSeatDetails">
+            {{ seat.rowName }}{{ seat.seatNumber }}
+          </span>
+        </div>
+        <div class="summary-price">
+          <span class="price-label">Total Amount:</span>
+          <span class="price-value">₹{{ totalPrice }}</span>
+        </div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn-secondary" (click)="clearSelection()">
+          Clear Selection
+        </button>
+        <button class="btn-primary" (click)="proceedToBooking()">
+          Proceed to Book ({{ selectedSeats().size }} seats)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty Selection Message -->
+  <div
+    class="empty-selection"
+    *ngIf="!isLoading() && !error() && selectedSeats().size === 0"
+  >
+    <p>Select your seats to proceed with booking</p>
+  </div>
+</div>

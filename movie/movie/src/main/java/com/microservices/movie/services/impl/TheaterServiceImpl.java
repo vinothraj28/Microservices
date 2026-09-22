@@ -94,6 +94,25 @@ public class TheaterServiceImpl implements TheaterService {
         return theaterRepository.findAll(pageable);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Theater> searchTheaters(String query, int limit) {
+        String normalizedQuery = query == null ? "" : query.trim();
+        int pageSize = limit > 0 ? limit : 5;
+        Pageable pageable = PageRequest.of(0, pageSize, Sort.by("name").ascending());
+
+        if (normalizedQuery.isEmpty()) {
+            return Page.empty(pageable);
+        }
+
+        return theaterRepository.findByNameContainingIgnoreCaseOrCityContainingIgnoreCaseOrAddressContainingIgnoreCase(
+                normalizedQuery,
+                normalizedQuery,
+                normalizedQuery,
+                pageable
+        );
+    }
+
 
 
     @Override

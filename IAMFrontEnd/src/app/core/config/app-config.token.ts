@@ -40,6 +40,19 @@ export interface AppConfig {
       getAllScreensUrl: string;
     };
   };
+  show: {
+    createUrl: string;
+    updateUrl: string;
+    getByIdUrl: string;
+    getByMovieUrl: string;
+    getByTheaterUrl: string;
+    getSeatsUrl: string;
+    getAllUrl: string;
+  };
+  search: {
+    searchShowsUrl: string;
+    searchSuggestionsUrl: string;
+  };
 }
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');

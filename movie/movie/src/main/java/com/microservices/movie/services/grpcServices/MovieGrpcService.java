@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.sql.Date;
@@ -204,6 +205,34 @@ public class MovieGrpcService extends MovieServiceGrpc.MovieServiceImplBase {
                     .withDescription("Internal server error")
                     .withCause(e)
                     .asRuntimeException()
+            );
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public void searchMovies(SearchMoviesRequest request, StreamObserver<ListMoviesResponse> responseObserver) {
+        try {
+            log.info("Received gRPC request to search movies with query '{}' and limit {}", request.getQuery(), request.getLimit());
+
+            Page<Movie> moviePage = movieService.searchMovies(request.getQuery(), request.getLimit());
+            ListMoviesResponse.Builder responseBuilder = ListMoviesResponse.newBuilder();
+            moviePage.forEach(movie -> responseBuilder.addMovies(movieMapper.toMovieResponse(movie)));
+            responseBuilder.setTotalCount((int) moviePage.getTotalElements());
+            responseBuilder.setPage(moviePage.getNumber());
+            responseBuilder.setSize(moviePage.getSize());
+            responseBuilder.setTotalPages(moviePage.getTotalPages());
+            responseBuilder.setHasNext(moviePage.hasNext());
+
+            responseObserver.onNext(responseBuilder.build());
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            log.error("Error searching movies", e);
+            responseObserver.onError(
+                    Status.INTERNAL
+                            .withDescription("Internal server error")
+                            .withCause(e)
+                            .asRuntimeException()
             );
         }
     }

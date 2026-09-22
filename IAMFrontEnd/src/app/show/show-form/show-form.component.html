@@ -1,0 +1,313 @@
+<div class="show-creator" [formGroup]="showForm">
+  <header class="creator-header">
+    <div>
+      <p class="breadcrumb">
+        Shows <span>/</span> {{ isEditMode() ? "Edit show" : "Create show" }}
+      </p>
+      <h1>{{ isEditMode() ? "Edit Show" : "Create Show" }}</h1>
+      <p class="header-copy">
+        Set up a new show by selecting a movie, theater and show time.
+      </p>
+    </div>
+    <div class="header-actions">
+      <button
+        type="button"
+        class="button button--quiet"
+        (click)="cancel()"
+        [disabled]="isSubmitting()"
+      >
+        Cancel
+      </button>
+      <button
+        type="button"
+        class="button button--primary"
+        (click)="onSubmit()"
+        [disabled]="showForm.invalid || isSubmitting()"
+      >
+        {{
+          isSubmitting()
+            ? "Saving..."
+            : isEditMode()
+              ? "Save changes"
+              : "Create Show"
+        }}
+      </button>
+    </div>
+  </header>
+
+  <div *ngIf="isLoading()" class="loading-indicator">Loading show data...</div>
+
+  <main class="creator-layout" *ngIf="!isLoading()">
+    <nav class="stepper" aria-label="Create show steps">
+      <button
+        type="button"
+        class="step"
+        [class.step--active]="currentStep() === 1"
+        [class.step--complete]="showForm.controls.movieId.valid"
+        (click)="currentStep.set(1)"
+      >
+        <span class="step__number">1</span
+        ><span><strong>Select Movie</strong><small>Choose a movie</small></span>
+      </button>
+      <button
+        type="button"
+        class="step"
+        [class.step--active]="currentStep() === 2"
+        [class.step--complete]="showForm.controls.screenId.valid"
+        (click)="currentStep.set(2)"
+      >
+        <span class="step__number">2</span
+        ><span
+          ><strong>Select Theater</strong
+          ><small>Choose a theater and screen</small></span
+        >
+      </button>
+      <button
+        type="button"
+        class="step"
+        [class.step--active]="currentStep() === 3"
+        [class.step--complete]="showForm.controls.showTime.valid"
+        (click)="openScheduleStep()"
+      >
+        <span class="step__number">3</span
+        ><span
+          ><strong>Select Date &amp; Time</strong
+          ><small>Pick date and show time</small></span
+        >
+      </button>
+      <button
+        type="button"
+        class="step"
+        [class.step--active]="currentStep() === 4"
+        (click)="currentStep.set(4)"
+      >
+        <span class="step__number">4</span
+        ><span
+          ><strong>Review &amp; Create</strong
+          ><small>Confirm and create show</small></span
+        >
+      </button>
+    </nav>
+
+    <section class="selection-panel">
+      <ng-container [ngSwitch]="currentStep()">
+        <div *ngSwitchCase="1">
+          <p class="step-label">Step 1 of 4</p>
+          <h2>Select Movie</h2>
+          <input
+            class="search-input"
+            type="search"
+            placeholder="Search movies..."
+            (input)="onMovieSearchChange($event)"
+            [value]="movieSearch()"
+            aria-label="Search movies"
+          />
+          <div
+            class="selection-list"
+            *ngIf="!isLoadingMovies(); else moviesLoading"
+          >
+            <button
+              type="button"
+              class="choice-card"
+              *ngFor="let movie of filteredMovies()"
+              [class.choice-card--selected]="
+                movie.movieId === showForm.controls.movieId.value
+              "
+              (click)="selectMovie(movie.movieId)"
+            >
+              <span class="choice-card__poster">{{
+                movie.title.charAt(0)
+              }}</span>
+              <span class="choice-card__content"
+                ><strong>{{ movie.title }}</strong
+                ><small
+                  >{{ movie.genre }} &bull; {{ movie.durationMinutes }} min
+                  &bull; {{ movie.language }}</small
+                ></span
+              >
+              <span class="choice-card__arrow">&gt;</span>
+            </button>
+            <p class="empty-state" *ngIf="filteredMovies().length === 0">
+              No movies match your search.
+            </p>
+          </div>
+          <ng-template #moviesLoading
+            ><p class="empty-state">Loading movies...</p></ng-template
+          >
+        </div>
+
+        <div *ngSwitchCase="2">
+          <p class="step-label">Step 2 of 4</p>
+          <h2>Select Theater &amp; Screen</h2>
+          <input
+            class="search-input"
+            type="search"
+            placeholder="Search theaters..."
+            (input)="onTheaterSearchChange($event)"
+            [value]="theaterSearch()"
+            aria-label="Search theaters"
+          />
+          <div
+            class="selection-list"
+            *ngIf="!isLoadingTheaters(); else theatersLoading"
+          >
+            <button
+              type="button"
+              class="choice-card"
+              *ngFor="let theater of filteredTheaters()"
+              [class.choice-card--selected]="
+                theater.theaterId === showForm.controls.theaterId.value
+              "
+              (click)="selectTheater(theater.theaterId)"
+            >
+              <span class="choice-card__poster choice-card__poster--theater"
+                >T</span
+              ><span class="choice-card__content"
+                ><strong>{{ theater.name }}</strong
+                ><small>{{ theater.city }}, {{ theater.state }}</small></span
+              ><span class="choice-card__arrow">&gt;</span>
+            </button>
+          </div>
+          <ng-template #theatersLoading
+            ><p class="empty-state">Loading theaters...</p></ng-template
+          >
+          <div class="screen-picker" *ngIf="showForm.controls.theaterId.value">
+            <label>Select screen</label>
+            <div class="screen-options" *ngIf="!isLoadingScreens()">
+              <button
+                type="button"
+                *ngFor="let screen of filteredScreens()"
+                class="screen-option"
+                [class.screen-option--selected]="
+                  screen.screenId === showForm.controls.screenId.value
+                "
+                (click)="selectScreen(screen.screenId)"
+              >
+                {{ screen.screenName }}
+                <small>{{ screen.totalSeats }} seats</small>
+              </button>
+            </div>
+            <p class="empty-state" *ngIf="isLoadingScreens()">
+              Loading screens...
+            </p>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="3" class="schedule-stage">
+          <p class="step-label">Step 3 of 4</p>
+          <h2>Select Date &amp; Time</h2>
+          <div class="form-fields">
+            <label
+              >Show date<input
+                type="date"
+                formControlName="showDate"
+                (change)="onShowDateChange()" /></label
+            ><label
+              >Show type<select formControlName="showType">
+                <option *ngFor="let type of showTypes" [value]="type">
+                  {{ getShowTypeDisplay(type) }}
+                </option>
+              </select></label
+            ><label
+              >Base price<input
+                type="number"
+                formControlName="basePrice"
+                min="0"
+                step="10"
+            /></label>
+          </div>
+          <section
+            class="available-slots"
+            aria-labelledby="available-slots-title"
+          >
+            <h3 id="available-slots-title">Available show times</h3>
+            <p *ngIf="isLoadingAvailableSlots()" class="empty-state">
+              Loading available show times...
+            </p>
+            <div
+              class="slot-options"
+              *ngIf="!isLoadingAvailableSlots() && availableShowTimes().length"
+            >
+              <button
+                type="button"
+                *ngFor="let slot of availableShowTimes()"
+                class="slot-option"
+                [class.slot-option--selected]="isShowTimeSelected(slot)"
+                (click)="selectShowTime(slot)"
+              >
+                {{ getShowTimeDisplay(slot) }}
+              </button>
+            </div>
+            <p
+              *ngIf="
+                !isLoadingAvailableSlots() && availableShowTimes().length === 0
+              "
+              class="empty-state"
+            >
+              No available show times for this date.
+            </p>
+          </section>
+        </div>
+
+        <div *ngSwitchDefault class="review-stage">
+          <p class="step-label">Step 4 of 4</p>
+          <h2>Review Your Show</h2>
+          <p>
+            Confirm the details in the show summary before creating this show.
+          </p>
+          <button
+            type="button"
+            class="button button--primary"
+            (click)="onSubmit()"
+            [disabled]="showForm.invalid || isSubmitting()"
+          >
+            {{ isSubmitting() ? "Saving..." : "Create Show" }}
+          </button>
+        </div>
+      </ng-container>
+      <footer class="stage-actions">
+        <button
+          type="button"
+          class="button button--quiet"
+          (click)="previousStep()"
+          [disabled]="currentStep() === 1"
+        >
+          Back</button
+        ><button
+          type="button"
+          class="button button--primary"
+          (click)="nextStep()"
+          *ngIf="currentStep() < 4"
+        >
+          Next
+        </button>
+      </footer>
+    </section>
+
+    <aside class="preview-panel">
+      <h2>Show Preview</h2>
+      <p>Your show details will appear here as you select options.</p>
+      <div class="preview-empty" *ngIf="!selectedMovie()">
+        <span>Calendar</span><strong>No show details yet</strong
+        ><small>Select a movie, theater, date and time to see preview</small>
+      </div>
+      <div class="summary">
+        <h3>Show Summary</h3>
+        <dl>
+          <dt>Movie</dt>
+          <dd>{{ selectedMovie()?.title || "-" }}</dd>
+          <dt>Theater</dt>
+          <dd>{{ selectedTheater()?.name || "-" }}</dd>
+          <dt>Date</dt>
+          <dd>{{ showForm.controls.showDate.value || "-" }}</dd>
+          <dt>Time</dt>
+          <dd>{{ showForm.controls.showTime.value || "-" }}</dd>
+          <dt>Screen</dt>
+          <dd>{{ selectedScreen()?.screenName || "-" }}</dd>
+          <dt>Total Capacity</dt>
+          <dd>{{ selectedScreen()?.totalSeats || "-" }}</dd>
+        </dl>
+      </div>
+    </aside>
+  </main>
+</div>

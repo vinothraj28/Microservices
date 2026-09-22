@@ -36,7 +36,7 @@ public class Show extends AuditableEntity implements BaseEntity {
     @JoinColumn(name = "screen_id", nullable = false)
     private Screen screen;
 
-    @Column(name = "theater_id", insertable = false, updatable = false)
+    @Column(name = "theater_id", nullable = false)
     private UUID theaterId;
 
     @Column(nullable = false)
