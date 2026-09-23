@@ -2,7 +2,7 @@ server:
   port: 8082
 
 jwt:
-  secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+  secret: ${JWT_SECRET}
   issuer: https://microservices.iam.local
   audience: movie-service
   expiration-minutes: 60
@@ -13,9 +13,9 @@ spring:
     name: movie-service
     
   datasource:
-    url: jdbc:postgresql://localhost:5432/MovieService
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL_MOVIE}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:

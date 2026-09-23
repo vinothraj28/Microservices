@@ -5,7 +5,7 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
 
 jwt:
-  secret: AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==
+  secret: ${JWT_SECRET}
   issuer: https://microservices.iam.local
   audience: profile-service
 
@@ -22,7 +22,7 @@ jwt:
 
 oauth2:
   frontend:
-    base-url: http://localhost:4200
+    base-url: ${OAUTH2_FRONTEND_BASE_URL}
     login-path: /login
     consent-path: /oauth-consent
 
