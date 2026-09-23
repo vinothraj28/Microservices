@@ -29,8 +29,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_PROFILE_DB:-MicroServices}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
-      SECURITY_ENCRYPTION_KEY: ${PROFILE_SECURITY_ENCRYPTION_KEY:-dev-only-encryption-key}
+      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
+      SECURITY_ENCRYPTION_KEY: ${PROFILE_SECURITY_ENCRYPTION_KEY:-figpZBcjVG/dZjqLwbj8Q0a9zTl+OqcO9ldJnOExohA=}
     ports:
       - "${PROFILE_HTTP_PORT:-8081}:8081"
       - "9090:9090"
@@ -47,7 +47,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_MOVIE_DB:-MovieService}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
+      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
     ports:
       - "${MOVIE_HTTP_PORT:-8082}:8082"
       - "9091:9091"
@@ -61,14 +61,14 @@ services:
       - movie
     environment:
       SERVER_PORT: ${GATEWAY_HTTP_PORT:-8080}
-      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret}
+      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
       GRPC_CLIENT_PROFILE_SERVICE_ADDRESS: static://profile:9090
       GRPC_CLIENT_ADDRESS_SERVICE_ADDRESS: static://profile:9090
       GRPC_CLIENT_MFA_SERVICE_ADDRESS: static://profile:9090
       GRPC_CLIENT_MOVIE_SERVICE_ADDRESS: static://movie:9091
       GRPC_CLIENT_IMAGE_SERVICE_ADDRESS: static://movie:9091
       GRPC_CLIENT_THEATER_SERVICE_ADDRESS: static://movie:9091
-      OAUTH2_FRONTEND_BASE_URL: http://frontend:${FRONTEND_HTTP_PORT:-4200}
+      OAUTH2_FRONTEND_BASE_URL: ${OAUTH2_FRONTEND_BASE_URL:-http://localhost:4200}
     ports:
       - "${GATEWAY_HTTP_PORT:-8080}:8080"
 
@@ -83,4 +83,3 @@ services:
 
 volumes:
   postgres_data:
-

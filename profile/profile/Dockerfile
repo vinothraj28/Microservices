@@ -4,8 +4,8 @@ WORKDIR /workspace
 COPY SharedProto ./SharedProto
 COPY profile/profile ./profile/profile
 
-RUN mvn -B -ntp -f SharedProto/pom.xml clean install -DskipTests
-RUN mvn -B -ntp -f profile/profile/pom.xml clean package -DskipTests
+RUN mvn -B -ntp -f SharedProto/pom.xml clean install -Dmaven.test.skip=true
+RUN mvn -B -ntp -f profile/profile/pom.xml clean package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
@@ -13,4 +13,3 @@ COPY --from=build /workspace/profile/profile/target/profile-0.0.1-SNAPSHOT.jar a
 
 EXPOSE 8081 9090
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
-

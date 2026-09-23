@@ -96,7 +96,26 @@ This repo includes:
 
 ```powershell
 cd D:\Microservices
+copy .env.example .env
 docker compose up --build
+```
+
+Local endpoints after startup:
+- Gateway API: `http://localhost:8080`
+- Profile API: `http://localhost:8081`
+- Movie API: `http://localhost:8082`
+- Frontend: `http://localhost:4200`
+
+Published service ports:
+- PostgreSQL: `5432`
+- Profile gRPC: `9090`
+- Movie gRPC: `9091`
+
+To stop and remove containers:
+
+```powershell
+cd D:\Microservices
+docker compose down
 ```
 
 ## Configuration and secrets
@@ -142,4 +161,3 @@ Content-Type: application/json
 ## Documentation index
 
 See `docs/README.md` for a curated reviewer path and links to implementation deep dives.
-

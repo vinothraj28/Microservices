@@ -4,8 +4,8 @@ WORKDIR /workspace
 COPY SharedProto ./SharedProto
 COPY gateway/gateway ./gateway/gateway
 
-RUN mvn -B -ntp -f SharedProto/pom.xml clean install -DskipTests
-RUN mvn -B -ntp -f gateway/gateway/pom.xml clean package -DskipTests
+RUN mvn -B -ntp -f SharedProto/pom.xml clean install -Dmaven.test.skip=true
+RUN mvn -B -ntp -f gateway/gateway/pom.xml clean package -Dmaven.test.skip=true
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
@@ -13,4 +13,3 @@ COPY --from=build /workspace/gateway/gateway/target/gateway-0.0.1-SNAPSHOT.jar a
 
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
-
