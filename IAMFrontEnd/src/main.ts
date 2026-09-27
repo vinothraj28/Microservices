@@ -6,10 +6,11 @@ import { appConfig } from './app/app.config';
 import { AppComponent } from './app/app.component';
 
 async function bootstrap(): Promise<void> {
-  const response = await fetch('/app-config.json');
+  const configUrl = resolveConfigUrl();
+  const response = await fetch(configUrl, { cache: 'no-store' });
 
   if (!response.ok) {
-    throw new Error(`Unable to load runtime app config: ${response.status}`);
+    throw new Error(`Unable to load runtime app config from ${configUrl}: ${response.status}`);
   }
 
   const runtimeConfig = (await response.json()) as AppConfig;
@@ -21,3 +22,13 @@ async function bootstrap(): Promise<void> {
 }
 
 bootstrap().catch((err) => console.error(err));
+
+function resolveConfigUrl(): string {
+  const hostname = window.location.hostname;
+  const isLocalHost =
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1' ||
+    hostname === '::1';
+
+  return isLocalHost ? '/app-config.json' : '/app-config.production.json';
+}

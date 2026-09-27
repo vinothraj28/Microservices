@@ -126,6 +126,12 @@ Use `.env.example` as the template for environment-driven configuration during d
 copy .env.example .env
 ```
 
+Frontend runtime config is host-aware:
+- localhost uses `IAMFrontEnd/public/app-config.json`
+- Azure Static Web Apps uses `IAMFrontEnd/public/app-config.production.json`
+
+In Azure Container Apps, set the gateway `GRPC_CLIENT_*` env vars directly to the internal service hostnames and ports, and keep `JWT_SECRET`, datasource values, and `SECURITY_ENCRYPTION_KEY` in app settings or Key Vault.
+
 ## Quality checks
 
 ```powershell

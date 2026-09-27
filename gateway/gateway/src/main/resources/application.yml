@@ -5,7 +5,7 @@ server:
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
   issuer: https://microservices.iam.local
   audience: profile-service
 
@@ -22,9 +22,12 @@ jwt:
 
 oauth2:
   frontend:
-    base-url: ${OAUTH2_FRONTEND_BASE_URL}
+    base-url: ${OAUTH2_FRONTEND_BASE_URL:http://localhost:4200}
     login-path: /login
     consent-path: /oauth-consent
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://localhost:4200}
 
 #  cloud:
 #    gateway:
@@ -61,25 +64,25 @@ logging:
 grpc:
   client:
     profile-service:
-      address: static://localhost:9090
+      address: ${GRPC_CLIENT_PROFILE_SERVICE_ADDRESS:static://localhost:9090}
       negotiationType: plaintext
 
     address-service:
-      address: static://localhost:9090
+      address: ${GRPC_CLIENT_ADDRESS_SERVICE_ADDRESS:static://localhost:9090}
       negotiationType: plaintext
 
     mfa-service:
-      address: static://localhost:9090
+      address: ${GRPC_CLIENT_MFA_SERVICE_ADDRESS:static://localhost:9090}
       negotiationType: plaintext
 
     movie-service:
-      address: static://localhost:9091
+      address: ${GRPC_CLIENT_MOVIE_SERVICE_ADDRESS:static://localhost:9091}
       negotiationType: plaintext
 
     image-service:
-      address: static://localhost:9091
+      address: ${GRPC_CLIENT_IMAGE_SERVICE_ADDRESS:static://localhost:9091}
       negotiationType: plaintext
 
     theater-service:
-      address: static://localhost:9091
+      address: ${GRPC_CLIENT_THEATER_SERVICE_ADDRESS:static://localhost:9091}
       negotiationType: plaintext

@@ -2,7 +2,7 @@ server:
   port: 8081
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: ${JWT_SECRET:AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
   issuer: https://microservices.iam.local
   audience: profile-service
   expiration-minutes: 60
@@ -12,10 +12,12 @@ oauth2:
   authorization-code-ttl-seconds: 600
 
 spring:
+  application:
+    name: profile-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL_PROFILE}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL_PROFILE:jdbc:postgresql://localhost:5432/MicroServices}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -30,4 +32,4 @@ grpc:
 
 security:
   encryption:
-    key: ${SECURITY_ENCRYPTION_KEY}
+    key: ${SECURITY_ENCRYPTION_KEY:${PROFILE_SECURITY_ENCRYPTION_KEY:figpZBcjVG/dZjqLwbj8Q0a9zTl+OqcO9ldJnOExohA=}}

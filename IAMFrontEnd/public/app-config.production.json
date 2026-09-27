@@ -1,0 +1,57 @@
+{
+  "auth": {
+    "registerUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/users/register",
+    "authenticateUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/auth/oAuth/authenticate",
+    "verifyMfaUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/auth/oAuth/verify-mfa",
+    "tokenUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth2/token",
+    "authorizeBaseUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth2/authorize",
+    "clientId": "ead89dd4-a0cd-473b-8c24-ca3ca9f50439",
+    "redirectUri": "https://ashy-sand-09f5c591e.5.azurestaticapps.net/callback",
+    "scope": "user:read user:write",
+    "postLoginRedirectAllowList": [
+      "https://ashy-sand-09f5c591e.5.azurestaticapps.net",
+      "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth2/authorize"
+    ],
+    "refreshTokenUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth/refresh"
+  },
+  "mfa": {
+    "setupUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/mfa/setup",
+    "confirmUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/mfa/confirm"
+  },
+  "movie": {
+    "registerUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/",
+    "updateUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/",
+    "deleteUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/",
+    "getMovieByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/",
+    "getAllMoviesUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/",
+    "getImageById": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/movies/images"
+  },
+  "theater": {
+    "registerUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters",
+    "updateUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters",
+    "deleteUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters",
+    "getTheaterByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters",
+    "getAllTheatersUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters",
+    "screen": {
+      "registerUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
+      "updateUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
+      "deleteUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
+      "listUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/",
+      "getScreenByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
+      "getAllScreensUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens"
+    }
+  },
+  "show": {
+    "createUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows",
+    "updateUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows",
+    "getByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows",
+    "getByMovieUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows/movie",
+    "getByTheaterUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows/theater",
+    "getSeatsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows",
+    "getAllUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows"
+  },
+  "search": {
+    "searchShowsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/search/shows",
+    "searchSuggestionsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/search/suggestions"
+  }
+}

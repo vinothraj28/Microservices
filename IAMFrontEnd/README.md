@@ -11,6 +11,8 @@ npm start
 
 App URL: `http://localhost:4200`
 
+The app loads `public/app-config.json` on localhost and `public/app-config.production.json` on non-localhost hosts.
+
 ## Build and test
 
 ```bash
