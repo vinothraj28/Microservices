@@ -60,6 +60,8 @@ public class UserGRPCService {
             return userMapper.toRegisterResponseDTO(registerResponse);
         }catch (StatusRuntimeException ex){
            Status.Code code = ex.getStatus().getCode();
+            String description = ex.getStatus().getDescription();
+            log.error("gRPC register failed. code={}, description={}", code, description, ex);
 
             switch (code) {
 
@@ -74,9 +76,7 @@ public class UserGRPCService {
                 case INVALID_ARGUMENT ->
                         throw new ValidationException(
                                 ex.getStatus().getDescription());
-                default ->
-                        throw new RuntimeException(
-                                "Internal gRPC error");
+                default -> throw ex;
             }
         }
     }

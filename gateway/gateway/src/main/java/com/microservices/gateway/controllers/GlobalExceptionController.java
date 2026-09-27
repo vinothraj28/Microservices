@@ -70,11 +70,35 @@ public class GlobalExceptionController {
             );
         }
 
+        if (code == Status.Code.UNAVAILABLE) {
+            return buildErrorResponse(
+                    HttpStatus.SERVICE_UNAVAILABLE,
+                    grpcMessage(ex, "Profile service is unavailable"),
+                    request.getURI().getPath()
+            );
+        }
+
+        if (code == Status.Code.DEADLINE_EXCEEDED) {
+            return buildErrorResponse(
+                    HttpStatus.GATEWAY_TIMEOUT,
+                    grpcMessage(ex, "Profile service timed out"),
+                    request.getURI().getPath()
+            );
+        }
+
         return buildErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
-                ex.getStatus().getDescription(),
+                grpcMessage(ex, "Internal gRPC error"),
                 request.getURI().getPath()
         );
+    }
+
+    private String grpcMessage(StatusRuntimeException ex, String fallbackMessage) {
+        String description = ex.getStatus().getDescription();
+        if (description == null || description.isBlank()) {
+            return fallbackMessage + " (grpc code: " + ex.getStatus().getCode() + ")";
+        }
+        return description + " (grpc code: " + ex.getStatus().getCode() + ")";
     }
 
     public ResponseEntity<ErrorResponseDTO> buildErrorResponse(HttpStatus status, String message, String path){
