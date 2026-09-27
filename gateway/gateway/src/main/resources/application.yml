@@ -65,24 +65,24 @@ grpc:
   client:
     profile-service:
       address: ${GRPC_CLIENT_PROFILE_SERVICE_ADDRESS:static://localhost:9090}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_PROFILE_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     address-service:
       address: ${GRPC_CLIENT_ADDRESS_SERVICE_ADDRESS:static://localhost:9090}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_ADDRESS_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     mfa-service:
       address: ${GRPC_CLIENT_MFA_SERVICE_ADDRESS:static://localhost:9090}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_MFA_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     movie-service:
       address: ${GRPC_CLIENT_MOVIE_SERVICE_ADDRESS:static://localhost:9091}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_MOVIE_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     image-service:
       address: ${GRPC_CLIENT_IMAGE_SERVICE_ADDRESS:static://localhost:9091}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_IMAGE_SERVICE_NEGOTIATION_TYPE:plaintext}
 
     theater-service:
       address: ${GRPC_CLIENT_THEATER_SERVICE_ADDRESS:static://localhost:9091}
-      negotiationType: plaintext
+      negotiationType: ${GRPC_CLIENT_THEATER_SERVICE_NEGOTIATION_TYPE:plaintext}

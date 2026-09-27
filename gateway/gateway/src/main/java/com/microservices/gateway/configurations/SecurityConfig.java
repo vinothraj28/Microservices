@@ -16,7 +16,9 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.springframework.security.web.server.util.matcher.ServerWebExchangeMatchers.pathMatchers;
@@ -30,10 +32,12 @@ public class SecurityConfig {
 
     public SecurityConfig(JWTFilter jwtFilter, @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:4200}") String allowedOrigins) {
         this.jwtFilter = jwtFilter;
-        this.allowedOrigins = Arrays.stream(allowedOrigins.split(","))
+        Set<String> origins = new LinkedHashSet<>();
+        origins.addAll(Arrays.stream(allowedOrigins.split(","))
                 .map(String::trim)
                 .filter(origin -> !origin.isEmpty())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+        this.allowedOrigins = origins.stream().collect(Collectors.toList());
     }
 
     @Bean
@@ -48,6 +52,7 @@ public class SecurityConfig {
                         SecurityWebFiltersOrder.AUTHENTICATION
                 )
                 .authorizeExchange(exchange -> exchange
+                        .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/users/login").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/auth/authenticate").permitAll()
                         .pathMatchers(HttpMethod.POST, "/api/v1/mfa/**").permitAll()
@@ -82,7 +87,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(allowedOrigins);
+        config.setAllowedOriginPatterns(allowedOrigins);
         config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(Collections.singletonList("*"));
         config.setAllowCredentials(true);
