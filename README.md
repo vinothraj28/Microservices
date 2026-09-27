@@ -132,6 +132,8 @@ Frontend runtime config is host-aware:
 
 In Azure Container Apps, set the gateway `GRPC_CLIENT_*` env vars directly to the internal service hostnames and ports, and keep `JWT_SECRET`, datasource values, and `SECURITY_ENCRYPTION_KEY` in app settings or Key Vault.
 
+For each container app, make the ingress `targetPort` match the service port (`8080` gateway, `8081` profile, `8082` movie). The apps now also honor `PORT` as a fallback, so Azure can inject a port if needed without breaking local defaults.
+
 ## Quality checks
 
 ```powershell
