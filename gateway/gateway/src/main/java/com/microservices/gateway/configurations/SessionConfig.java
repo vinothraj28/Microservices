@@ -1,5 +1,6 @@
 package com.microservices.gateway.configurations;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.server.session.CookieWebSessionIdResolver;
@@ -14,6 +15,7 @@ import java.time.Duration;
  * Uses InMemoryWebSessionStore for local development.
  * For production with multiple instances, use Redis via @EnableRedisWebSession.
  */
+@Slf4j
 @Configuration
 public class SessionConfig {
 
@@ -41,6 +43,8 @@ public class SessionConfig {
     public WebSessionIdResolver webSessionIdResolver() {
         CookieWebSessionIdResolver resolver = new CookieWebSessionIdResolver();
         resolver.setCookieName("IAM_SESSION");
+        log.info("Configuring IAM_SESSION cookie policy: secure={}, sameSite={}, httpOnly=true, path=/, maxAgeMinutes=30",
+                cookieSecuritySettings.secure(), cookieSecuritySettings.sameSite());
         resolver.addCookieInitializer(builder -> cookieSecuritySettings
                 .applyDefaults(builder)
                 .maxAge(Duration.ofMinutes(30))

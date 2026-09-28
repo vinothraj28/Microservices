@@ -139,6 +139,8 @@ public class AuthenticationController {
                 .flatMap(response -> {
                     if (response.mfaRequired()) {
                         log.info("MFA required for {}", authRequest.email());
+                        log.info("Issuing mfa_challenge_token cookie with policy: secure={}, sameSite={}, httpOnly=true, path=/, maxAgeMinutes=5",
+                                cookieSecuritySettings.secure(), cookieSecuritySettings.sameSite());
                         ResponseCookie challengeCookie = cookieSecuritySettings.applyDefaults(ResponseCookie.from(
                                         "mfa_challenge_token",
                                         response.mfaChallengeToken())

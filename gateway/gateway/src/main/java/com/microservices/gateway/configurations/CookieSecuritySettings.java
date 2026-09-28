@@ -1,9 +1,11 @@
 package com.microservices.gateway.configurations;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class CookieSecuritySettings {
 
@@ -19,6 +21,7 @@ public class CookieSecuritySettings {
         if ("None".equals(this.sameSite) && !this.secure) {
             throw new IllegalStateException("SameSite=None requires app.cookies.secure=true");
         }
+        log.info("Cookie policy resolved: secure={}, sameSite={}, httpOnly=true, path=/", this.secure, this.sameSite);
     }
 
     public boolean secure() {
