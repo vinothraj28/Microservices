@@ -1,0 +1,4 @@
+app:
+  cookies:
+    secure: true
+    same-site: None

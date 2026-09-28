@@ -11,6 +11,7 @@ import com.microservices.gateway.DTOS.oauth2.OAuth2TokenRequestDTO;
 import com.microservices.gateway.DTOS.oauth2.OAuth2TokenResponseDTO;
 import com.microservices.gateway.DTOS.sessions.SessionEstablishRequestDTO;
 import com.microservices.gateway.DTOS.sessions.SessionEstablishResponseDTO;
+import com.microservices.gateway.configurations.CookieSecuritySettings;
 import com.microservices.gateway.excpetions.AuthenticationException;
 import com.microservices.gateway.services.gRPCServices.OAuth2GRPCService;
 import com.microservices.gateway.services.jwts.JWTService;
@@ -42,6 +43,7 @@ public class OAuth2Controller {
     private final OAuth2GRPCService oAuth2GRPCService;
     private final JWTService jwtService;
     private final OAuth2SessionService sessionService;
+    private final CookieSecuritySettings cookieSecuritySettings;
 
     @Value("${oauth2.frontend.base-url}")
     private String frontendBaseUrl;
@@ -51,10 +53,12 @@ public class OAuth2Controller {
 
     public OAuth2Controller(OAuth2GRPCService oAuth2GRPCService, 
                            JWTService jwtService,
-                           OAuth2SessionService sessionService) {
+                           OAuth2SessionService sessionService,
+                           CookieSecuritySettings cookieSecuritySettings) {
         this.oAuth2GRPCService = oAuth2GRPCService;
         this.jwtService = jwtService;
         this.sessionService = sessionService;
+        this.cookieSecuritySettings = cookieSecuritySettings;
     }
 
     @PostMapping("/register")
@@ -205,15 +209,13 @@ public class OAuth2Controller {
                 .map(response -> {
                     ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
                     if (response.refreshToken() != null && !response.refreshToken().isBlank()) {
-                        ResponseCookie cookie = ResponseCookie.from("refresh_token", response.refreshToken())
-                                .httpOnly(true)
-                                .secure(false)
-                                .sameSite("Strict")
-                                .path("/")
-                                .maxAge(Duration.ofDays(7))
+                        ResponseCookie cookie = cookieSecuritySettings.applyDefaults(ResponseCookie.from("refresh_token", response.refreshToken())
+                                .maxAge(Duration.ofDays(7)))
                                 .build();
                         builder.header(HttpHeaders.SET_COOKIE, cookie.toString());
                     }
+                    builder.header(HttpHeaders.CACHE_CONTROL, "no-store")
+                            .header("Pragma", "no-cache");
                     return builder.body(response);
                 });
     }
@@ -249,15 +251,13 @@ public class OAuth2Controller {
         return Mono.fromCallable(() -> oAuth2GRPCService.revoke(finalRequest))
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(response -> {
-                    ResponseCookie clearCookie = ResponseCookie.from("refresh_token", "")
-                            .httpOnly(true)
-                            .secure(false)
-                            .sameSite("Strict")
-                            .path("/")
-                            .maxAge(Duration.ZERO)
+                    ResponseCookie clearCookie = cookieSecuritySettings.applyDefaults(ResponseCookie.from("refresh_token", "")
+                            .maxAge(Duration.ZERO))
                             .build();
                     return ResponseEntity.ok()
                             .header(HttpHeaders.SET_COOKIE, clearCookie.toString())
+                            .header(HttpHeaders.CACHE_CONTROL, "no-store")
+                            .header("Pragma", "no-cache")
                             .body(response);
                 });
     }

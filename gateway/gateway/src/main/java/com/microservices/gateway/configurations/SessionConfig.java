@@ -17,6 +17,12 @@ import java.time.Duration;
 @Configuration
 public class SessionConfig {
 
+    private final CookieSecuritySettings cookieSecuritySettings;
+
+    public SessionConfig(CookieSecuritySettings cookieSecuritySettings) {
+        this.cookieSecuritySettings = cookieSecuritySettings;
+    }
+
     /**
      * In-memory session store for development.
      * Sessions are stored in application memory (not shared across instances).
@@ -35,11 +41,8 @@ public class SessionConfig {
     public WebSessionIdResolver webSessionIdResolver() {
         CookieWebSessionIdResolver resolver = new CookieWebSessionIdResolver();
         resolver.setCookieName("IAM_SESSION");
-        resolver.addCookieInitializer(builder -> builder
-                .path("/")
-                .httpOnly(true)
-                .secure(false) // Set to true in production with HTTPS
-                .sameSite("Lax") // Allow cross-origin for OAuth2 redirects
+        resolver.addCookieInitializer(builder -> cookieSecuritySettings
+                .applyDefaults(builder)
                 .maxAge(Duration.ofMinutes(30))
         );
         return resolver;

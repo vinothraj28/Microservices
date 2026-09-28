@@ -6,6 +6,7 @@ import com.microservices.gateway.DTOS.auth.RefreshTokenResponseDTO;
 import com.microservices.gateway.DTOS.mfa.MFAOAuthVerificationResponseDTO;
 import com.microservices.gateway.DTOS.mfa.MfaVerificationRequestDTO;
 import com.microservices.gateway.DTOS.mfa.MfaVerificationResponseDTO;
+import com.microservices.gateway.configurations.CookieSecuritySettings;
 import com.microservices.gateway.services.gRPCServices.AuthenticationGRPCService;
 import com.microservices.gateway.services.sessions.OAuth2SessionService;
 import com.microservices.profile.grpc.LogoutResponse;
@@ -49,11 +50,14 @@ public class AuthenticationController {
 
     private final AuthenticationGRPCService authenticationGRPCService;
     private final OAuth2SessionService sessionService;
+    private final CookieSecuritySettings cookieSecuritySettings;
 
     public AuthenticationController(AuthenticationGRPCService authenticationGRPCService,
-                                    OAuth2SessionService sessionService) {
+                                    OAuth2SessionService sessionService,
+                                    CookieSecuritySettings cookieSecuritySettings) {
         this.authenticationGRPCService = authenticationGRPCService;
         this.sessionService = sessionService;
+        this.cookieSecuritySettings = cookieSecuritySettings;
     }
 
 //    @Operation(
@@ -133,31 +137,31 @@ public class AuthenticationController {
                         authenticationGRPCService.authenticate(authRequest))
                 .subscribeOn(Schedulers.boundedElastic())
                 .flatMap(response -> {
-                    log.info("MFA required ", response);
                     if (response.mfaRequired()) {
                         log.info("MFA required for {}", authRequest.email());
-                        ResponseCookie cookie = ResponseCookie.from(
+                        ResponseCookie challengeCookie = cookieSecuritySettings.applyDefaults(ResponseCookie.from(
                                         "mfa_challenge_token",
                                         response.mfaChallengeToken())
-                                .httpOnly(true)
-                                .secure(false)
-                                .sameSite("Strict")
-                                .path("/")
-                                .maxAge(Duration.ofMinutes(5))
+                                .maxAge(Duration.ofMinutes(5)))
                                 .build();
 
                         return exchange.getSession()
                                 .flatMap(session ->
                                         sessionService.createPendingSession(session, authRequest.email())
                                                 .thenReturn(
-                                                        ResponseEntity.ok().
-                                                                header(HttpHeaders.SET_COOKIE, cookie.toString())
+                                                        ResponseEntity.ok()
+                                                                .header(HttpHeaders.SET_COOKIE, challengeCookie.toString())
+                                                                .header(HttpHeaders.CACHE_CONTROL, "no-store")
+                                                                .header("Pragma", "no-cache")
                                                                 .body(response)
                                                 )
                                 );
                     }
                     log.info("Authentication successful for {}", authRequest.email());
-                   return Mono.just(ResponseEntity.ok(response));
+                   return Mono.just(ResponseEntity.ok()
+                           .header(HttpHeaders.CACHE_CONTROL, "no-store")
+                           .header("Pragma", "no-cache")
+                           .body(response));
 
                 });
 
@@ -205,8 +209,14 @@ public class AuthenticationController {
                                                 .flatMap(returnUrl -> sessionService.clearReturnUrl(session)
                                                         .thenReturn(
                                                                         ResponseEntity.status(HttpStatus.OK)
+                                                                                .header(HttpHeaders.SET_COOKIE, cookieSecuritySettings
+                                                                                        .applyDefaults(ResponseCookie.from("mfa_challenge_token", "")
+                                                                                                .maxAge(Duration.ZERO))
+                                                                                        .build()
+                                                                                        .toString())
+                                                                                .header(HttpHeaders.CACHE_CONTROL, "no-store")
+                                                                                .header("Pragma", "no-cache")
                                                                                 .body(new MFAOAuthVerificationResponseDTO(returnUrl))
-
                                                                 )
                                                 )
                                 ));
@@ -269,16 +279,14 @@ public class AuthenticationController {
         return Mono.fromCallable(() -> authenticationGRPCService.refreshToken(refreshToken))
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(response -> {
-                    ResponseCookie cookie = ResponseCookie.from("refresh_token", response.refreshToken())
-                            .httpOnly(true)
-                            .secure(false) //true for production
-                            .sameSite("Strict")
-                            .path("/")
-                            .maxAge(Duration.ofDays(7))
+                    ResponseCookie cookie = cookieSecuritySettings.applyDefaults(ResponseCookie.from("refresh_token", response.refreshToken())
+                                    .maxAge(Duration.ofDays(7)))
                             .build();
 
                     return ResponseEntity.ok()
                             .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                            .header(HttpHeaders.CACHE_CONTROL, "no-store")
+                            .header("Pragma", "no-cache")
                             .body(response);
                 })
                 .doOnError(error -> log.warn("Refresh token failed: {}", error.getMessage()));
