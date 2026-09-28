@@ -10,6 +10,7 @@ import com.microservices.movie.grpc.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.codec.multipart.FilePart;
@@ -29,6 +30,11 @@ public class MovieGrpcService {
     @GrpcClient("movie-service")
     private MovieServiceGrpc.MovieServiceBlockingStub movieServiceBlockingStub;
 
+    @Value("${grpc.client.movie-service.address:unknown}")
+    private String movieServiceAddress;
+
+    @Value("${grpc.client.movie-service.negotiationType:unknown}")
+    private String movieServiceNegotiationType;
 
     public MovieResponseDTO create(MovieRequestDTO movieRequestDTO, FilePart movieImage) throws IOException {
 
@@ -234,6 +240,15 @@ public class MovieGrpcService {
     }
 
     public ListMoviesResponse listMovies(int page, int size, String genre, String language) {
+
+        log.info("listing movies with page: {}, size: {}, genre: {}, language: {}", page, size, genre, language);
+
+        log.info(
+            "gRPC movie-service connection: address={}, negotiationType={}, stub={}",
+            movieServiceAddress,
+            movieServiceNegotiationType,
+            movieServiceBlockingStub.getClass().getSimpleName()
+        );
 
         ListMoviesRequest listMoviesRequest = ListMoviesRequest.newBuilder()
                 .setGenre(genre != null ? genre : "")
