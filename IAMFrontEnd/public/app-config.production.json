@@ -5,7 +5,7 @@
     "verifyMfaUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/auth/oAuth/verify-mfa",
     "tokenUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth2/token",
     "authorizeBaseUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/oauth2/authorize",
-    "clientId": "ead89dd4-a0cd-473b-8c24-ca3ca9f50439",
+    "clientId": "d608178c-966b-4394-ad5d-4349891f7187",
     "redirectUri": "https://ashy-sand-09f5c591e.5.azurestaticapps.net/callback",
     "scope": "user:read user:write",
     "postLoginRedirectAllowList": [
