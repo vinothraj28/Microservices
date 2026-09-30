@@ -11,6 +11,7 @@ import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
 import lombok.extern.slf4j.Slf4j;
 import net.devh.boot.grpc.client.inject.GrpcClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -27,6 +28,12 @@ public class AuthenticationGRPCService {
     @GrpcClient("profile-service")
     private AuthenticationServiceGrpc.AuthenticationServiceBlockingStub authenticationServiceBlockingStub;
 
+    @Value("${profile.service.address:unknown}")
+    private String profileServiceAddress;
+
+    @Value("${profile.service.negotiation-type:unknown}")
+    private String profileServiceNegotiationType;
+
     /**
      * Step 1: Authenticate user with email and password.
      *
@@ -41,6 +48,8 @@ public class AuthenticationGRPCService {
      */
     public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
         log.info("Authenticating user via gRPC: {}", request.email());
+
+        log.info("Profile Service gRPC address: {}, negotiation type: {}", profileServiceAddress, profileServiceNegotiationType);
 
         try {
             AuthenticationRequest grpcRequest =
