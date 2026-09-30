@@ -26,9 +26,9 @@
       <button
         type="submit"
         class="button button--primary"
-        [disabled]="isSubmitting()"
+        [disabled]="isSubmitting() || isLoading()"
       >
-        {{ isSubmitting() ? "Saving..." : "Save Screen" }}
+        {{ submitButtonText() }}
       </button>
     </div>
   </header>
@@ -218,12 +218,7 @@
           <label class="field">
             <span>Total Rows</span>
 
-            <input
-              class="input"
-              type="number"
-              min="1"
-              formControlName="totalRows"
-            />
+            <input class="input" type="number" formControlName="totalRows" />
           </label>
 
           <!-- <label class="field">
@@ -433,12 +428,16 @@
             </div>
 
             <div class="row-preview__seats">
-              @for (seat of seatNumbers(layout); track seat) {
-                @if (seat <= 3 || seat >= getSelectedSeatCount() - 2) {
+              @for (
+                seat of seatNumbers(layout);
+                track seat;
+                let index = $index
+              ) {
+                @if (index < 3 || index >= getSelectedSeatCount() - 3) {
                   <span class="mini-seat" [class]="seatTypeClass(layout)">
                     {{ seat }}
                   </span>
-                } @else if (seat === 4) {
+                } @else if (index === 3) {
                   <span class="preview-dots"> ··· </span>
                 }
               }
@@ -499,8 +498,7 @@
 
   <!-- FOOTER -->
   <footer class="screen-footer">
-    <button type="button" class="button button--secondary"
-    (click)="cancel()">
+    <button type="button" class="button button--secondary" (click)="cancel()">
       ← Back to Details
     </button>
 
@@ -509,7 +507,7 @@
       class="button button--primary"
       [disabled]="isSubmitting() || isLoading()"
     >
-      {{ isEditMode() ? 'Update Screen →' : 'Review & Save →' }}
+      {{ isEditMode() ? "Update Screen →" : "Review & Save →" }}
     </button>
   </footer>
 

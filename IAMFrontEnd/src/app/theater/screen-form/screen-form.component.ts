@@ -397,7 +397,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   inject,
   OnInit,
   signal,
@@ -534,10 +533,13 @@ export class ScreenFormComponent implements OnInit {
       validators: [Validators.required, Validators.min(1)],
     }),
 
-    totalRows: new FormControl(1, {
-      nonNullable: true,
-      validators: [Validators.required, Validators.min(1)],
-    }),
+    totalRows: new FormControl(
+      { value: 1, disabled: true },
+      {
+        nonNullable: true,
+        validators: [Validators.required, Validators.min(1)],
+      },
+    ),
 
     screenType: new FormControl<ScreenType>('REGULAR', {
       nonNullable: true,
@@ -635,7 +637,7 @@ export class ScreenFormComponent implements OnInit {
 
     try {
       const response = await firstValueFrom(
-        this.screenService.getScreenById(this.theaterId(), this.screenId()!),
+        this.screenService.getScreenById(this.screenId()!),
       );
 
       if (response.body) {
@@ -736,7 +738,9 @@ export class ScreenFormComponent implements OnInit {
     this.seatLayouts.removeAt(index);
 
     let nextIndex = this.selectedLayoutIndex();
-    if (nextIndex >= this.seatLayouts.length) {
+    if (index < nextIndex) {
+      nextIndex--;
+    } else if (nextIndex >= this.seatLayouts.length) {
       nextIndex = this.seatLayouts.length - 1;
     }
 
@@ -873,7 +877,13 @@ export class ScreenFormComponent implements OnInit {
   }
 
   protected cancel(): void {
-    this.router.navigate(['/theater', this.theaterId(), 'screen', 'list']);
+    this.router.navigate([
+      '/base',
+      'theater',
+      this.theaterId(),
+      'screen',
+      'list',
+    ]);
   }
 
   // Form Factory

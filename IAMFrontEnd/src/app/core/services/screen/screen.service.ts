@@ -73,12 +73,9 @@ export class ScreenService {
   }
   // Add to screen.service.ts
 
-  getScreenById(
-    theaterId: string,
-    screenId: string,
-  ): Observable<HttpResponse<screenResponse>> {
+  getScreenById(screenId: string): Observable<HttpResponse<screenResponse>> {
     return this.httpClient.get<screenResponse>(
-      `${this.appConfig.theater.screen.listUrl}screens/${screenId}`,
+      `${this.appConfig.theater.screen.getScreenByIdUrl}/${screenId}`,
       { observe: 'response' },
     );
   }
