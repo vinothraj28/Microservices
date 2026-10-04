@@ -42,7 +42,7 @@ jobs:
           registryPassword: ${{ secrets.PROFILEBACKEND_REGISTRY_PASSWORD }}
           containerAppName: profile-backend
           resourceGroup: Movie_Platform
-          imageToBuild: removino68/profile-backend:${{ github.sha }}
+          imageToBuild: removino68/profile-backend-ms:${{ github.sha }}
           _buildArgumentsKey_: |
             _buildArgumentsValues_
 
