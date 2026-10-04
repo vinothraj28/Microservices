@@ -4,19 +4,18 @@ name: Trigger auto deployment for profile-backend
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
-      [ main ]
+    branches: [main]
     paths:
-    - '**'
-    - '.github/workflows/profile-backend-AutoDeployTrigger-da090f9f-2920-4f6e-a90e-f281dbd8a330.yml'
+      - "profile/**"
+      - ".github/workflows/profile-backend-AutoDeployTrigger-da090f9f-2920-4f6e-a90e-f281dbd8a330.yml"
 
-  # Allow manual trigger 
-  workflow_dispatch:      
+  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
 
@@ -42,5 +41,3 @@ jobs:
           containerAppName: profile-backend
           resourceGroup: Movie_Platform
           imageToBuild: removino68/profile-backend-ms:${{ github.sha }}
-
-

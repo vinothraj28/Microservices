@@ -4,19 +4,18 @@ name: Trigger auto deployment for gateway-backend
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
-      [ main ]
+    branches: [main]
     paths:
-    - '**'
-    - '.github/workflows/gateway-backend-AutoDeployTrigger-d34d0c06-25af-4663-b6ed-ea325c370c26.yml'
+      - "gateway/**"
+      - ".github/workflows/gateway-backend-AutoDeployTrigger-d34d0c06-25af-4663-b6ed-ea325c370c26.yml"
 
-  # Allow manual trigger 
-  workflow_dispatch:      
+  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
 
@@ -42,5 +41,3 @@ jobs:
           containerAppName: gateway-backend
           resourceGroup: Movie_Platform
           imageToBuild: removino68/gateway-backend:${{ github.sha }}
-
-

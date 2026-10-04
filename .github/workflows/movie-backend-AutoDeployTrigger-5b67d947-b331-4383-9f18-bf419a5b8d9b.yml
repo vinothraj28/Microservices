@@ -4,19 +4,18 @@ name: Trigger auto deployment for movie-backend
 on:
   # Automatically trigger it when detected changes in repo
   push:
-    branches: 
-      [ main ]
+    branches: [main]
     paths:
-    - '**'
-    - '.github/workflows/movie-backend-AutoDeployTrigger-5b67d947-b331-4383-9f18-bf419a5b8d9b.yml'
+      - "movie/**"
+      - ".github/workflows/movie-backend-AutoDeployTrigger-5b67d947-b331-4383-9f18-bf419a5b8d9b.yml"
 
-  # Allow manual trigger 
-  workflow_dispatch:      
+  # Allow manual trigger
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    permissions: 
+    permissions:
       id-token: write #This is required for requesting the OIDC JWT Token
       contents: read #Required when GH token is used to authenticate with private repo
 
@@ -42,5 +41,3 @@ jobs:
           containerAppName: movie-backend
           resourceGroup: Movie_Platform
           imageToBuild: removino68/movie-backend:${{ github.sha }}
-
-
