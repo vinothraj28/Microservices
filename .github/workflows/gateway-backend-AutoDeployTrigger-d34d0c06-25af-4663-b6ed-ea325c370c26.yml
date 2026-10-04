@@ -35,15 +35,12 @@ jobs:
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
-          _dockerfilePathKey_: _dockerfilePath_
-          _targetLabelKey_: _targetLabel_
+          dockerfilePath: gateway/gateway/Dockerfile
           registryUrl: docker.io
           registryUsername: ${{ secrets.GATEWAYBACKEND_REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.GATEWAYBACKEND_REGISTRY_PASSWORD }}
           containerAppName: gateway-backend
           resourceGroup: Movie_Platform
           imageToBuild: removino68/gateway-backend:${{ github.sha }}
-          _buildArgumentsKey_: |
-            _buildArgumentsValues_
 
 
