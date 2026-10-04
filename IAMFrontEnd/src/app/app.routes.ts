@@ -10,6 +10,13 @@ export const routes: Routes = [
     redirectTo: 'login',
   },
   {
+    path: 'portfolio',
+    loadComponent: () =>
+      import('./portfolio/portfolio.component').then(
+        (component) => component.PortfolioComponent,
+      ),
+  },
+  {
     path: 'login',
     data: { authContext: 'user' },
     loadComponent: () =>

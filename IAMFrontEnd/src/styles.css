@@ -18,6 +18,10 @@
 /* Layer 5: Auth Pages - Authentication-specific layouts */
 @import './styles/auth-design.css';
 
+/* Layer 5b: Portfolio landing page theme */
+@import './styles/portfolio-theme.css';
+
+
 /* Layer 6: Material Design Overrides */
 /* Material theme is loaded via custom-theme.scss */
 

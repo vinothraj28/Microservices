@@ -1,0 +1,34 @@
+.marquee {
+  background: #0c0c0c;
+  padding: 6rem 0 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow: hidden;
+}
+
+.marquee__row {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+}
+
+.marquee__tile {
+  width: 420px;
+  height: 270px;
+  border-radius: 1rem;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .marquee {
+    padding-top: 8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .marquee {
+    padding-top: 10rem;
+  }
+}
