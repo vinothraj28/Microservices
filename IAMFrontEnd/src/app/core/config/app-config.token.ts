@@ -38,6 +38,7 @@ export interface AppConfig {
       listUrl: string;
       getScreenByIdUrl: string;
       getAllScreensUrl: string;
+      getSeatLayoutByScreenIdUrl: string;
     };
   };
   show: {

@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:8082}
 
 jwt:
-  secret: ${JWT_SECRET:AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
+  secret: ${JWT_SECRET}
   issuer: https://microservices.iam.local
   audience: movie-service
   expiration-minutes: 60

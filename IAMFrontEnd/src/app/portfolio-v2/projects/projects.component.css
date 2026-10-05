@@ -1,0 +1,818 @@
+:host {
+  display: block;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.projects-section {
+  padding: 115px max(28px, calc((100vw - 1090px) / 2));
+
+  background: #0a1122;
+}
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.section-heading {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+
+  margin-bottom: 55px;
+}
+
+.section-index {
+  margin: 5px 0 0;
+
+  color: #6e89e7;
+
+  font:
+    500 11px "DM Mono",
+    monospace;
+}
+
+.kicker {
+  margin: 0 0 13px;
+
+  color: #719bff;
+
+  font:
+    500 10px "DM Mono",
+    monospace;
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  color: #f4f6ff;
+
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -2.7px;
+}
+
+.projects-section h2 span {
+  background: linear-gradient(100deg, #4096ff, #9a61ff);
+
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================================================
+   MAIN PROJECT LAYOUT
+========================================================= */
+
+.projects-layout {
+  margin-left: 90px;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 0.78fr)
+    minmax(440px, 1.22fr);
+
+  gap: 44px;
+
+  align-items: start;
+}
+
+/* =========================================================
+   PROJECT NAVIGATION
+========================================================= */
+
+.project-list {
+  border-top: 1px solid rgba(152, 174, 255, 0.2);
+}
+
+/* Individual project button */
+
+.project-item {
+  position: relative;
+
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    34px
+    minmax(0, 1fr)
+    20px;
+
+  gap: 14px;
+
+  padding: 27px 8px 27px 0;
+
+  border: 0;
+  border-bottom: 1px solid rgba(152, 174, 255, 0.16);
+
+  background: transparent;
+
+  color: inherit;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 180ms ease,
+    padding 180ms ease;
+}
+
+/* Left accent line */
+
+.project-item::before {
+  content: "";
+
+  position: absolute;
+
+  left: -12px;
+  top: 0;
+  bottom: 0;
+
+  width: 2px;
+
+  background: linear-gradient(180deg, #4096ff, #9a61ff);
+
+  opacity: 0;
+
+  transform: scaleY(0.4);
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+/* Hover */
+
+.project-item:hover {
+  padding-left: 6px;
+
+  background: rgba(255, 255, 255, 0.018);
+}
+
+/* Active */
+
+.project-item.active {
+  background: linear-gradient(90deg, rgba(73, 116, 255, 0.045), transparent);
+}
+
+.project-item.active::before {
+  opacity: 1;
+
+  transform: scaleY(1);
+}
+
+/* =========================================================
+   PROJECT NUMBER
+========================================================= */
+
+.project-number {
+  padding-top: 3px;
+
+  color: #667ed4;
+
+  font:
+    500 10px "DM Mono",
+    monospace;
+
+  transition: color 180ms ease;
+}
+
+.project-item.active .project-number {
+  color: #79a8ff;
+}
+
+/* =========================================================
+   PROJECT CONTENT
+========================================================= */
+
+.project-content {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+/* Main title */
+
+.project-title {
+  display: block;
+
+  color: #dfe5fa;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  line-height: 1.25;
+
+  letter-spacing: -0.55px;
+
+  transition: color 180ms ease;
+}
+
+.project-item.active .project-title {
+  color: #ffffff;
+}
+
+/* Subtitle */
+
+.project-subtitle {
+  display: block;
+
+  color: #7f8ba9;
+
+  font-size: 11px;
+
+  line-height: 1.5;
+}
+
+/* Personal / professional label */
+
+.project-context {
+  width: fit-content;
+
+  margin-top: 2px;
+
+  color: #65718d;
+
+  font:
+    500 8px "DM Mono",
+    monospace;
+
+  letter-spacing: 0.8px;
+
+  text-transform: uppercase;
+}
+
+/* Personal project gets slightly brighter */
+
+.project-context.personal {
+  color: #8b82d8;
+}
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+.project-arrow {
+  align-self: start;
+
+  padding-top: 2px;
+
+  color: #8ba9ff;
+
+  font-size: 14px;
+
+  opacity: 0;
+
+  transform: translate(-5px, 5px);
+
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.project-item:hover .project-arrow,
+.project-item.active .project-arrow {
+  opacity: 1;
+
+  transform: translate(0, 0);
+}
+
+/* =========================================================
+   DETAIL CARD
+========================================================= */
+
+.project-detail {
+  position: sticky;
+
+  top: 90px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(152, 174, 255, 0.16);
+
+  background: linear-gradient(
+    145deg,
+    rgba(18, 29, 54, 0.96),
+    rgba(8, 15, 31, 0.98)
+  );
+
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.28);
+
+  animation: detail-enter 300ms ease;
+}
+
+/* Small top gradient */
+
+.project-detail::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #4b91ff,
+    #8d65ff,
+    transparent
+  );
+
+  opacity: 0.7;
+}
+
+@keyframes detail-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   DETAIL HEADER
+========================================================= */
+
+.project-detail-header {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  padding: 29px 29px 24px;
+}
+
+.detail-kicker,
+.detail-label {
+  display: block;
+
+  margin: 0 0 9px;
+
+  color: #718fff;
+
+  font:
+    500 9px "DM Mono",
+    monospace;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+.project-detail h3 {
+  margin: 0 0 6px;
+
+  color: #f2f5ff;
+
+  font-size: clamp(25px, 2.4vw, 34px);
+
+  line-height: 1.08;
+
+  letter-spacing: -1.4px;
+}
+
+.detail-subtitle {
+  margin: 0;
+
+  color: #8592b0;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.detail-category {
+  flex-shrink: 0;
+
+  padding-top: 4px;
+
+  color: #7583a2;
+
+  font:
+    500 8px "DM Mono",
+    monospace;
+
+  line-height: 1.5;
+
+  letter-spacing: 0.6px;
+
+  text-align: right;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   PROJECT VISUAL
+========================================================= */
+
+.project-visual {
+  position: relative;
+
+  height: 225px;
+
+  margin: 0 29px 27px;
+
+  overflow: hidden;
+
+  border: 1px solid rgba(152, 174, 255, 0.12);
+
+  background: #0a1327;
+}
+
+/*
+  Replace .visual-placeholder with your actual
+  screenshot / architecture image later.
+*/
+
+.visual-placeholder {
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+}
+
+/* Grid */
+
+.visual-grid {
+  position: absolute;
+
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(107, 139, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(107, 139, 255, 0.055) 1px, transparent 1px);
+
+  background-size: 28px 28px;
+
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+}
+
+/* Glow */
+
+.visual-placeholder::before {
+  content: "";
+
+  position: absolute;
+
+  width: 230px;
+  height: 230px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(64, 150, 255, 0.15),
+    transparent 68%
+  );
+
+  filter: blur(10px);
+}
+
+/* Project number */
+
+.visual-number {
+  position: relative;
+
+  color: rgba(127, 163, 255, 0.12);
+
+  font:
+    600 110px "DM Mono",
+    monospace;
+
+  letter-spacing: -10px;
+}
+
+/* Visual label */
+
+.visual-label {
+  position: absolute;
+
+  bottom: 18px;
+  left: 18px;
+
+  color: #6076aa;
+
+  font:
+    500 8px "DM Mono",
+    monospace;
+
+  letter-spacing: 1px;
+
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   OVERVIEW
+========================================================= */
+
+.project-overview {
+  padding: 0 29px 25px;
+}
+
+.project-overview p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #9ba7c0;
+
+  font-size: 12px;
+
+  line-height: 1.7;
+}
+
+/* =========================================================
+   INFORMATION
+========================================================= */
+
+.project-information {
+  display: grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap: 30px;
+
+  padding: 24px 29px;
+
+  border-top: 1px solid rgba(152, 174, 255, 0.11);
+
+  border-bottom: 1px solid rgba(152, 174, 255, 0.11);
+}
+
+/* =========================================================
+   HIGHLIGHTS
+========================================================= */
+
+.project-highlights {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.project-highlights li {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 8px;
+
+  color: #a1adc7;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+}
+
+.bullet {
+  flex-shrink: 0;
+
+  color: #668fff;
+
+  font-family: "DM Mono", monospace;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.project-footer {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px 29px 24px;
+}
+
+/* Technology tags */
+
+.project-tech {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 7px;
+}
+
+.project-tech span {
+  color: #7484aa;
+
+  font:
+    500 8px "DM Mono",
+    monospace;
+
+  letter-spacing: 0.4px;
+}
+
+/* Case study link */
+
+.project-link {
+  display: inline-flex;
+
+  align-items: center;
+
+  flex-shrink: 0;
+
+  color: #b3c1ff;
+
+  font:
+    500 9px "DM Mono",
+    monospace;
+
+  letter-spacing: 0.7px;
+
+  text-transform: uppercase;
+
+  text-decoration: none;
+}
+
+.project-link span {
+  margin-left: 7px;
+
+  transition: transform 180ms ease;
+}
+
+.project-link:hover span {
+  transform: translateX(4px);
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .projects-layout {
+    grid-template-columns:
+      minmax(240px, 0.75fr)
+      minmax(360px, 1.25fr);
+
+    gap: 25px;
+  }
+
+  .project-detail-header {
+    flex-direction: column;
+
+    gap: 10px;
+  }
+
+  .detail-category {
+    text-align: left;
+  }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+  .projects-section {
+    padding: 78px 22px;
+  }
+
+  .section-heading {
+    grid-template-columns: 1fr;
+
+    gap: 18px;
+
+    margin-bottom: 40px;
+  }
+
+  .projects-layout {
+    margin-left: 0;
+
+    grid-template-columns: 1fr;
+
+    gap: 24px;
+  }
+
+  /*
+    Don't keep the card sticky on mobile.
+  */
+
+  .project-detail {
+    position: relative;
+
+    top: auto;
+  }
+
+  .project-item {
+    padding: 23px 4px 23px 0;
+  }
+
+  .project-detail-header {
+    padding: 23px 20px 20px;
+  }
+
+  .project-visual {
+    height: 190px;
+
+    margin: 0 20px 22px;
+  }
+
+  .project-overview {
+    padding: 0 20px 22px;
+  }
+
+  .project-information {
+    grid-template-columns: 1fr;
+
+    gap: 22px;
+
+    padding: 21px 20px;
+  }
+
+  .project-footer {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    padding: 18px 20px 22px;
+  }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+  .section-heading h2 {
+    letter-spacing: -1.8px;
+  }
+
+  .project-title {
+    font-size: 16px;
+  }
+
+  .project-subtitle {
+    font-size: 10px;
+  }
+
+  .project-visual {
+    height: 165px;
+  }
+
+  .visual-number {
+    font-size: 80px;
+  }
+
+  .project-detail h3 {
+    font-size: 25px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-detail,
+  .project-item,
+  .project-arrow,
+  .project-link span {
+    animation: none;
+    transition: none;
+  }
+}

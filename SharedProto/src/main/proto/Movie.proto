@@ -212,11 +212,14 @@ message AddScreenRequest {
 }
 
 message UpdateScreenRequest {
-  string screen_id = 1;
-  string screen_name = 2;
-  int32 screen_number = 3;
-  string screen_type = 4;
-  repeated SeatLayoutRequest seat_layout = 5;
+   string theater_id = 1;
+   string screen_id = 2;
+   string screen_name = 3;
+   int32 screen_number = 4;
+   int32 total_rows = 5;
+   int32 total_seats = 6;
+   string screen_type = 7; // REGULAR, IMAX, 4DX, DOLBY
+   repeated SeatLayoutRequest seat_layout = 8;
 }
 
 message GetScreenRequest {
@@ -306,7 +309,7 @@ message ListShowsRequest {
 message ListShowsByMovieRequest {
   string movie_id = 1;
   string date = 2; // YYYY-MM-DD
-  string city = 3;
+  optional string city = 3;
 }
 
 message ListShowsByTheaterRequest {

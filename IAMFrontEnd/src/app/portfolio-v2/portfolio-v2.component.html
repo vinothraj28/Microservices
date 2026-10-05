@@ -1,0 +1,78 @@
+<main class="portfolio-shell" id="top">
+  <section
+    class="hero"
+    aria-labelledby="hero-title"
+    (pointermove)="onPointerMove($event)"
+    (pointerleave)="onPointerLeave()"
+  >
+    <canvas
+      #constellationCanvas
+      class="constellation"
+      aria-hidden="true"
+    ></canvas>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a
+        class="wordmark"
+        routerLink="/portfolio-v2"
+        fragment="top"
+        aria-label="Vinoth Raj Gopal, home"
+        >Vinoth Raj Gopal</a
+      >
+      <div class="nav-links">
+        <a routerLink="/portfolio-v2" fragment="about">About</a>
+        <a routerLink="/portfolio-v2" fragment="skills">Skills</a>
+        <a routerLink="/portfolio-v2" fragment="projects">Projects</a>
+        <a routerLink="/portfolio-v2" fragment="contact">Contact</a>
+      </div>
+    </nav>
+    <div class="hero-content">
+      <p class="kicker">Hello, welcome to my world</p>
+      <h1 id="hero-title">Hi, I'm <span>Vinoth Raj Gopal</span></h1>
+      <p class="hero-role">Senior Software Engineer</p>
+      <p class="hero-summary">
+        I build dependable digital platforms, scalable systems, and delivery
+        foundations that help teams move with confidence.
+      </p>
+      <div class="hero-actions">
+        <a
+          class="button button-primary"
+          routerLink="/portfolio-v2"
+          fragment="contact"
+          >Get in touch <span aria-hidden="true">&rarr;</span></a
+        >
+        <a
+          class="button button-secondary"
+          routerLink="/portfolio-v2"
+          fragment="projects"
+          >View work <span aria-hidden="true">&darr;</span></a
+        >
+      </div>
+      <div class="social-links" aria-label="Social links">
+        <a
+          href="https://www.linkedin.com/in/vinoth-raj-g/"
+          target="_blank"
+          rel="noreferrer"
+          >LinkedIn</a
+        >
+        <a
+          href="https://github.com/vinothraj28/Microservices/"
+          target="_blank"
+          rel="noreferrer"
+          >GitHub</a
+        >
+      </div>
+    </div>
+
+    <a class="scroll-cue" routerLink="/portfolio-v2" fragment="about"
+      >Scroll to explore <span aria-hidden="true">&darr;</span></a
+    >
+  </section>
+  <app-about></app-about>
+  <app-skills></app-skills>
+  <app-projects></app-projects>
+  <app-contact></app-contact>
+  <footer>
+    <span>&copy; 2026 Vinoth Raj Gopal</span
+    ><a routerLink="/portfolio-v2" fragment="top">Back to top &uarr;</a>
+  </footer>
+</main>

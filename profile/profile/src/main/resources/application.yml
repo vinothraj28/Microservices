@@ -2,7 +2,7 @@ server:
   port: ${SERVER_PORT:8081}
 
 jwt:
-  secret: ${JWT_SECRET:AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
+  secret: ${JWT_SECRET}
   issuer: https://microservices.iam.local
   audience: profile-service
   expiration-minutes: 60
@@ -32,4 +32,4 @@ grpc:
 
 security:
   encryption:
-    key: ${SECURITY_ENCRYPTION_KEY:${PROFILE_SECURITY_ENCRYPTION_KEY:figpZBcjVG/dZjqLwbj8Q0a9zTl+OqcO9ldJnOExohA=}}
+    key: ${SECURITY_ENCRYPTION_KEY:${PROFILE_SECURITY_ENCRYPTION_KEY}}

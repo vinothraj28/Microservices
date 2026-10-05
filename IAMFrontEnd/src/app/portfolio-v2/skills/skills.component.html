@@ -1,0 +1,23 @@
+<section class="skills-section" id="skills" aria-labelledby="skills-title">
+  <div class="section-heading">
+    <p class="section-index">02</p>
+    <div>
+      <p class="kicker">Expertise</p>
+      <h2 id="skills-title">Tools I <span>build with.</span></h2>
+    </div>
+  </div>
+  <div class="skill-grid">
+    @for (category of categories; track category.title) {
+      <article [class.wide]="category.wide">
+        <p>{{ category.index }}</p>
+        <h3>{{ category.title }}</h3>
+        <span>{{ category.description }}</span>
+        <ul class="chips">
+          @for (skill of category.skills; track skill) {
+            <li class="chip">{{ skill }}</li>
+          }
+        </ul>
+      </article>
+    }
+  </div>
+</section>

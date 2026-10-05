@@ -1,0 +1,178 @@
+<section
+  class="projects-section"
+  id="projects"
+  aria-labelledby="projects-title"
+>
+  <!-- SECTION HEADER -->
+  <div class="section-heading">
+    <p class="section-index">03</p>
+
+    <div>
+      <p class="kicker">Selected work</p>
+
+      <h2 id="projects-title">
+        Systems that deliver<br />
+        <span>more than features.</span>
+      </h2>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="projects-layout">
+    <!-- =========================================
+         LEFT: PROJECT NAVIGATION
+    ========================================== -->
+
+    <div class="project-list" role="tablist" aria-label="Selected projects">
+      <!-- PROJECT 01 -->
+      <button
+        *ngFor="let project of projects; let i = index"
+        type="button"
+        class="project-item"
+        [class.active]="selectedProjectIndex === i"
+        role="tab"
+        [attr.aria-selected]="selectedProjectIndex === i"
+        [attr.aria-controls]="'project-panel-' + i"
+        (click)="selectProject(i)"
+      >
+        <span class="project-number">
+          {{ project.number }}
+        </span>
+
+        <span class="project-content">
+          <span class="project-title">
+            {{ project.title }}
+          </span>
+
+          <span class="project-subtitle">
+            {{ project.subtitle }}
+          </span>
+
+          <span
+            class="project-context"
+            [class.personal]="project.context === 'Personal'"
+          >
+            {{ project.context }}
+          </span>
+        </span>
+
+        <span class="project-arrow" aria-hidden="true"> ↗ </span>
+      </button>
+    </div>
+
+    <!-- =========================================
+         RIGHT: PROJECT DETAIL
+    ========================================== -->
+
+    <article
+      class="project-detail"
+      role="tabpanel"
+      [id]="'project-panel-' + selectedProjectIndex"
+      [attr.aria-labelledby]="'project-' + selectedProjectIndex"
+    >
+      <!-- TOP -->
+      <header class="project-detail-header">
+        <div>
+          <p class="detail-kicker">
+            {{ selectedProject.contextLabel }}
+          </p>
+
+          <h3 [id]="'project-' + selectedProjectIndex">
+            {{ selectedProject.title }}
+          </h3>
+
+          <p class="detail-subtitle">
+            {{ selectedProject.subtitle }}
+          </p>
+        </div>
+
+        <span class="detail-category">
+          {{ selectedProject.category }}
+        </span>
+      </header>
+
+      <!-- PROJECT VISUAL -->
+      <div class="project-visual">
+        <!--
+          Replace this visual with an actual project image,
+          architecture diagram, screenshot, etc.
+
+          Example:
+
+          <img
+            src="assets/projects/iam-platform.webp"
+            alt="Architecture overview of the Secure Backend Platform"
+          />
+        -->
+
+        <div class="visual-placeholder">
+          <span class="visual-number">
+            {{ selectedProject.number }}
+          </span>
+
+          <span class="visual-label">
+            {{ selectedProject.visualLabel }}
+          </span>
+
+          <span class="visual-grid"></span>
+        </div>
+      </div>
+
+      <!-- OVERVIEW -->
+      <div class="project-overview">
+        <span class="detail-label"> Overview </span>
+
+        <p>
+          {{ selectedProject.overview }}
+        </p>
+      </div>
+
+      <!-- TWO COLUMN INFORMATION -->
+      <div class="project-information">
+        <!-- CONTRIBUTION -->
+        <div class="project-info-block">
+          <span class="detail-label"> My contribution </span>
+
+          <ul class="project-highlights">
+            <li *ngFor="let item of selectedProject.contributions">
+              <span class="bullet">+</span>
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- ENGINEERING -->
+        <div class="project-info-block">
+          <span class="detail-label"> Engineering focus </span>
+
+          <ul class="project-highlights">
+            <li *ngFor="let item of selectedProject.engineering">
+              <span class="bullet">+</span>
+              {{ item }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TECHNOLOGIES -->
+      <div class="project-footer">
+        <div class="project-tech">
+          <span *ngFor="let tech of selectedProject.technologies">
+            {{ tech }}
+          </span>
+        </div>
+
+        <a
+          *ngIf="selectedProject.link"
+          [href]="selectedProject.link"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="project-link"
+        >
+          View case study
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </article>
+  </div>
+</section>

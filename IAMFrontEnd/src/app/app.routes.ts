@@ -7,13 +7,13 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login',
+    redirectTo: 'portfolio',
   },
   {
     path: 'portfolio',
     loadComponent: () =>
-      import('./portfolio/portfolio.component').then(
-        (component) => component.PortfolioComponent,
+      import('./portfolio-v2/portfolio-v2.component').then(
+        (component) => component.PortfolioV2Component,
       ),
   },
   {

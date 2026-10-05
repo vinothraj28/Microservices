@@ -80,6 +80,13 @@ export class ScreenService {
     );
   }
 
+  getSeatLayoutByScreenId(
+    screenId: string,
+  ): Observable<SeatLayoutResponseDTO[]> {
+    const url = `${this.appConfig.theater.screen.getSeatLayoutByScreenIdUrl}/${screenId}/seat-layout`;
+    return this.httpClient.get<SeatLayoutResponseDTO[]>(url);
+  }
+
   updateScreen(
     theaterId: string,
     screenId: string,

@@ -69,7 +69,6 @@ public class TheaterGRPCService {
     public TheaterListResponseDTO getAllTheaters(int page, int size, String city) {
 
         ListTheatersRequest listTheatersRequest = ListTheatersRequest.newBuilder()
-                .setCity(city)
                 .setPage(page)
                 .setSize(size)
                 .build();
@@ -249,6 +248,34 @@ public class TheaterGRPCService {
                 .build();
 
         ScreenResponse screenResponse = theaterServiceBlockingStub.getScreen(getScreenRequest);
+        return mapScreenResponseToDTO(screenResponse);
+    }
+
+    public ScreenResponseDTO updateScreen(String theaterId, String screenId, AddScreenRequestDTO updateScreenRequestDTO) {
+        log.info("Updating screen: {} for theater: {}", screenId, theaterId);
+
+        List<SeatLayoutRequest> seatLayoutRequests = updateScreenRequestDTO.seatLayout().stream()
+                .map(seat -> SeatLayoutRequest.newBuilder()
+                        .setRowName(seat.rowName())
+                        .setStartSeatNumber(seat.startSeatNumber())
+                        .setEndSeatNumber(seat.endSeatNumber())
+                        .setSeatType(seat.seatType())
+                        .setPriceMultiplier(seat.priceMultiplier())
+                        .build())
+                .collect(Collectors.toList());
+
+        UpdateScreenRequest updateScreenRequest = UpdateScreenRequest.newBuilder()
+                .setTheaterId(theaterId)
+                .setScreenId(screenId)
+                .setScreenName(updateScreenRequestDTO.screenName())
+                .setScreenNumber(updateScreenRequestDTO.screenNumber())
+                .setTotalRows(updateScreenRequestDTO.totalRows())
+                .setTotalSeats(updateScreenRequestDTO.totalSeats())
+                .setScreenType(updateScreenRequestDTO.screenType())
+                .addAllSeatLayout(seatLayoutRequests)
+                .build();
+
+        ScreenResponse screenResponse = theaterServiceBlockingStub.updateScreen(updateScreenRequest);
         return mapScreenResponseToDTO(screenResponse);
     }
 

@@ -1,0 +1,63 @@
+:host {
+  display: block;
+}
+
+:host *,
+:host *::before,
+:host *::after {
+  box-sizing: border-box;
+}
+
+.contact-section {
+  padding: 105px max(28px, calc((100vw - 1090px) / 2)) 0;
+  background: #0d1430;
+}
+
+.kicker {
+  margin: 0 0 15px;
+  color: #719bff;
+  font:
+    500 13px "DM Mono",
+    monospace;
+  letter-spacing: 0.15px;
+}
+
+.contact-section h2 {
+  max-width: 770px;
+  margin: 0;
+  color: #f4f6ff;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -2.7px;
+}
+
+.contact-section h2 span {
+  background: linear-gradient(100deg, #4096ff, #9a61ff);
+  background-clip: text;
+  color: transparent;
+}
+
+.contact-link {
+  display: inline-block;
+  margin-top: 37px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid rgba(125, 159, 255, 0.5);
+  color: #8eb5ff;
+  font-size: clamp(20px, 2.4vw, 30px);
+  letter-spacing: -1px;
+  text-decoration: none;
+}
+
+.contact-link span {
+  padding-left: 18px;
+}
+
+@media (max-width: 700px) {
+  .contact-section {
+    padding: 78px 22px 0;
+  }
+
+  .contact-section h2 {
+    letter-spacing: -2px;
+  }
+}

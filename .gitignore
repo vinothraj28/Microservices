@@ -1,0 +1,12 @@
+.env
+**/target/
+
+# Private/internal notes not intended for public repo
+AGENTS.md
+OAUTH2_REQUEST_TESTING_GUIDE.md
+OAuth2_Session_Implementation_Summary.md
+PRINCIPAL_ENGINEER_AGENT.md
+SHOW_SERVICE_API_TESTS.md
+SHOW_SERVICE_FILES_INVENTORY.md
+SHOW_SERVICE_IMPLEMENTATION.md
+profile/profile/PRINCIPAL_ENGINEER_REVIEW.md

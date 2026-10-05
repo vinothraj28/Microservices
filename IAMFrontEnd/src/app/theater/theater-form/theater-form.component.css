@@ -21,10 +21,12 @@
   position: absolute;
   inset: 0 0 auto;
   height: 1px;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(126, 224, 214, 0.45),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(126, 224, 214, 0.45),
+    transparent
+  );
   pointer-events: none;
 }
 
@@ -62,7 +64,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--auth-cool);
+  background: var(--color-accent-cool);
   box-shadow: 0 0 0 4px rgba(126, 224, 214, 0.1);
 }
 
@@ -124,13 +126,13 @@
 }
 
 .mat-step-icon-selected {
-  background: var(--auth-cool) !important;
+  background: var(--color-accent-cool) !important;
   color: #08131c !important;
 }
 
 .mat-step-icon-state-done {
   background: rgba(126, 224, 214, 0.2) !important;
-  color: var(--auth-cool) !important;
+  color: var(--color-accent-cool) !important;
 }
 
 .mat-horizontal-content-container {
@@ -166,7 +168,7 @@
   border: 1px solid rgba(126, 224, 214, 0.22);
   border-radius: 0.7rem;
   background: rgba(126, 224, 214, 0.07);
-  color: var(--auth-cool);
+  color: var(--color-accent-cool);
   font-size: 0.7rem;
   font-weight: 700;
 }
@@ -310,7 +312,7 @@
   border: 1px solid rgba(126, 224, 214, 0.18);
   border-radius: 0.45rem;
   background: rgba(126, 224, 214, 0.06);
-  color: var(--auth-cool);
+  color: var(--color-accent-cool);
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -400,8 +402,8 @@
 }
 
 .theater-chip--active .chip-check {
-  border-color: var(--auth-cool);
-  background: var(--auth-cool);
+  border-color: var(--color-accent-cool);
+  background: var(--color-accent-cool);
   color: #08131c;
 }
 
@@ -471,7 +473,7 @@
 }
 
 .theater-button--primary {
-  background: var(--auth-cool) !important;
+  background: var(--color-accent-cool) !important;
   color: #07151d !important;
   box-shadow: 0 8px 22px rgba(126, 224, 214, 0.12);
 }

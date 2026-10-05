@@ -48,14 +48,13 @@ export class TheaterService {
   getTheaterList(
     page: number,
     size: number,
-    city: string = 'haarlem',
   ): Observable<{
     theaters: TheaterResponse[];
     totalPages: number;
     totalCount: number;
     hasNext: boolean;
   }> {
-    const url = `${this.appConfig.theater.getAllTheatersUrl}?page=${page}&size=${size}&city=${city}`;
+    const url = `${this.appConfig.theater.getAllTheatersUrl}?page=${page}&size=${size}`;
     return this.http.get<{
       theaters: TheaterResponse[];
       totalPages: number;
@@ -81,4 +80,5 @@ export class TheaterService {
     const url = `${this.appConfig.theater.deleteUrl}/${theaterId}`;
     return this.http.delete<void>(url);
   }
+
 }

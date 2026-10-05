@@ -351,11 +351,11 @@
 /* Step icon styling */
 .mat-step-icon {
   background: rgba(126, 224, 214, 0.2) !important;
-  color: var(--auth-cool) !important;
+  color: var(--color-accent-cool) !important;
 }
 
 .mat-step-icon.mat-step-icon-selected {
-  background: var(--auth-cool) !important;
+  background: var(--color-accent-cool) !important;
   color: #1f1305 !important;
 }
 

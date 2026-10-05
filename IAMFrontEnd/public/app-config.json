@@ -5,7 +5,7 @@
     "verifyMfaUrl": "http://localhost:8080/api/v1/auth/oAuth/verify-mfa",
     "tokenUrl": "http://localhost:8080/api/v1/oauth2/token",
     "authorizeBaseUrl": "http://localhost:8080/api/v1/oauth2/authorize",
-    "clientId": "ead89dd4-a0cd-473b-8c24-ca3ca9f50439",
+    "clientId": "375fa4df-3846-40ce-a94b-f6ce39070f2b",
     "redirectUri": "http://localhost:4200/callback",
     "refreshTokenUrl": "http://localhost:8080/api/v1/oauth/refresh",
     "scope": "user:read user:write",
@@ -38,7 +38,8 @@
       "deleteUrl": "http://localhost:8080/api/v1/theaters/screens",
       "listUrl": "http://localhost:8080/api/v1/theaters/",
       "getScreenByIdUrl": "http://localhost:8080/api/v1/theaters/screens",
-      "getAllScreensUrl": "http://localhost:8080/api/v1/theaters/screens"
+      "getAllScreensUrl": "http://localhost:8080/api/v1/theaters/screens",
+      "getSeatLayoutByScreenIdUrl": "http://localhost:8080/api/v1/theaters/screens"
     }
   },
   "show": {

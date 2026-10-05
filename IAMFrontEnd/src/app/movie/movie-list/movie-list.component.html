@@ -94,7 +94,7 @@
     <button
       type="button"
       class="btn-primary"
-      [routerLink]="['/base', 'movie', 'create']"
+      [routerLink]="['/base', 'movie', 'add']"
     >
       <span class="btn-primary__icon">+</span>
       Add Movie
@@ -353,7 +353,11 @@
 
       <p>There are no movies available on this page.</p>
 
-      <button type="button" class="btn-primary" routerLink="/base/movie/create">
+      <button
+        type="button"
+        class="btn-primary"
+        [routerLink]="['/base', 'movie', 'add']"
+      >
         <span class="btn-primary__icon">+</span>
         Add Movie
       </button>

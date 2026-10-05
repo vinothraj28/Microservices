@@ -1791,6 +1791,77 @@ Movie Stats
 
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.theater-header {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 26px;
+}
+
+
+.theater-header__content {
+    min-width: 0;
+}
+
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 12px;
+
+    color: #7f9aaa;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+.breadcrumb__separator {
+    color: #456171;
+
+    font-size: 16px;
+}
+
+
+.breadcrumb__current {
+    color: #c1d0d9;
+}
+
+
+.theater-header h1 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 30px;
+    line-height: 1.15;
+
+    font-weight: 750;
+
+    letter-spacing: -0.7px;
+}
+
+
+.theater-header p {
+    margin: 8px 0 0;
+
+    color: var(--text-secondary);
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
 
 @media (max-width: 420px) {
 

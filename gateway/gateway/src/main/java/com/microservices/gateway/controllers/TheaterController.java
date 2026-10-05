@@ -35,7 +35,7 @@ public class TheaterController {
 
     @GetMapping("")
     public Mono<ResponseEntity<TheaterListResponseDTO>> getAllTheater(@RequestParam int size, @RequestParam int page
-                                            ,@RequestParam String city) {
+                                            ,@RequestParam(required = false) String city) {
         return Mono.fromCallable(() -> theaterGRPCService.getAllTheaters(page, size, city))
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(ResponseEntity::ok);
@@ -75,6 +75,13 @@ public class TheaterController {
     @GetMapping("/screens/{screenId}")
     public Mono<ResponseEntity<ScreenResponseDTO>> getScreen(@PathVariable String screenId) {
         return Mono.fromCallable(() -> theaterGRPCService.getScreen(screenId))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(ResponseEntity::ok);
+    }
+
+    @PutMapping("/{theaterId}/screens/{screenId}")
+    public Mono<ResponseEntity<ScreenResponseDTO>> updateScreen(@PathVariable String theaterId, @PathVariable String screenId, @Valid @RequestBody AddScreenRequestDTO updateScreenRequestDTO) {
+        return Mono.fromCallable(() -> theaterGRPCService.updateScreen(theaterId, screenId, updateScreenRequestDTO))
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(ResponseEntity::ok);
     }

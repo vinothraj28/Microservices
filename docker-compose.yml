@@ -8,7 +8,7 @@ services:
       POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./ops/postgres/init:/docker-entrypoint-initdb.d:ro
+      #- ./ops/postgres/init:/docker-entrypoint-initdb.d:ro
     ports:
       - "5432:5432"
     healthcheck:
@@ -29,8 +29,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_PROFILE_DB:-MicroServices}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
-      SECURITY_ENCRYPTION_KEY: ${PROFILE_SECURITY_ENCRYPTION_KEY:-figpZBcjVG/dZjqLwbj8Q0a9zTl+OqcO9ldJnOExohA=}
+      JWT_SECRET: ${JWT_SECRET}
+      SECURITY_ENCRYPTION_KEY: ${PROFILE_SECURITY_ENCRYPTION_KEY}
     ports:
       - "${PROFILE_HTTP_PORT:-8081}:8081"
       - "9090:9090"
@@ -47,7 +47,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_MOVIE_DB:-MovieService}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-postgres}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
+      JWT_SECRET: ${JWT_SECRET}
     ports:
       - "${MOVIE_HTTP_PORT:-8082}:8082"
       - "9091:9091"
@@ -61,7 +61,7 @@ services:
       - movie
     environment:
       SERVER_PORT: ${GATEWAY_HTTP_PORT:-8080}
-      JWT_SECRET: ${JWT_SECRET:-AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==}
+      JWT_SECRET: ${JWT_SECRET}
       GRPC_CLIENT_PROFILE_SERVICE_ADDRESS: static://profile:9090
       GRPC_CLIENT_ADDRESS_SERVICE_ADDRESS: static://profile:9090
       GRPC_CLIENT_MFA_SERVICE_ADDRESS: static://profile:9090

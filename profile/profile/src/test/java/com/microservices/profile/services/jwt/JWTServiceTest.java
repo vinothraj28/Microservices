@@ -45,7 +45,7 @@ class JWTServiceTest {
         testEmail = "john.doe@example.com";
 
         // Use a valid base64-encoded secret (minimum 256 bits for HS512)
-        validSecret = "AxXLZtEnBsZcWCG6uBC0wCGYCRhrV2D+XVg08SNlk8yt4JQ9Ga/hgaSuqhDlL2qDLA9vDOPqVlNJQyxKBAW87Q==";
+        validSecret = "rjS54eDBxzBFEZTI36hHr/JdKQ9Y1SGrBBhyRKLTNYhL6CMvSRx4mM1MYWpa9lyKV9K5rYYBVIX8+MJQxBzyHw==";
         validIssuer = "microservices";
         validAudience = "api-users";
 
@@ -448,4 +448,3 @@ class JWTServiceTest {
         assertNotNull(roles);
     }
 }
-

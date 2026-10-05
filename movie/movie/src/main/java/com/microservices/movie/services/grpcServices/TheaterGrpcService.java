@@ -60,7 +60,8 @@ public class TheaterGrpcService extends TheaterServiceGrpc.TheaterServiceImplBas
 
         try{
             // Implement the logic to list theaters based on the request parameters
-            Page<Theater> theaters = theaterService.listTheaters(listTheatersRequest.getPage(), listTheatersRequest.getSize(), listTheatersRequest.getCity());
+            Page<Theater> theaters = theaterService.listTheaters(listTheatersRequest.getPage(), listTheatersRequest.getSize(),
+                    listTheatersRequest.getCity().isBlank() ? "": listTheatersRequest.getCity());
 
             ListTheatersResponse.Builder responseBuilder = ListTheatersResponse.newBuilder();
             theaters.forEach(theater -> responseBuilder.addTheaters(theaterMapper.toTheaterResponse(theater)));
@@ -287,30 +288,31 @@ public class TheaterGrpcService extends TheaterServiceGrpc.TheaterServiceImplBas
             }
         }
 
-//        public void updateScreen(UpdateScreenRequest request, StreamObserver<ScreenResponse> responseObserver) {
-//            try {
-//
-//                Screen screen = screenMapper.toScreen(request);
-//                Screen updatedScreen = theaterService.updateScreen(UUID.fromString(request.getTheaterId()), UUID.fromString(request.getScreenId()), screen);
-//                ScreenResponse screenResponse = screenMapper.toScreenResponse(updatedScreen);
-//                responseObserver.onNext(screenResponse);
-//                responseObserver.onCompleted();
-//            } catch (IllegalArgumentException e) {
-//                responseObserver.onError(
-//                        Status.INVALID_ARGUMENT
-//                                .withDescription("Invalid theater or screen ID")
-//                                .asRuntimeException()
-//                );
-//            } catch (Exception e) {
-//                log.error("Error updating screen", e);
-//                responseObserver.onError(
-//                        Status.INTERNAL
-//                                .withDescription("Internal server error")
-//                                .withCause(e)
-//                                .asRuntimeException()
-//                );
-//            }
-//        }
+        @Override
+        public void updateScreen(UpdateScreenRequest request, StreamObserver<ScreenResponse> responseObserver) {
+            try {
+
+                Screen screen = screenMapper.toScreen(request);
+                Screen updatedScreen = theaterService.updateScreen(UUID.fromString(request.getTheaterId()), UUID.fromString(request.getScreenId()), screen);
+                ScreenResponse screenResponse = screenMapper.toScreenResponse(updatedScreen);
+                responseObserver.onNext(screenResponse);
+                responseObserver.onCompleted();
+            } catch (IllegalArgumentException e) {
+                responseObserver.onError(
+                        Status.INVALID_ARGUMENT
+                                .withDescription("Invalid theater or screen ID")
+                                .asRuntimeException()
+                );
+            } catch (Exception e) {
+                log.error("Error updating screen", e);
+                responseObserver.onError(
+                        Status.INTERNAL
+                                .withDescription("Internal server error")
+                                .withCause(e)
+                                .asRuntimeException()
+                );
+            }
+        }
 
     @Override
     public void getSeatLayout(GetScreenRequest request,

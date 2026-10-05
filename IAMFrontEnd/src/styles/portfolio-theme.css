@@ -9,6 +9,7 @@ html.portfolio-theme app-root {
 
 html.portfolio-theme {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 .hero-heading {

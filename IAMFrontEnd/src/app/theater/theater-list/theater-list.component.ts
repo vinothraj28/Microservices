@@ -14,7 +14,6 @@ import {
 })
 export class TheaterListComponent {
   protected page: number = 0;
-  protected city: string = 'haarlem';
   protected size: number = 10;
   protected isMovieLoading: boolean = true;
   protected theaters: TheaterResponse[] = [];
@@ -31,28 +30,26 @@ export class TheaterListComponent {
 
   protected loadTheaters(): void {
     this.isMovieLoading = true;
-    this.theaterService
-      .getTheaterList(this.page, this.size, this.city)
-      .subscribe(
-        (theaters: {
-          theaters: TheaterResponse[];
-          totalPages: number;
-          totalCount: number;
-          hasNext: boolean;
-        }) => {
-          console.log('Theaters loaded:', theaters);
-          this.theaters = theaters.theaters;
-          this.totalPages = theaters.totalPages;
-          this.totalCount = theaters.totalCount;
-          this.hasNext = theaters.hasNext;
+    this.theaterService.getTheaterList(this.page, this.size).subscribe({
+      next: (theaters: {
+        theaters: TheaterResponse[];
+        totalPages: number;
+        totalCount: number;
+        hasNext: boolean;
+      }) => {
+        console.log('Theaters loaded:', theaters);
+        this.theaters = theaters.theaters;
+        this.totalPages = theaters.totalPages;
+        this.totalCount = theaters.totalCount;
+        this.hasNext = theaters.hasNext;
 
-          this.isMovieLoading = false;
-        },
-        (error) => {
-          console.error('Error loading theaters:', error);
-          this.isMovieLoading = false;
-        },
-      );
+        this.isMovieLoading = false;
+      },
+      error: (error: any) => {
+        console.error('Error loading theaters:', error);
+        this.isMovieLoading = false;
+      },
+    });
   }
 
   protected deleteTheaterById(theaterId: string): void {
@@ -92,5 +89,4 @@ export class TheaterListComponent {
     const uniqueCities = new Set(cities);
     return uniqueCities.size;
   }
-
 }
