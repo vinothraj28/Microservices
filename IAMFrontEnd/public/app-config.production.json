@@ -39,7 +39,7 @@
       "listUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/",
       "getScreenByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
       "getAllScreensUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
-      "getSeatLayoutByScreenIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens/seats"
+      "getSeatLayoutByScreenIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens"
     }
   },
   "show": {
@@ -57,5 +57,8 @@
   "search": {
     "searchShowsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/search/shows",
     "searchSuggestionsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/search/suggestions"
-  }
+  },
+  "seat": {
+      "lockUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/seats/lock"
+    }
 }

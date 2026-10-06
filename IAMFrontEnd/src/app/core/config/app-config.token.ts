@@ -57,6 +57,9 @@ export interface AppConfig {
     searchShowsUrl: string;
     searchSuggestionsUrl: string;
   };
+  seat: {
+    lockUrl: string;
+  };
 }
 
 export const APP_CONFIG = new InjectionToken<AppConfig>('app.config');

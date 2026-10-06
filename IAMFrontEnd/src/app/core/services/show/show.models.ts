@@ -159,6 +159,7 @@ export interface ShowResponse {
   availableSeats: number;
   createdAt: string;
   updatedAt: string;
+  theaterName: string;
 }
 
 /**

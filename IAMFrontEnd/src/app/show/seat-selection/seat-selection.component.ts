@@ -192,6 +192,7 @@ export class SeatSelectionComponent implements OnInit {
 
     this.bookingState.setSelection({
       showId: this.showId(),
+      showName: this.show()?.movie.title || '',
       seats: this.selectedSeatDetails,
       totalPrice: this.totalPrice,
     });
@@ -203,7 +204,7 @@ export class SeatSelectionComponent implements OnInit {
   }
 
   protected formatShowTime(showDateTime: string): string {
-    return this.showService.formatShowDateTime(new Date(showDateTime));
+    return this.showService.formatShowDateTime(showDateTime);
   }
 
   // Group seats by rows for grid layout

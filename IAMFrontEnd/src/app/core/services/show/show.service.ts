@@ -34,8 +34,27 @@ export class ShowService {
    * @param date JavaScript Date object
    * @returns Formatted date string
    */
-  formatShowDateTime(date: Date): string {
-    return date.toISOString().slice(0, 19);
+  formatShowDateTime(showDateTime: string): string {
+    const date = new Date(showDateTime);
+
+    // 2. Custom configuration (US English)
+    const usFormatter = new Intl.DateTimeFormat('en-US', {
+      dateStyle: 'full',
+      timeStyle: 'short',
+    });
+    console.log(usFormatter.format(date));
+    // Output: "Tuesday, October 6, 2026 at 2:30 PM"
+
+    // 3. Granular token selection
+    const granularFormatter = new Intl.DateTimeFormat('en-GB', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
+    return granularFormatter.format(date);
   }
 
   /**

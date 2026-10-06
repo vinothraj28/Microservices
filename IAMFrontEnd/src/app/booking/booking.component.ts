@@ -25,6 +25,7 @@ type BookingForm = {
   userId: FormControl<string>;
   showId: FormControl<string>;
   seatIds: FormControl<string[]>;
+  lockId: FormControl<string>;
   email: FormControl<string>;
   phone: FormControl<string>;
 };
@@ -44,6 +45,8 @@ export class BookingComponent implements OnInit {
   private readonly bookingService = inject(BookingService);
   protected readonly bookingState = inject(BookingStateService);
 
+  private readonly lockId = signal<string | undefined>(undefined);
+
   protected readonly isSubmitting = signal(false);
   protected readonly submitError = signal<string | null>(null);
 
@@ -59,6 +62,10 @@ export class BookingComponent implements OnInit {
     seatIds: new FormControl<string[]>([], {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(1)],
+    }),
+    lockId: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
     }),
     email: new FormControl('', {
       nonNullable: true,
@@ -77,6 +84,48 @@ export class BookingComponent implements OnInit {
       return;
     }
 
+    this.bookingService
+      .lockSeat({
+        showId: this.bookingState.showId(),
+        seatIds: this.bookingState.seatIds(),
+        userId: String(
+          this.readClaims()['userId'] ??
+            this.readClaims()['user_id'] ??
+            this.readClaims()['sub'] ??
+            '',
+        ),
+      })
+      .subscribe({
+        next: (response) => {
+          if (!response.success) {
+            this.toastService.setToast(
+              `Failed to lock seats: ${response.message}`,
+              'error',
+            );
+            this.router.navigate([
+              '/base/show',
+              this.bookingState.showId(),
+              'seats',
+            ]);
+          } else {
+            this.lockId.set(response.lock_id);
+            this.toastService.setToast('Seats locked successfully!', 'success');
+          }
+        },
+        error: (error) => {
+          console.error('Failed to lock seats:', error);
+          this.toastService.setToast(
+            'Failed to lock seats. Please try again.',
+            'error',
+          );
+          this.router.navigate([
+            '/base/show',
+            this.bookingState.showId(),
+            'seats',
+          ]);
+        },
+      });
+
     const claims = this.readClaims();
     this.bookingForm.patchValue({
       userId: String(
@@ -85,6 +134,7 @@ export class BookingComponent implements OnInit {
       showId: this.bookingState.showId(),
       seatIds: this.bookingState.seatIds(),
       email: String(claims['email'] ?? ''),
+      lockId: this.lockId(),
     });
   }
 
@@ -102,6 +152,7 @@ export class BookingComponent implements OnInit {
       seatIds,
       email,
       ...(phone ? { phone } : {}),
+      lockId: this.lockId(),
     };
 
     this.isSubmitting.set(true);

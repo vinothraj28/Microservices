@@ -6,7 +6,8 @@
           <p class="auth-chip">Booking</p>
           <h2>Confirm your booking</h2>
           <p class="booking-header__description">
-            Review your show and seat details, then add your contact information.
+            Review your show and seat details, then add your contact
+            information.
           </p>
         </div>
 
@@ -23,10 +24,18 @@
       class="auth-form booking-form"
       novalidate
     >
+      <div>
+        <h4>Booking Details : {{ bookingState.showName() }}</h4>
+      </div>
       <div class="auth-form-grid">
         <label class="auth-field auth-field--full">
           <span class="auth-field__label">User ID</span>
-          <input class="auth-input" type="text" formControlName="userId" readonly />
+          <input
+            class="auth-input"
+            type="hidden"
+            formControlName="userId"
+            readonly
+          />
           @if (
             bookingForm.controls.userId.touched &&
             bookingForm.controls.userId.invalid
@@ -37,14 +46,31 @@
 
         <label class="auth-field auth-field--full">
           <span class="auth-field__label">Show ID</span>
-          <input class="auth-input" type="text" formControlName="showId" readonly />
+          <input
+            class="auth-input"
+            type="hidden"
+            formControlName="showId"
+            readonly
+          />
+        </label>
+
+        <label class="auth-field auth-field--full">
+          <span class="auth-field__label">Lock ID</span>
+          <input
+            class="auth-input"
+            type="hidden"
+            formControlName="lockId"
+            readonly
+          />
         </label>
 
         <div class="auth-field auth-field--full">
           <span class="auth-field__label">Selected seats</span>
           <div class="seat-badges">
             @for (seat of bookingState.seats(); track seat.seatId) {
-              <span class="seat-badge">{{ seat.rowName }}{{ seat.seatNumber }}</span>
+              <span class="seat-badge"
+                >{{ seat.rowName }}{{ seat.seatNumber }}</span
+              >
             }
           </div>
           @if (
@@ -53,7 +79,9 @@
           ) {
             <small class="auth-validation">Select at least one seat.</small>
           }
-          <span class="field-hint">Total: ₹{{ bookingState.totalPrice() }}</span>
+          <span class="field-hint"
+            >Total: ₹{{ bookingState.totalPrice() }}</span
+          >
         </div>
 
         <label class="auth-field">
