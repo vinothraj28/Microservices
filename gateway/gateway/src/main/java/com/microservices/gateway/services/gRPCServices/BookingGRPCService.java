@@ -41,7 +41,7 @@ public class BookingGRPCService {
                     .addAllSeatIds(request.seatIds())
                     .setEmail(request.email())
                     .setPhone(request.phone() != null ? request.phone() : "")
-                    .setLockId("")
+                    .setLockId(request.lockId())
                     .build();
 
             BookingResponse grpcResponse = bookingServiceStub.createBooking(grpcRequest);

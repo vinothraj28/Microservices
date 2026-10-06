@@ -390,7 +390,8 @@ public class ShowGRPCService {
                 response.getShowType(),
                 response.getAvailableSeats(),
                 createdAt,
-                updatedAt
+                updatedAt,
+                response.getTheaterName()
         );
     }
 

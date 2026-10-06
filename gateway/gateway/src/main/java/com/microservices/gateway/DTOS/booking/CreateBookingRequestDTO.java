@@ -10,6 +10,7 @@ import java.util.List;
  * @param userId UUID of the user making the booking
  * @param showId UUID of the show being booked
  * @param seatIds List of seat IDs to book
+ * @param lockId UUID of the seat lock (from SeatService.lockSeats)
  * @param email Email for booking confirmation
  * @param phone Phone number for booking contact
  */
@@ -24,6 +25,9 @@ public record CreateBookingRequestDTO(
         @NotEmpty(message = "At least one seat ID is required")
         List<String> seatIds,
 
+        @NotBlank(message = "Lock ID is required")
+        String lockId,
+
         @NotBlank(message = "Email is required")
         @Email(message = "Email should be valid")
         String email,
@@ -31,3 +35,4 @@ public record CreateBookingRequestDTO(
         String phone
 ) {
 }
+

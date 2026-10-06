@@ -90,24 +90,22 @@ public class TicketGrpcService extends TicketServiceGrpc.TicketServiceImplBase {
     @Override
     @Transactional
     public void verifyTicket(VerifyTicketRequest request, StreamObserver<VerifyTicketResponse> responseObserver) {
-        log.info("gRPC: Verifying ticket {} with QR code", request.getTicketId());
+        log.info("gRPC: Verifying ticket with QR code");
         
         try {
-            UUID ticketId = UUID.fromString(request.getTicketId());
-            Ticket ticket = ticketService.verifyTicket(ticketId, request.getQrCode());
+            boolean isValid = ticketService.verifyTicket(request.getQrCode());
 
             VerifyTicketResponse response = VerifyTicketResponse.newBuilder()
-                    .setValid(ticket.isValid())
-                    .setMessage("Ticket verified successfully")
-                    .setTicket(mapTicketToResponse(ticket))
+                    .setValid(isValid)
+                    .setMessage(isValid ? "Ticket verified successfully" : "Ticket verification failed")
                     .build();
 
             responseObserver.onNext(response);
             responseObserver.onCompleted();
         } catch (IllegalArgumentException e) {
-            log.error("Invalid UUID format in VerifyTicket request", e);
+            log.error("Invalid QR code format in VerifyTicket request", e);
             responseObserver.onError(Status.INVALID_ARGUMENT
-                    .withDescription("Invalid UUID format")
+                    .withDescription("Invalid QR code format")
                     .asException());
         } catch (Exception e) {
             log.error("Error verifying ticket", e);
@@ -156,12 +154,11 @@ public class TicketGrpcService extends TicketServiceGrpc.TicketServiceImplBase {
         
         try {
             UUID bookingId = UUID.fromString(request.getBookingId());
-            int cancelledCount = ticketService.cancelTickets(bookingId);
+            ticketService.cancelTickets(bookingId);
 
             CancelTicketsResponse response = CancelTicketsResponse.newBuilder()
                     .setSuccess(true)
                     .setMessage("Tickets cancelled successfully")
-                    .setTicketsCancelled(cancelledCount)
                     .build();
 
             responseObserver.onNext(response);

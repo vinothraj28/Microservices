@@ -149,7 +149,8 @@ class SearchServiceTest {
                 "MORNING",
                 20,
                 LocalDateTime.now(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                "theater-1"
         );
         ShowListResponseDTO response = ShowListResponseDTO.from(List.of(show), 1, 1, false);
         when(showGRPCService.searchShows("movie-1", "theater-1", "2026-09-20", "Amsterdam", null, null, null, 0, 20)).thenReturn(response);
@@ -208,7 +209,8 @@ class SearchServiceTest {
                 "MORNING",
                 20,
                 LocalDateTime.now(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                "theater-1"
         );
         ShowResponseDTO nonMatchingShow = new ShowResponseDTO(
                 "show-2",
@@ -222,7 +224,8 @@ class SearchServiceTest {
                 "EVENING",
                 20,
                 LocalDateTime.now(),
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                "theater-1"
         );
 
         ShowListResponseDTO response = ShowListResponseDTO.from(List.of(matchingShow), 1, 1, false);

@@ -1,5 +1,6 @@
 package com.microservices.movie.services.grpcServices;
 
+import com.google.protobuf.Timestamp;
 import com.microservices.movie.grpc.*;
 import com.microservices.movie.models.entities.Payment;
 import com.microservices.movie.models.enums.PaymentMethod;
@@ -104,7 +105,7 @@ public class PaymentGrpcService extends PaymentServiceGrpc.PaymentServiceImplBas
                     .setStatus("INITIATED")
                     .setTransactionId("REFUND_" + UUID.randomUUID())
                     .setMessage("Refund initiated successfully")
-                    .setRefundDate(convertToTimestamp(LocalDateTime.now()))
+                    .setRefundDate(convertToTimestamp(LocalDateTime.now().toInstant(ZoneOffset.UTC)))
                     .build();
 
             responseObserver.onNext(response);
@@ -161,17 +162,17 @@ public class PaymentGrpcService extends PaymentServiceGrpc.PaymentServiceImplBas
                 .setStatus(payment.getStatus().toString())
                 .setTransactionId(payment.getTransactionId() != null ? payment.getTransactionId() : "")
                 .setMessage(payment.getMessage() != null ? payment.getMessage() : "")
-                .setPaymentDate(payment.getPaymentDate() != null ? convertToTimestamp(payment.getPaymentDate()) : com.google.protobuf.Timestamp.getDefaultInstance())
+                .setPaymentDate(payment.getPaymentDate() != null ? convertToTimestamp(payment.getPaymentDate().toInstant(ZoneOffset.UTC)) : Timestamp.getDefaultInstance())
                 .setCreatedAt(convertToTimestamp(payment.getCreatedAt()))
                 .build();
     }
 
-    private com.google.protobuf.Timestamp convertToTimestamp(LocalDateTime dateTime) {
+    private com.google.protobuf.Timestamp convertToTimestamp(Instant dateTime) {
         if (dateTime == null) {
             return com.google.protobuf.Timestamp.getDefaultInstance();
         }
-        Instant instant = dateTime.toInstant(ZoneOffset.UTC);
-        return com.google.protobuf.Timestamp.newBuilder()
+        Instant instant = dateTime.atZone(ZoneOffset.UTC).toInstant();
+        return Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())
                 .build();

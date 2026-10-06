@@ -107,25 +107,25 @@ public class TicketController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Ticket verified successfully",
-                    content = @Content(schema = @Schema(implementation = TicketResponseDTO.class))
+                    description = "Ticket verified successfully"
             ),
             @ApiResponse(responseCode = "400", description = "Invalid request (validation failed)"),
             @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid or missing JWT token"),
-            @ApiResponse(responseCode = "404", description = "Ticket not found"),
             @ApiResponse(responseCode = "409", description = "Ticket is invalid or expired")
     })
     @PostMapping("/verify")
-    public Mono<ResponseEntity<TicketResponseDTO>> verifyTicket(
+    public Mono<ResponseEntity<String>> verifyTicket(
             @Valid @RequestBody VerifyTicketRequestDTO request) {
         
-        log.info("REST: Received request to verify ticket {}", request.ticketId());
+        log.info("REST: Received request to verify ticket");
 
-        return Mono.fromCallable(() -> ticketGRPCService.verifyTicket(request))
+        return Mono.fromCallable(() -> {
+                    boolean isValid = ticketGRPCService.verifyTicket(request);
+                    return isValid ? "Ticket verified successfully" : "Ticket verification failed";
+                })
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(ResponseEntity::ok)
-                .doOnSuccess(response -> log.info("REST: Ticket verified successfully: {}", 
-                        request.ticketId()))
+                .doOnSuccess(response -> log.info("REST: Ticket verified successfully"))
                 .doOnError(error -> log.error("REST: Error verifying ticket", error));
     }
 
@@ -160,8 +160,7 @@ public class TicketController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Tickets cancelled successfully",
-                    content = @Content()
+                    description = "Tickets cancelled successfully"
             ),
             @ApiResponse(responseCode = "400", description = "Invalid booking ID format"),
             @ApiResponse(responseCode = "401", description = "Unauthorized - Invalid or missing JWT token"),
@@ -175,8 +174,8 @@ public class TicketController {
         log.info("REST: Received request to cancel tickets for booking {}", bookingId);
 
         return Mono.fromCallable(() -> {
-                    int cancelledCount = ticketGRPCService.cancelTickets(bookingId);
-                    return "Successfully cancelled " + cancelledCount + " tickets";
+                    ticketGRPCService.cancelTickets(bookingId);
+                    return "Successfully cancelled tickets";
                 })
                 .subscribeOn(Schedulers.boundedElastic())
                 .map(ResponseEntity::ok)

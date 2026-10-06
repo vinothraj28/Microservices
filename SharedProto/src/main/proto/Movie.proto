@@ -455,6 +455,7 @@ message CreateBookingRequest {
   repeated string seat_ids = 3;
   string email = 4;
   optional string phone = 5;
+  string lock_id = 6;
 }
 
 message ConfirmBookingRequest {
@@ -589,8 +590,7 @@ message GetTicketRequest {
 }
 
 message VerifyTicketRequest {
-  string ticket_id = 1;
-  string qr_code = 2;
+  string qr_code = 1;
 }
 
 message ListTicketsByBookingRequest {
@@ -627,13 +627,11 @@ message ListTicketsResponse {
 message VerifyTicketResponse {
   bool valid = 1;
   string message = 2;
-  TicketResponse ticket = 3;
 }
 
 message CancelTicketsResponse {
   bool success = 1;
   string message = 2;
-  int32 tickets_cancelled = 3;
 }
 
 //==================== Image Service ==================== //

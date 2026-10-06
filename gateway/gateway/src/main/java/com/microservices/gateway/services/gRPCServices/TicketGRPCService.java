@@ -63,12 +63,11 @@ public class TicketGRPCService {
         }
     }
 
-    public TicketResponseDTO verifyTicket(VerifyTicketRequestDTO request) {
-        log.info("Gateway gRPC: Verifying ticket {} with QR code", request.ticketId());
+    public boolean verifyTicket(VerifyTicketRequestDTO request) {
+        log.info("Gateway gRPC: Verifying ticket with QR code");
 
         try {
             VerifyTicketRequest grpcRequest = VerifyTicketRequest.newBuilder()
-                    .setTicketId(request.ticketId())
                     .setQrCode(request.qrCode())
                     .build();
 
@@ -78,7 +77,7 @@ public class TicketGRPCService {
                 throw new RuntimeException("Ticket is invalid or expired");
             }
             
-            return mapToTicketResponseDTO(grpcResponse.getTicket());
+            return true;
         } catch (StatusRuntimeException e) {
             log.error("gRPC error verifying ticket: {}", e.getStatus(), e);
             throw new RuntimeException("Failed to verify ticket: " + e.getStatus().getDescription());
@@ -106,7 +105,7 @@ public class TicketGRPCService {
         }
     }
 
-    public int cancelTickets(String bookingId) {
+    public void cancelTickets(String bookingId) {
         log.info("Gateway gRPC: Cancelling tickets for booking {}", bookingId);
 
         try {
@@ -119,8 +118,6 @@ public class TicketGRPCService {
             if (!grpcResponse.getSuccess()) {
                 throw new RuntimeException(grpcResponse.getMessage());
             }
-            
-            return grpcResponse.getTicketsCancelled();
         } catch (StatusRuntimeException e) {
             log.error("gRPC error cancelling tickets: {}", e.getStatus(), e);
             throw new RuntimeException("Failed to cancel tickets: " + e.getStatus().getDescription());

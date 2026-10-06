@@ -73,7 +73,7 @@ public interface ShowMapper {
     @Mapping(target = "basePrice", expression = "java(show.getBasePrice())")
     @Mapping(target = "showType", expression = "java(show.getShowType().name())")
     @Mapping(target = "availableSeats", expression = "java(show.getAvailableSeatsCount())")
-    @Mapping(target = "theaterName", expression = "java(show.getScreen().getTheater().getTheaterName())")
+    @Mapping(target = "theaterName", expression = "java(show.getScreen().getTheater().getName())")
     ShowResponse toShowResponse(Show show, MovieMapper movieMapper, ScreenMapper screenMapper);
 
     // Helper methods for complex mappings

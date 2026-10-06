@@ -1,6 +1,8 @@
 package com.microservices.movie.services.grpcServices;
 
 import com.microservices.movie.grpc.*;
+import com.microservices.movie.mappers.MovieMapper;
+import com.microservices.movie.mappers.ScreenMapper;
 import com.microservices.movie.mappers.ShowMapper;
 import com.microservices.movie.models.entities.Booking;
 import com.microservices.movie.models.enums.BookingStatus;
@@ -30,6 +32,8 @@ public class BookingGrpcService extends BookingServiceGrpc.BookingServiceImplBas
 
     private final BookingService bookingService;
     private final ShowMapper showMapper;
+    private final ScreenMapper screenMapper;
+    private final MovieMapper movieMapper;
 
     @Override
     @Transactional
@@ -181,7 +185,7 @@ public class BookingGrpcService extends BookingServiceGrpc.BookingServiceImplBas
                 .setBookingId(booking.getId().toString())
                 .setUserId(booking.getUserId().toString())
                 .setShowId(booking.getShow().getId().toString())
-                .setShow(showMapper.mapShowToShowResponse(booking.getShow()))
+                .setShow(showMapper.toShowResponse(booking.getShow(), movieMapper, screenMapper))
                 .setTotalAmount(booking.getTotalAmount())
                 .setStatus(booking.getStatus().toString())
                 .setEmail(booking.getEmail())
@@ -189,15 +193,15 @@ public class BookingGrpcService extends BookingServiceGrpc.BookingServiceImplBas
                 .setLockId(booking.getLockId() != null ? booking.getLockId().toString() : "")
                 .setExpiresAt(booking.getExpiresAt() != null ? booking.getExpiresAt().toString() : "")
                 .setCreatedAt(convertToTimestamp(booking.getCreatedAt()))
-                .setUpdatedAt(convertToTimestamp(booking.getUpdatedAt()))
+                .setUpdatedAt( convertToTimestamp(booking.getUpdatedAt()))
                 .build();
     }
 
-    private com.google.protobuf.Timestamp convertToTimestamp(LocalDateTime dateTime) {
+    private com.google.protobuf.Timestamp convertToTimestamp(Instant dateTime) {
         if (dateTime == null) {
             return com.google.protobuf.Timestamp.getDefaultInstance();
         }
-        Instant instant = dateTime.toInstant(ZoneOffset.UTC);
+        Instant instant = dateTime.atZone(ZoneOffset.UTC).toInstant();
         return com.google.protobuf.Timestamp.newBuilder()
                 .setSeconds(instant.getEpochSecond())
                 .setNanos(instant.getNano())
