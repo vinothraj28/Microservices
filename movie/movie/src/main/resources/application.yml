@@ -39,3 +39,8 @@ movie:
     mock-success-rate: 0.9
   booking:
     cancellation-window-hours: 2
+
+seat-lock:
+  cleanup:
+    interval: 300000        # 5 minutes (in milliseconds)
+    initial-delay: 60000    # 1 minute initial delay

@@ -38,10 +38,10 @@ export interface LockSeatRequest {
 
 export interface LockSeatResponse {
   success: boolean;
-  lock_id: string;
+  lockId: string;
   message: string;
-  locked_until: string; // ISO datetime
-  locked_seat_ids: string[];
+  lockedUntil: string; // ISO datetime
+  lockedSeatIds: string[];
 }
 
 @Injectable({ providedIn: 'root' })

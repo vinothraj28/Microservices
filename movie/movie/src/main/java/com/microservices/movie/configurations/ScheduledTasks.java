@@ -65,4 +65,18 @@ public class ScheduledTasks {
             });
         }
     }
+
+    @Scheduled(fixedDelayString = "${seat-lock.cleanup.interval:300000}", initialDelayString = "${seat-lock.cleanup.initial-delay:60000}")
+    @Transactional
+    public void cleanupExpiredLocks() {
+        try {
+            LocalDateTime cutoffTime = LocalDateTime.now();
+            int deletedCount = seatLockRepository.deleteExpiredAndReleasedLocks(cutoffTime);
+            if (deletedCount > 0) {
+                log.info("Cleaned up {} expired and released seat locks", deletedCount);
+            }
+        } catch (Exception e) {
+            log.error("Error during seat lock cleanup", e);
+        }
+    }
 }

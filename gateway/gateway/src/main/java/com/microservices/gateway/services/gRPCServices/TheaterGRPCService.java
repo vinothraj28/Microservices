@@ -295,7 +295,7 @@ public class TheaterGRPCService {
     public List<SeatLayoutResponseDTO> getSeatLayout(String screenId) {
         log.info("Getting seat layout for screen: {}", screenId);
         GetScreenRequest request = GetScreenRequest.newBuilder().setScreenId(screenId).build();
-        ScreenResponse response = theaterServiceBlockingStub.getScreen(request);
+        ListSeatLayoutResponse response = theaterServiceBlockingStub.getSeatLayout(request);
         return response.getSeatLayoutList().stream()
                 .map(seat -> new SeatLayoutResponseDTO(
                         seat.getRowName(),

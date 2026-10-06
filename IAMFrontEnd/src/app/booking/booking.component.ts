@@ -108,7 +108,7 @@ export class BookingComponent implements OnInit {
               'seats',
             ]);
           } else {
-            this.lockId.set(response.lock_id);
+            this.lockId.set(response.lockId);
             this.bookingForm.patchValue({
               userId: String(
                 this.readClaims()['userId'] ??
