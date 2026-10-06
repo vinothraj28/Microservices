@@ -164,6 +164,8 @@
     class="empty-selection"
     *ngIf="!isLoading() && !error() && selectedSeats().size === 0"
   >
-    <p>Select your seats to proceed with booking</p>
+    <button class="btn-primary" (click)="proceedToBooking()">
+      Proceed to Book
+    </button>
   </div>
 </div>

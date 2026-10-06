@@ -244,6 +244,18 @@ export const routes: Routes = [
           },
         ],
       },
+      {
+        path: 'booking',
+        canActivate: [authenticatedGuard],
+        loadComponent: () =>
+          import('./booking/booking.component').then(
+            (component) => component.BookingComponent,
+          ),
+      },
+      {
+        path: 'booking/confirm',
+        redirectTo: 'booking',
+      },
     ],
   },
 ];

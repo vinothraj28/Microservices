@@ -50,6 +50,9 @@ export interface AppConfig {
     getSeatsUrl: string;
     getAllUrl: string;
   };
+  booking: {
+    createUrl: string;
+  };
   search: {
     searchShowsUrl: string;
     searchSuggestionsUrl: string;

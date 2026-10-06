@@ -454,7 +454,7 @@ message CreateBookingRequest {
   string show_id = 2;
   repeated string seat_ids = 3;
   string email = 4;
-  string phone = 5;
+  optional string phone = 5;
 }
 
 message ConfirmBookingRequest {

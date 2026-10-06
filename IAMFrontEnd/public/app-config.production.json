@@ -39,7 +39,7 @@
       "listUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/",
       "getScreenByIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
       "getAllScreensUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens",
-      "getSeatsByScreenIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens/seats"
+      "getSeatLayoutByScreenIdUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/theaters/screens/seats"
     }
   },
   "show": {
@@ -50,6 +50,9 @@
     "getByTheaterUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows/theater",
     "getSeatsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows",
     "getAllUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/shows"
+  },
+  "booking": {
+    "createUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/bookings"
   },
   "search": {
     "searchShowsUrl": "https://gateway-backend.ashymoss-45094750.westus2.azurecontainerapps.io/api/v1/search/shows",

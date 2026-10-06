@@ -8,6 +8,7 @@ import {
   SeatStatus,
   ShowResponse,
 } from '../../core/services/show';
+import { BookingStateService } from '../../core/services/booking/booking-state.service';
 import { ToastService } from '../../core/services/toast/toast.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class SeatSelectionComponent implements OnInit {
   protected readonly toastService = inject(ToastService);
   protected readonly route = inject(ActivatedRoute);
   protected readonly router = inject(Router);
+  protected readonly bookingState = inject(BookingStateService);
 
   // State
   protected readonly showId = signal<string>('');
@@ -188,11 +190,12 @@ export class SeatSelectionComponent implements OnInit {
       return;
     }
 
-    // In a real app, you would navigate to booking/payment page
-    this.toastService.setToast(
-      `Proceeding to book ${this.selectedSeats().size} seats for ₹${this.totalPrice}`,
-      'success',
-    );
+    this.bookingState.setSelection({
+      showId: this.showId(),
+      seats: this.selectedSeatDetails,
+      totalPrice: this.totalPrice,
+    });
+    this.router.navigate(['/base/booking']);
   }
 
   protected goBack(): void {
