@@ -109,6 +109,18 @@ export class BookingComponent implements OnInit {
             ]);
           } else {
             this.lockId.set(response.lock_id);
+            this.bookingForm.patchValue({
+              userId: String(
+                this.readClaims()['userId'] ??
+                  this.readClaims()['user_id'] ??
+                  this.readClaims()['sub'] ??
+                  '',
+              ),
+              showId: this.bookingState.showId(),
+              seatIds: this.bookingState.seatIds(),
+              email: String(this.readClaims()['email'] ?? ''),
+              lockId: this.lockId(),
+            });
             this.toastService.setToast('Seats locked successfully!', 'success');
           }
         },
@@ -127,19 +139,11 @@ export class BookingComponent implements OnInit {
       });
 
     const claims = this.readClaims();
-    this.bookingForm.patchValue({
-      userId: String(
-        claims['userId'] ?? claims['user_id'] ?? claims['sub'] ?? '',
-      ),
-      showId: this.bookingState.showId(),
-      seatIds: this.bookingState.seatIds(),
-      email: String(claims['email'] ?? ''),
-      lockId: this.lockId(),
-    });
   }
 
   protected async submitForm(): Promise<void> {
     if (this.bookingForm.invalid) {
+      console.log('Booking form is invalid:', this.bookingForm.value);
       this.bookingForm.markAllAsTouched();
       return;
     }
