@@ -366,22 +366,22 @@
 
         <!-- Content -->
         <div class="show-card__content">
-          <h3>
-            {{ show.movie.title }}
-          </h3>
-
-          <div *ngIf="show.movie.genre" class="movie-genre">
-            {{ show.movie.genre }}
+          <div class="show-title-details">
+            <div>
+              <h3>
+                {{ show.movie.title }}
+              </h3>
+              <div *ngIf="show.movie.genre" class="movie-genre">
+                {{ show.movie.genre }}
+              </div>
+            </div>
+            <div class="show-time">
+              <span class="show-time__icon"> ◷ </span>
+              <span>
+                {{ formatShowTime(show.showDateTime) }}
+              </span>
+            </div>
           </div>
-
-          <div class="show-time">
-            <span class="show-time__icon"> ◷ </span>
-
-            <span>
-              {{ formatShowTime(show.showDateTime) }}
-            </span>
-          </div>
-
           <div class="show-details">
             <div class="detail-row">
               <span class="label"> Theater </span>

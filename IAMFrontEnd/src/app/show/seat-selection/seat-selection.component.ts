@@ -196,7 +196,7 @@ export class SeatSelectionComponent implements OnInit {
   }
 
   protected goBack(): void {
-    this.router.navigate(['/base/show']);
+    this.router.navigate(['/base/show/list']);
   }
 
   protected formatShowTime(showDateTime: string): string {

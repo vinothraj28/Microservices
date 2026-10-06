@@ -904,6 +904,7 @@
 .show-card {
   display: flex;
   min-width: 0;
+  max-width: 75%;
   flex-direction: column;
   overflow: hidden;
   border: 1px solid var(--show-border);
@@ -930,11 +931,18 @@
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
-  min-height: 190px;
+  min-height: 10%;
   padding: 0;
   overflow: hidden;
   border-bottom: 1px solid var(--show-border);
   background: #081522;
+}
+
+.show-title-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
 }
 
 .show-card__poster {
@@ -964,6 +972,10 @@
   );
   content: "";
   pointer-events: none;
+}
+
+#pageSize {
+  color: var(--color-bg-primary) !important;
 }
 
 .show-card__poster-image {
