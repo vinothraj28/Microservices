@@ -346,6 +346,7 @@ message ShowResponse {
   int32 available_seats = 10;
   google.protobuf.Timestamp created_at = 11;
   google.protobuf.Timestamp updated_at = 12;
+  string theater_name = 13;
 }
 
 message ListShowsResponse {

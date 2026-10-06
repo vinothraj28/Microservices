@@ -34,6 +34,7 @@ public record ShowResponseDTO(
         String showType,
         Integer availableSeats,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        String theaterName
 ) {
 }
